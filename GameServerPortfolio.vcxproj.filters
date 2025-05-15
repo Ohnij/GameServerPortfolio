@@ -5,10 +5,54 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="IOCPServer">
+      <UniqueIdentifier>{c56617e5-a5e9-4b4d-ad7a-e8d33c41f1ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCPServer\Object">
+      <UniqueIdentifier>{59019dad-294f-4a2b-93de-22d37320a378}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCPServer\Core">
+      <UniqueIdentifier>{a5401708-ddf1-4b68-8b46-4d86628f7fb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>IOCPServer\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Listener.cpp">
+      <Filter>IOCPServer\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientManager.cpp">
+      <Filter>IOCPServer\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="IocpServer.cpp">
+      <Filter>IOCPServer\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IOCPDefine.h">
+      <Filter>IOCPServer</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>IOCPServer</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>IOCPServer\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Listener.h">
+      <Filter>IOCPServer\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientManager.h">
+      <Filter>IOCPServer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="IocpServer.h">
+      <Filter>IOCPServer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool.h">
+      <Filter>IOCPServer\Core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

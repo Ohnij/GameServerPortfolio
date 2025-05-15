@@ -127,7 +127,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="IocpServer.cpp" />
+    <ClCompile Include="Listener.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="ClientManager.h" />
+    <ClInclude Include="IOCPDefine.h" />
+    <ClInclude Include="IocpServer.h" />
+    <ClInclude Include="Listener.h" />
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
