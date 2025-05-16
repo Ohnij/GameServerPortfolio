@@ -129,10 +129,10 @@ void Listener::ProcessAccept(LPOVERLAPPED overlappedPtr)
 	std::shared_ptr<Client> p_client = ClientManager::Instance().CreateClient(acceptData->socket);
 
 
-	std::cerr << "[클라 " << p_client->_client_number << " 연결]" << std::endl;
+	std::cerr << "[클라 " << p_client->GetClientID() << " 연결]" << std::endl;
 
 	//클라이언트 소켓을 IOCP에 등록 (비동기 Recv / Send하기위해)
-	_iocp->RegisterIOCP((HANDLE)p_client->_socket);
+	_iocp->RegisterIOCP((HANDLE)p_client->GetSocket());
 	p_client->RegisterRecv();
 
 

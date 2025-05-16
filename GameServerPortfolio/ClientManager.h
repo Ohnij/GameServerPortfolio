@@ -21,9 +21,13 @@ public:
 	std::shared_ptr<Client> GetClientBySocket(SOCKET sock);
 	std::shared_ptr<Client> GetClientById(int clientId);
 
+	int GetClientIdBySocket(SOCKET socket);
 
 	std::shared_ptr<Client> CreateClient(SOCKET socket);
-	void RemoveClient(SOCKET sock);
+	void DisconnectClient(SOCKET socket);
+
+private:
+	bool RemoveClient(SOCKET sock);
 
 
 private:

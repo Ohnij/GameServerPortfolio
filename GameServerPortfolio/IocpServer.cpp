@@ -41,7 +41,12 @@ bool IocpServer::ServerStart()
 
 bool IocpServer::RegisterIOCP(HANDLE handle)
 {
-	CreateIoCompletionPort(handle, _iocp_handle, 0, 0);
+	auto result = CreateIoCompletionPort(handle, _iocp_handle, reinterpret_cast<ULONG_PTR>(handle), 0);
+	if (result == NULL)
+	{
+		std::cerr << "[IOCP] 소켓 등록 실패! 에러 코드: " << GetLastError() << std::endl;
+		return false;
+	}
 	return true;
 }
 
@@ -56,18 +61,23 @@ bool IocpServer::Run()
 	  [in]  DWORD        dwMilliseconds					//완료 패킷이 완료 포트에 나타날 때까지 호출자가 대기하려는 시간(밀리초)입니다.
 	);
 	*/
-	DWORD transferredByte = 0;
+	DWORD transferred_byte = 0;
 	ULONG_PTR key = 0;
-	OVERLAPPED_EX* overlappedData = nullptr;
-	//여기서 클라이언트 객체로 뭔가가있어야할듯.
-	BOOL res = GetQueuedCompletionStatus(_iocp_handle, &transferredByte, &key, reinterpret_cast<LPOVERLAPPED*>(&overlappedData), 1000);
+	OVERLAPPED_EX* overlapped_data = nullptr;
+
+	//INFINITE > 완료 통지가 올때까지 커널영역 접근 x
+	BOOL res = GetQueuedCompletionStatus(_iocp_handle, &transferred_byte, &key, reinterpret_cast<LPOVERLAPPED*>(&overlapped_data), INFINITE);
+
+	//비정상적종료:리턴값 false, 수신바이트 0
+	//정상적인종료:리턴값 true, 수신바이트 0
+
 	if (res)
 	{
-		switch (overlappedData->type)
+		switch (overlapped_data->type)
 		{
-			case IOCP_WORK::IOCP_ACCEPT: OnAccept(static_cast<OVERLAPPED_ACCEPT*>(overlappedData), transferredByte); break;
-			case IOCP_WORK::IOCP_RECV: OnRecive(static_cast<OVERLAPPED_RECV*>(overlappedData), transferredByte); break;
-			case IOCP_WORK::IOCP_SEND: OnSend(static_cast<OVERLAPPED_SEND*>(overlappedData), transferredByte); break;
+			case IOCP_WORK::IOCP_ACCEPT: OnAccept(static_cast<OVERLAPPED_ACCEPT*>(overlapped_data), transferred_byte); break;
+			case IOCP_WORK::IOCP_RECV: OnRecive(static_cast<OVERLAPPED_RECV*>(overlapped_data), transferred_byte); break;
+			case IOCP_WORK::IOCP_SEND: OnSend(static_cast<OVERLAPPED_SEND*>(overlapped_data), transferred_byte); break;
 			default:
 			{
 
@@ -76,7 +86,40 @@ bool IocpServer::Run()
 	}
 	else
 	{
+		DWORD error = WSAGetLastError();
+		switch (error)
+		{
+			case ERROR_NETNAME_DELETED:
+			{
+				//클라이언트 hard close 
+				//하나하나 파싱해서 종료할것인가???
+				if (key == 0 || key == INVALID_SOCKET)
+				{
+					
+				}
+				else
+				{
+					SOCKET socket = static_cast<SOCKET>(key);
+					ClientManager::Instance().DisconnectClient(socket);
+				}
 
+			
+				
+			}
+			break;
+			case WAIT_TIMEOUT:
+			{
+
+			}
+			break;
+			default:
+			{
+				//서버 종료해야하는 오류?
+			}
+		}
+		
+
+	
 	}
 
 	return true;
@@ -89,26 +132,24 @@ void IocpServer::OnAccept(OVERLAPPED_ACCEPT* accept_data, DWORD transferred_byte
 
 void IocpServer::OnRecive(OVERLAPPED_RECV* recv_data, DWORD transferred_bytes)
 {
-	int clientId = recv_data->client_number;
+	int client_id = recv_data->client_number;
 	//TODO ::client 연결 종료 처리 해야함..
-
-	std::shared_ptr<Client> pClient = ClientManager::Instance().GetClientById(clientId);
-	if (pClient == nullptr)
+	if (transferred_bytes == 0)
 	{
-		//TODO : 에러처리
-		std::cerr << "클라이언트 " << clientId << " Nullptr !!!" << std::endl;
+		//연결종료됨.
+		ClientManager::Instance().DisconnectClient(recv_data->socket);
 		return;
 	}
 
-	char recive_data[1024];
-	ZeroMemory(recive_data, 1024);
-	memcpy(recive_data, pClient->_recive_buffer, size_t(transferred_bytes));
-	
-	std::cout << "[클라 " << clientId << "]받은 데이터 : " << recive_data << "(" << transferred_bytes << " bytes)" << std::endl;
+	std::shared_ptr<Client> p_client = ClientManager::Instance().GetClientById(client_id);
+	if (p_client == nullptr)
+	{
+		//TODO : 에러처리
+		std::cerr << "클라이언트 " << client_id << " Nullptr !!!" << std::endl;
+		return;
+	}
 
-	//에코..처리
-	pClient->RegisterSend(reinterpret_cast<CHAR*>(recive_data), transferred_bytes);
-	pClient->RegisterRecv();
+	p_client->ProcessRecv(transferred_bytes);
 }
 
 void IocpServer::OnSend(OVERLAPPED_SEND* send_data, DWORD transferred_bytes)

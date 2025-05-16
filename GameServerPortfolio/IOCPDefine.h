@@ -27,6 +27,7 @@ struct OVERLAPPED_ACCEPT : public OVERLAPPED_EX
 };
 struct OVERLAPPED_RECV : public OVERLAPPED_EX
 {
+	SOCKET socket;
 	int client_number;
 };
 

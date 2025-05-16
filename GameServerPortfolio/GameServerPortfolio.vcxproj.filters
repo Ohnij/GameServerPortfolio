@@ -14,6 +14,9 @@
     <Filter Include="IOCPServer\Core">
       <UniqueIdentifier>{a5401708-ddf1-4b68-8b46-4d86628f7fb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IOCPServer\Packet">
+      <UniqueIdentifier>{d0164d05-f138-4d8a-994a-7d717ea584a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +56,9 @@
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>IOCPServer\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>IOCPServer\Packet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
