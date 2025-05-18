@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +131,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="IocpServer.cpp" />
+    <ClCompile Include="jhnet.pb.cc" />
     <ClCompile Include="Listener.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -138,6 +140,7 @@
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="IOCPDefine.h" />
     <ClInclude Include="IocpServer.h" />
+    <ClInclude Include="jhnet.pb.h" />
     <ClInclude Include="Listener.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Packet.h" />

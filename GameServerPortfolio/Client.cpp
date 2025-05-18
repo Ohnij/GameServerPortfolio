@@ -1,6 +1,7 @@
 #include "Client.h"
 #include <iostream>
 #include "Packet.h"
+#include "jhnet.pb.h"
 
 Client::Client()
 	: _client_number(0)

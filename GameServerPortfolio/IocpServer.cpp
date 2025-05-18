@@ -3,6 +3,7 @@
 #include "Client.h"
 #include "Util.h"
 #include "ClientManager.h"
+#include <google/protobuf/message.h>
 
 
 IocpServer::~IocpServer()

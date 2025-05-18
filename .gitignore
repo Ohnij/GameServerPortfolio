@@ -403,3 +403,4 @@ FodyWeavers.xsd
 .env.local
 .env.*.local
 
+*.bat

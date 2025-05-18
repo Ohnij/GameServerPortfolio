@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package jhnet;
+
+//proto3 에서는 첫번째 값은 반드시 0
+enum PacketId
+{
+	NONE = 0;
+	CS_PING = 1001;
+	CS_ECHO = 1002;
+	SC_PING = 2001;
+	SC_ECHO = 2002;
+}
+
+//클라이언트 -> 서버
+message CS_Echo
+{
+	uint32 number = 1;
+	string message =2;
+}
+
+
+
+//서버 -> 클라이언트
+message SC_Echo
+{
+	uint32 number =1;
+	string message =2;
+}
+
