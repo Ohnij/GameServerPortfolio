@@ -2,6 +2,7 @@
 #include "IocpServer.h"
 #include <iostream>
 #include <thread>
+#include "PacketHandler.h"
 
 //#include <WinSock2.h>
 //#include <MSWSock.h>
@@ -20,6 +21,9 @@
 
 int main()
 {
+	//패킷핸들러 초기화 (미리등록)
+	InitPacketHandler();
+
 	std::shared_ptr<IocpServer> _iocpServer = std::make_shared<IocpServer>();
 	if (_iocpServer->ServerStart() == false)
 		return -1;

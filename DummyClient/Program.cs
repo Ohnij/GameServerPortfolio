@@ -47,7 +47,7 @@ namespace DummyClient
                 var (packet_id, parse_packet) = PacketParser.Parse(recv_packet);
                 switch(packet_id)
                 {
-                    case PacketId.CsEcho:
+                    case PacketId.ScEcho:
                     {
                         SC_Echo response = (SC_Echo)parse_packet;
                         Console.WriteLine($"[echo] n:{response.Number} / m:{response.Message}");

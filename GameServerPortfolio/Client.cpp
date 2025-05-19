@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Packet.h"
 #include "jhnet.pb.h"
+#include "PacketHandler.h"
 
 Client::Client()
 	: _client_number(0)
@@ -12,10 +13,10 @@ Client::Client()
 
 Client::~Client()
 {
-	ResetObject();
+	ResetClient();
 }
 
-void Client::ResetObject()
+void Client::ResetClient()
 {
 	//오브젝트 풀반납시 Manager에서 실행할것
 	shutdown(_socket, SD_BOTH); //이제 해당 소켓 송수신 안함!!
@@ -54,48 +55,34 @@ void Client::RegisterRecv()
 
 void Client::ProcessRecv(int data_size)
 {
-	//char recive_data[1024];
-	//ZeroMemory(recive_data, 1024);
-	//CopyMemory(recive_data, _recive_buffer, size_t(data_size));
-	//
-	//std::cout << "[클라 " << _client_number << "]받은 데이터 : " << recive_data << "(" << data_size << " bytes)" << std::endl;
-
-	////에코..처리
-	//RegisterSend(reinterpret_cast<CHAR*>(recive_data), data_size);
-	//RegisterRecv();
-
-	if (data_size < sizeof(PacketHeader))
-		return;
-
-	PacketHeader* header = reinterpret_cast<PacketHeader*>(_recive_buffer);
-	switch (static_cast<PACKET_TYPE>(header->packet_id))
+	
+	BYTE* data = _recive_buffer;
+	while (data_size >= sizeof(PacketHeader))
 	{
+		PacketHeader* header = reinterpret_cast<PacketHeader*>(data);
 
-		//TODO: hashtable 패킷키 / 함수로  묶기
-		case PACKET_TYPE::CS_ECHO:
-		{
-			if (data_size < sizeof(CSP_ECHO))
-				return;
-
-			CSP_ECHO* packet = reinterpret_cast<CSP_ECHO*>(_recive_buffer);
-			std::string message(packet->message, 128);
-			std::cout << "[echo] n: " << packet->number << " / m: " << message << std::endl;
-
-			//에코
-			SCP_ECHO response = {};
-			response.number = packet->number;
-			strncpy_s(response.message, message.c_str(), sizeof(response.message));
-
-			RegisterSend(reinterpret_cast<CHAR*>(&response), sizeof(response));
+		if (data_size < header->packet_length)
 			break;
+
+		auto iter = g_PacketHandler.find(header->packet_id);
+		if (iter != g_PacketHandler.end())
+		{
+			//client, byte*, int
+			//TODO : 처리결과??? 파싱못했을경우는 어떻게 것인지
+			//함수포인터로 넘기기엔 조금 이상한느낌 확실히 분기로 분할하기위해선 id, packet으로 수정필요하고
+			//지금같은경우 함수안에다가 집어넣고 알아서 처리하는부분인데,
+			//패킷을 먼저 파싱을 확인하고 Read완료를 해야할듯.
+			iter->second(shared_from_this(),
+				data + sizeof(PacketHeader),
+				header->packet_length - sizeof(PacketHeader));
 		}
 
-		default:
-			std::cout << "알수없는 패킷 " << header->packet_id << std::endl;
-			break;
+		data += header->packet_length;
+		data_size -= header->packet_length;
 	}
 
 	RegisterRecv();
+
 }
 
 void Client::RegisterSend(CHAR* p_data, int data_size)
@@ -115,4 +102,9 @@ void Client::RegisterSend(CHAR* p_data, int data_size)
 
 	WSASend(_socket, &wsaSendBuf, 1, &sendByte, flag, static_cast<OVERLAPPED*>(sendOverlapped), nullptr);
 
+}
+
+void Client::SendPacket(BYTE* data, int size)
+{
+	RegisterSend((CHAR*)data, size);
 }

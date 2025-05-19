@@ -134,6 +134,9 @@
     <ClCompile Include="jhnet.pb.cc" />
     <ClCompile Include="Listener.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PacketHandler.cpp" />
+    <ClCompile Include="RecvBuffer.cpp" />
+    <ClCompile Include="SendBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
@@ -144,6 +147,9 @@
     <ClInclude Include="Listener.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Packet.h" />
+    <ClInclude Include="PacketHandler.h" />
+    <ClInclude Include="RecvBuffer.h" />
+    <ClInclude Include="SendBuffer.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

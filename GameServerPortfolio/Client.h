@@ -16,11 +16,13 @@ public:
 	Client();
 	~Client();
 
-	void ResetObject(); //shared_ptr reset과 혼동하지 않도록!!!
+	void ResetClient(); //shared_ptr reset과 혼동하지 않도록!!! (완전히 사용종료)-> 소켓클로즈
 	void SetClient(int client_number, SOCKET client_socket);
 	void RegisterRecv();
 	void ProcessRecv(int data_size);
 	void RegisterSend(CHAR* p_data, int data_size);
+
+	void SendPacket(BYTE* data, int size);
 	inline int GetClientID() { return _client_number; }
 	inline SOCKET GetSocket() { return _socket; }
 private:

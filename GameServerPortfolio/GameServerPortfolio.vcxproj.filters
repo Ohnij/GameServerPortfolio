@@ -17,6 +17,9 @@
     <Filter Include="IOCPServer\Packet">
       <UniqueIdentifier>{d0164d05-f138-4d8a-994a-7d717ea584a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IOCPServer\Core\Buffer">
+      <UniqueIdentifier>{91b707b5-0c87-4493-a290-3f85a65a917c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,6 +39,15 @@
     </ClCompile>
     <ClCompile Include="jhnet.pb.cc">
       <Filter>IOCPServer\Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>IOCPServer\Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="RecvBuffer.cpp">
+      <Filter>IOCPServer\Core\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SendBuffer.cpp">
+      <Filter>IOCPServer\Core\Buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +77,15 @@
     </ClInclude>
     <ClInclude Include="jhnet.pb.h">
       <Filter>IOCPServer\Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketHandler.h">
+      <Filter>IOCPServer\Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="SendBuffer.h">
+      <Filter>IOCPServer\Core\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="RecvBuffer.h">
+      <Filter>IOCPServer\Core\Buffer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

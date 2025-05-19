@@ -93,7 +93,7 @@ bool ClientManager::RemoveClient(SOCKET sock)
 
 
 	auto client_object = find_socket_client->second;
-	client_object->ResetObject();
+	client_object->ResetClient();
 	PoolManager::GetPool<Client>().Return(client_object);
 
 	_socket_clients.erase(sock);
