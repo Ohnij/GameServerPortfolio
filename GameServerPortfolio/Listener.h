@@ -27,6 +27,6 @@ public:
 
 	//연결 요청용 Listen소켓 세팅
 	SOCKET _listen_socket;
-	OVERLAPPED_ACCEPT _accept_event;
+	//OVERLAPPED_ACCEPT _accept_event;
 	std::shared_ptr<IocpServer> _iocp;
 };

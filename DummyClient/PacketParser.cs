@@ -16,7 +16,11 @@ namespace DummyClient
             { PacketId.ScEcho, () => new SC_Echo() },
         };
 
-        
+        public static PacketId GetPacketId(ReadOnlySpan<byte> data)
+        {
+            return (PacketId)BitConverter.ToUInt16(data.Slice(2, 2));
+        }
+
         public static (PacketId, IMessage) Parse(byte[] packet)
         {
             if (packet.Length < 4)

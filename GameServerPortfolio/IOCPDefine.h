@@ -1,6 +1,6 @@
 #pragma once
 #include <WinSock2.h>
-
+#include <memory>
 
 #define PORT 7777
 
@@ -31,9 +31,10 @@ struct OVERLAPPED_RECV : public OVERLAPPED_EX
 	int client_number;
 };
 
-//일단은 이렇게 버퍼 물고있고, 나중에 버퍼를 관리해서 분배하는게 필요할듯
+class SendBuffer;
 struct OVERLAPPED_SEND : OVERLAPPED_EX
 {
 public:
-	BYTE send_buffer[1024];
+	//BYTE send_buffer[1024];
+	std::shared_ptr<SendBuffer> buffer;
 };

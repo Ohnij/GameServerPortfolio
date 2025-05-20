@@ -1,7 +1,8 @@
 #pragma once
 #include "IOCPDefine.h"
 #include <memory>
-
+#include "RecvBuffer.h"
+#include "SendBuffer.h"
 
 //Client
 //
@@ -20,7 +21,7 @@ public:
 	void SetClient(int client_number, SOCKET client_socket);
 	void RegisterRecv();
 	void ProcessRecv(int data_size);
-	void RegisterSend(CHAR* p_data, int data_size);
+	void RegisterSend(BYTE* p_data, int data_size);
 
 	void SendPacket(BYTE* data, int size);
 	inline int GetClientID() { return _client_number; }
@@ -28,6 +29,10 @@ public:
 private:
 	SOCKET _socket = INVALID_SOCKET;
 	OVERLAPPED_RECV _recive;
-	BYTE _recive_buffer[1024];
+	RecvBuffer _recive_buffer;
+	//BYTE _recive_buffer[1024];
+
+	
+
 	int _client_number;
 };

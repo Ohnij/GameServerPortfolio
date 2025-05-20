@@ -101,21 +101,25 @@ void Listener::RegisterAccept()
 	// 클라이언트없이 연결요청
 	// 바꾼이유 : 클라이언트 객체를 의미 연결이 되지 않았는데도 사용하는느낌이라 삭제함.
 
-	ZeroMemory(&_accept_event, sizeof(OVERLAPPED_ACCEPT));
-	_accept_event.type = IOCP_WORK::IOCP_ACCEPT;
-	InitAcceptSocket(_accept_event.socket);
-	
+	OVERLAPPED_ACCEPT* accept_event = new OVERLAPPED_ACCEPT;
+	//ZeroMemory(&_accept_event, sizeof(OVERLAPPED_ACCEPT));
+	//_accept_event.type = IOCP_WORK::IOCP_ACCEPT;
+	//InitAcceptSocket(_accept_event.socket);
+	ZeroMemory(accept_event, sizeof(OVERLAPPED_ACCEPT));
+	accept_event->type = IOCP_WORK::IOCP_ACCEPT;
+	InitAcceptSocket(accept_event->socket);
+
 
 	DWORD dummyDword = 0;
 	g_AcceptEx(
 		_listen_socket,						//리슨소켓(Listen 함수를 이미 설정한 리슨용도의 소켓을 집어넣어야 받을수있음)
-		_accept_event.socket,				//InitAcceptSocket에서 세팅후 이후 연결시 Socket을 클라이언트에 연결할것
-		_accept_event.accept_buffer,		//연결된 클라이언트의 로컬주소와 원격주소의 정보를 받아올 버퍼 (이후 클라이언트에 파싱하거나 할수있음
+		accept_event->socket,				//InitAcceptSocket에서 세팅후 이후 연결시 Socket을 클라이언트에 연결할것
+		accept_event->accept_buffer,		//연결된 클라이언트의 로컬주소와 원격주소의 정보를 받아올 버퍼 (이후 클라이언트에 파싱하거나 할수있음
 		0,									//단순연결이므로 0으로 해도 무방 Accept시 수신 데이터 없음
 		sizeof(SOCKADDR_IN) + 16,			//공식 문서 패딩 목적
 		sizeof(SOCKADDR_IN) + 16,			//
 		&dummyDword,						//전송된 바이트 정보
-		static_cast<LPOVERLAPPED>(&_accept_event));		//비동기 커널의 정보 + 확장버전으로 포인터를 넘겨서 추가정보를 파싱해서 사용할수있게 다시 받기위함
+		static_cast<LPOVERLAPPED>(accept_event));		//비동기 커널의 정보 + 확장버전으로 포인터를 넘겨서 추가정보를 파싱해서 사용할수있게 다시 받기위함
 
 }
 

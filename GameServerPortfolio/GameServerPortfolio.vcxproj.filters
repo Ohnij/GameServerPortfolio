@@ -20,6 +20,9 @@
     <Filter Include="IOCPServer\Core\Buffer">
       <UniqueIdentifier>{91b707b5-0c87-4493-a290-3f85a65a917c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IOCPServer\Thread">
+      <UniqueIdentifier>{7d01d645-82bf-4940-baa1-a77b427d3e72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -40,7 +43,7 @@
     <ClCompile Include="jhnet.pb.cc">
       <Filter>IOCPServer\Packet</Filter>
     </ClCompile>
-    <ClCompile Include="PacketHandler.cpp">
+    <ClCompile Include="PacketManager.cpp">
       <Filter>IOCPServer\Packet</Filter>
     </ClCompile>
     <ClCompile Include="RecvBuffer.cpp">
@@ -48,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="SendBuffer.cpp">
       <Filter>IOCPServer\Core\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadManager.cpp">
+      <Filter>IOCPServer\Thread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -78,7 +84,7 @@
     <ClInclude Include="jhnet.pb.h">
       <Filter>IOCPServer\Packet</Filter>
     </ClInclude>
-    <ClInclude Include="PacketHandler.h">
+    <ClInclude Include="PacketManager.h">
       <Filter>IOCPServer\Packet</Filter>
     </ClInclude>
     <ClInclude Include="SendBuffer.h">
@@ -86,6 +92,9 @@
     </ClInclude>
     <ClInclude Include="RecvBuffer.h">
       <Filter>IOCPServer\Core\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadManager.h">
+      <Filter>IOCPServer\Thread</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

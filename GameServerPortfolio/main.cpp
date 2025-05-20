@@ -2,7 +2,7 @@
 #include "IocpServer.h"
 #include <iostream>
 #include <thread>
-#include "PacketHandler.h"
+#include "PacketManager.h"
 
 //#include <WinSock2.h>
 //#include <MSWSock.h>
@@ -22,23 +22,28 @@
 int main()
 {
 	//패킷핸들러 초기화 (미리등록)
-	InitPacketHandler();
+	PacketManager::Instance().InitPacketHandler();
 
 	std::shared_ptr<IocpServer> _iocpServer = std::make_shared<IocpServer>();
 	if (_iocpServer->ServerStart() == false)
 		return -1;
-
 	
-	//스레드도 풀로 뭔가 관리해야할듯?
-	std::thread workerThread([_iocpServer] {
-		while (true)
-		{
-			_iocpServer->Run();
-		}
-	});
+	
+	////스레드도 풀로 뭔가 관리해야할듯?
+	//std::thread workerThread([_iocpServer] {
+	//	while (true)
+	//	{
+	//		_iocpServer->Run();
+	//	}
+	//});
 
-	if(workerThread.joinable())
-		workerThread.join();
+	while (true)
+	{
+		//std::this_thread::sleep_for(std::chrono::seconds(60));
+		::Sleep(60000);
+	}
+
+
 
 	std::cerr << "서버를 종료합니다" << std::endl;
 	return 0;

@@ -2,7 +2,7 @@
 #include "IOCPDefine.h"
 #include <vector>
 #include <memory>
-
+#include <thread>
 
 
 //IOCP ¸ô¾Æ³Ö±â
@@ -23,7 +23,7 @@ public:
 	~IocpServer();
 
 
-	bool ServerStart();
+	bool ServerStart(int accept_count = 1);
 	bool RegisterIOCP(HANDLE handle);
 	bool Run();
 
@@ -34,4 +34,5 @@ public:
 
 	HANDLE _iocp_handle;
 	std::shared_ptr<Listener> _listener;
+	std::vector<std::thread> _worker_threads;
 };

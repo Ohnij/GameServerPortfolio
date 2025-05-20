@@ -13,11 +13,11 @@ public:
 	BYTE* GetBuffer() { return _buffer.get(); } //raw pointer
 	int GetWriteSize() { return _write_size; }
 	int GetBufferSize() { return _buffer_size; }
-
+	int GetFreeSize() { return _buffer_size - _write_size; }
 
 	//¾²±â -> Register
 	bool Write(BYTE* data, int size);
-
+	void ResetBuffer() { _write_size = 0; }
 
 private:
 	std::unique_ptr<BYTE[]> _buffer;

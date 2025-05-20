@@ -3,6 +3,7 @@
 #include "Client.h"
 #include "Util.h"
 #include "ClientManager.h"
+#include "ObjectPool.h"
 #include <google/protobuf/message.h>
 
 
@@ -12,8 +13,9 @@ IocpServer::~IocpServer()
 	WSACleanup();
 }
 
-bool IocpServer::ServerStart()
+bool IocpServer::ServerStart(int accept_count)
 {
+	
 	//Wsa 라이브러리 로딩
 
 	WSADATA wsaData;
@@ -36,7 +38,27 @@ bool IocpServer::ServerStart()
 	RegisterIOCP((HANDLE)_listener->GetSocket());
 
 	//이제부터 받을꺼야~
-	_listener->RegisterAccept();
+
+	if (accept_count < 1) accept_count = 1;
+
+	for (int i = 0; i < accept_count; ++i)
+	{
+		_listener->RegisterAccept();
+	}
+
+	SYSTEM_INFO sys_info;
+	GetSystemInfo(&sys_info);
+	int threadCount = sys_info.dwNumberOfProcessors * 2;
+	for (int i = 0; i < threadCount; ++i)
+	{
+		_worker_threads.emplace_back([iocp = shared_from_this()]() { 
+			//std::cerr << "WorkerThread On " << std::endl;
+			while (true)
+			{
+				iocp->Run();
+			}
+		});
+	}
 	return true;
 }
 
@@ -156,5 +178,11 @@ void IocpServer::OnRecive(OVERLAPPED_RECV* recv_data, DWORD transferred_bytes)
 void IocpServer::OnSend(OVERLAPPED_SEND* send_data, DWORD transferred_bytes)
 {
 	//OVERLAPPED_SEND* sendData = reinterpret_cast<OVERLAPPED_SEND*>(overlappedData);
+	if (send_data->buffer != nullptr)
+	{
+		send_data->buffer->ResetBuffer();
+		PoolManager::GetPool<SendBuffer>().Return(send_data->buffer);
+		send_data->buffer = nullptr;
+	}
 	delete send_data;
 }
