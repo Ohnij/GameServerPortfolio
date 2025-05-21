@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="IocpServer.cpp" />
     <ClCompile Include="jhnet.pb.cc" />
     <ClCompile Include="Listener.cpp" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="ClientManager.h" />
+    <ClInclude Include="GameMap.h" />
     <ClInclude Include="IOCPDefine.h" />
     <ClInclude Include="IocpServer.h" />
     <ClInclude Include="jhnet.pb.h" />

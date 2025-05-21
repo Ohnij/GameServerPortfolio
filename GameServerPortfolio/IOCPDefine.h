@@ -13,6 +13,7 @@ enum class IOCP_WORK
 	IOCP_ACCEPT,
 	IOCP_RECV,
 	IOCP_SEND,
+	IOCP_DISCONNECT,
 };
 
 //확장버전 나누기 (Type)
@@ -20,6 +21,11 @@ struct OVERLAPPED_EX : public OVERLAPPED
 {
 	IOCP_WORK type;
 };
+
+struct OVERLAPPED_DISCONNECT : public OVERLAPPED_EX
+{
+};
+
 struct OVERLAPPED_ACCEPT : public OVERLAPPED_EX
 {
 	SOCKET socket;

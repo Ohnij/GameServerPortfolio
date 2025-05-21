@@ -49,15 +49,20 @@ namespace DummyClient
                 Console.WriteLine("서버에 연결 되었습니다.");
                 _state = CLIENT_STATE.CONNECTED;
                 _stream = _tcp_client.GetStream();
+
+
+                _send_task = Task.Run(SendTask);
+                _receive_task = Task.Run(ReceiveTask);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"서버 연결 실패 : {ex.Message}");
             }
-            
 
-            _send_task = Task.Run(SendTask);
-            _receive_task = Task.Run(ReceiveTask);
+
+            
+            //_send_task = SendTask();
+           
 
             return Task.WhenAll(_send_task, _receive_task);
          
@@ -65,36 +70,43 @@ namespace DummyClient
 
         private async void SendTask()
         {
+            //Console.WriteLine($"send 실행됨 at {DateTime.Now:HH:mm:ss.fff}");
             //Console.WriteLine("서버에 보낼 메시지를 입력하세요. (exit 입력 시 종료)");
-
             //나중에 랜덤숫자를 지정해서 숫자별 행동 ex 1. 무브, 2,채팅 .. 이런식으로
-            Random random = new Random();
-            while (true)
+            try
             {
-                await Task.Delay(1000);
-                //Console.Write("> ");
-                //string input = Console.ReadLine();
+                Random random = new Random();
+                while (true)
+                {
+                    await Task.Delay(1000);
+                    //Console.Write("> ");
+                    //string input = Console.ReadLine();
 
-                string input = random.Next(1000).ToString();
-                //입력 없을시 다시처음부터
-                if (string.IsNullOrEmpty(input))
-                    continue;
-                if (input.ToLower() == "exit")
-                    break;
+                    string input = random.Next(1000).ToString();
+                    //입력 없을시 다시처음부터
+                    if (string.IsNullOrEmpty(input))
+                        continue;
+                    if (input.ToLower() == "exit")
+                        break;
 
-                Jhnet.CS_Echo packet = new Jhnet.CS_Echo { Message = input, Number = 1229 };
-                byte[] buffer = PacketBuilder.Build(PacketId.CsEcho, packet);
-                //Span<byte> buffer = PacketBuilder.Build(PacketId.CsEcho, packet);
+                    Jhnet.CS_Echo packet = new Jhnet.CS_Echo { Message = input, Number = 1229 };
+                    byte[] buffer = PacketBuilder.Build(PacketId.CsEcho, packet);
+                    //Span<byte> buffer = PacketBuilder.Build(PacketId.CsEcho, packet);
+                    //Console.WriteLine($"[Send]");
+                    _stream.Write(buffer.ToArray(), 0, buffer.Length);
 
-                _stream.Write(buffer.ToArray(), 0, buffer.Length);
-
+                }
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[SendTask 종료] {ex.Message}");
+            }
         }
 
 
         private void ReceiveTask()
         {
+            //Console.WriteLine($"Recevie 실행됨 at {DateTime.Now:HH:mm:ss.fff}");
             //우선 메모리 단편화 생각안하고 짜보자..
             try
             {

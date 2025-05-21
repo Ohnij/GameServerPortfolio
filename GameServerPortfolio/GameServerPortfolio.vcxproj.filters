@@ -23,6 +23,9 @@
     <Filter Include="IOCPServer\Thread">
       <UniqueIdentifier>{7d01d645-82bf-4940-baa1-a77b427d3e72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7dd19d78-cb73-4da8-bb5f-2dbd06b66a9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -54,6 +57,9 @@
     </ClCompile>
     <ClCompile Include="ThreadManager.cpp">
       <Filter>IOCPServer\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="ThreadManager.h">
       <Filter>IOCPServer\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

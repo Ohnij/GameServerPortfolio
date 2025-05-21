@@ -31,8 +31,8 @@ private:
 	OVERLAPPED_RECV _recive;
 	RecvBuffer _recive_buffer;
 	//BYTE _recive_buffer[1024];
-
 	
+
 
 	int _client_number;
 };

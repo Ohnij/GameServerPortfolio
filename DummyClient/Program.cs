@@ -13,10 +13,14 @@ namespace DummyClient
 
         //나중에 메인은 명령어 입력만 하고
         //클라이언트 자체적으로 로직을 따로구성하기
+
+        public const int CLIENT_COUNT = 100;
         public static void Main(string[] args)
         {
+            //Task를 여러개 생성하니까 Task가 한번에 생성이 안되는 문제발생
+            //ThreadPool.SetMinThreads(CLIENT_COUNT*2, CLIENT_COUNT*2);
             var tasks = new List<Task>();
-            Client[] clients = new Client[3];
+            Client[] clients = new Client[CLIENT_COUNT];
             for (int i = 0; i < clients.Length; i++)
             {
                 clients[i] = new Client();

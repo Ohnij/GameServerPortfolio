@@ -20,9 +20,13 @@ Client::~Client()
 void Client::ResetClient()
 {
 	//오브젝트 풀반납시 Manager에서 실행할것
-	shutdown(_socket, SD_BOTH); //이제 해당 소켓 송수신 안함!!
-	_client_number = 0;
-	closesocket(_socket);
+	if (_socket != INVALID_SOCKET)
+	{
+		CancelIoEx(reinterpret_cast<HANDLE>(_socket), nullptr);
+		shutdown(_socket, SD_BOTH); //이제 해당 소켓 송수신 안함!!
+		_client_number = 0;
+		closesocket(_socket);
+	}
 	_socket = INVALID_SOCKET;
 }
 

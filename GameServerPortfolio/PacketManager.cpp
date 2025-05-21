@@ -49,7 +49,7 @@ bool PacketManager::Handle_CS_ECHO(std::shared_ptr<Client> client, BYTE* data, i
 	jhnet::CS_Echo packet;
 
 	if (!packet.ParseFromArray(data, size)) return false;
-	std::cout << "client [" << client->GetClientID() << "] echo: number=" << packet.number() << ", message=" << packet.message() << std::endl;
+	std::cout << "["<< GetCurrentThreadId() <<"]client [" << client->GetClientID() << "] echo: number=" << packet.number() << ", message=" << packet.message() << std::endl;
 
 	jhnet::SC_Echo res;
 	res.set_number(packet.number());

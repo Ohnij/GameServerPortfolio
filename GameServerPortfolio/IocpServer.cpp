@@ -9,6 +9,12 @@
 
 IocpServer::~IocpServer()
 {
+	for (auto& t : _worker_threads)
+	{
+		if (t.joinable())
+			t.join();
+	}
+
 	//라이브러리 반환
 	WSACleanup();
 }
@@ -67,7 +73,8 @@ bool IocpServer::RegisterIOCP(HANDLE handle)
 	auto result = CreateIoCompletionPort(handle, _iocp_handle, reinterpret_cast<ULONG_PTR>(handle), 0);
 	if (result == NULL)
 	{
-		std::cerr << "[IOCP] 소켓 등록 실패! 에러 코드: " << GetLastError() << std::endl;
+		WSAError("IOCP 소켓 등록 실패! 에러 코드: >> ", ::WSAGetLastError());
+		//std::cerr << "[IOCP] 소켓 등록 실패! 에러 코드: " << GetLastError() << std::endl;
 		return false;
 	}
 	return true;
@@ -96,6 +103,12 @@ bool IocpServer::Run()
 
 	if (res)
 	{
+		if (overlapped_data == nullptr)
+		{
+			WSAError("IOCP GQCS overlapped  nullptr!!!!!! >> ", ::WSAGetLastError());
+			return false;
+		}
+
 		switch (overlapped_data->type)
 		{
 			case IOCP_WORK::IOCP_ACCEPT: OnAccept(static_cast<OVERLAPPED_ACCEPT*>(overlapped_data), transferred_byte); break;
@@ -110,39 +123,73 @@ bool IocpServer::Run()
 	else
 	{
 		DWORD error = WSAGetLastError();
-		switch (error)
+		if (overlapped_data)
 		{
-			case ERROR_NETNAME_DELETED:
+			if(overlapped_data->type == IOCP_WORK::IOCP_SEND)
 			{
-				//클라이언트 hard close 
-				//하나하나 파싱해서 종료할것인가???
-				if (key == 0 || key == INVALID_SOCKET)
-				{
-					
-				}
-				else
-				{
-					SOCKET socket = static_cast<SOCKET>(key);
-					ClientManager::Instance().DisconnectClient(socket);
-				}
-
-			
-				
+				//실패해도 메모리 릭 안나게
+				OnSend(static_cast<OVERLAPPED_SEND*>(overlapped_data), transferred_byte); 
+				return true;
 			}
-			break;
-			case WAIT_TIMEOUT:
-			{
 
-			}
-			break;
-			default:
+			switch (error)
 			{
-				//서버 종료해야하는 오류?
+				case ERROR_NETNAME_DELETED:
+				{
+					//클라이언트 hard close 
+					//하나하나 파싱해서 종료할것인가???
+					if (key == 0 || key == INVALID_SOCKET)
+					{
+
+					}
+					else
+					{
+						SOCKET socket = static_cast<SOCKET>(key);
+						ClientManager::Instance().DisconnectClient(socket);
+					}
+				}
+				break;
+				case WAIT_TIMEOUT:
+				{
+
+				}
+				break;
+				default:
+				{
+					//서버 종료해야하는 오류?
+				}
 			}
 		}
-		
+		else
+		{
+			switch (error)
+			{
+				case ERROR_NETNAME_DELETED:
+				{
+					//클라이언트 hard close 
+					//하나하나 파싱해서 종료할것인가???
+					if (key == 0 || key == INVALID_SOCKET)
+					{
 
-	
+					}
+					else
+					{
+						SOCKET socket = static_cast<SOCKET>(key);
+						ClientManager::Instance().DisconnectClient(socket);
+					}
+				}
+				break;
+				case WAIT_TIMEOUT:
+				{
+
+				}
+				break;
+				default:
+				{
+					//서버 종료해야하는 오류?
+				}
+			}
+		}
 	}
 
 	return true;
