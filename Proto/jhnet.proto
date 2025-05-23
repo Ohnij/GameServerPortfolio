@@ -8,9 +8,77 @@ enum PacketId
 	NONE = 0;
 	CS_PING = 1001;
 	CS_ECHO = 1002;
+	CS_LOGIN = 1003;
+	CS_CREATE_CHAR = 1004;
+	CS_SELECT_CHAR = 1005;
+	CS_MAP_LOAD_END = 1006; //맵로딩 완료 (주변정보 주세요~)
+	CS_MOVE= 1007;
+
 	SC_PING = 2001;
 	SC_ECHO = 2002;
+	SC_LOGIN = 2003;
+	SC_CHAR_LIST=2004;
+	SC_CREATE_CHAR=2005;
+	SC_SELECT_CHAR_RESULT=2006;
+	SC_MY_CHARACTER_INFO = 2007; //첫 로그인시 내캐릭터의 모든정보
+
+	SC_ENTER_GAME=2008; //맵 로드완료시 주변정보
+	
+	SC_SPAWN=2009;
+    SC_DESPAWN=2010;
+    SC_MOVE=2011;
 }
+
+
+////////////////////////////////////////////////////////
+//						Struct						  //
+////////////////////////////////////////////////////////
+//위치정보
+message PosInfo
+{
+	int32 x = 1;
+	int32 y = 2;
+	int32 dir = 3;
+}
+
+
+//캐릭터 창 캐릭터 정보
+message CharacterInfo
+{
+	uint64 character_uid=1; //선택한 캐릭터를 로드하라는 DB에서도 쓰는 uid
+	string nickname =2;
+	int32 level =3;
+	int32 job_code =4;
+	
+}
+
+//플레이어 정보 (User Unit) 화면에 보여질 정보들
+message PlayerInfo
+{
+	uint64 field_unique =1;
+	string nickname =2;
+	PosInfo pos_info =3;
+	int32 hp_percent = 4;	//hp퍼센트 0~10000 > 0.00%~100.00%로 표현
+	int32 look_id=5; //이건 그냥 캐릭터 구분용으로?
+}
+
+message MyPlayerDetailInfo
+{
+	int32 level =1;
+	int32 job_code =2;
+    int64 exp = 3;
+	int32 hp = 4;
+	int32 max_hp = 5;
+	int32 damage = 6;	//공격력
+    int32 defense = 7;	//방어력
+
+	int64 gold = 8;
+}
+
+
+////////////////////////////////////////////////////////
+//						Client						  //
+////////////////////////////////////////////////////////
 
 //클라이언트 -> 서버
 message CS_Echo
@@ -19,7 +87,40 @@ message CS_Echo
 	string message =2;
 }
 
+//로그인요청
+message CS_Login
+{
+	string account_id =1;
+	string password =2;
+}
 
+
+//캐릭터 생성요청
+message CS_CreateChar
+{
+    string name = 1;
+    int32 job_code = 2;
+}
+
+//캐릭터 선택 (입장)
+message CS_SelectChar
+{
+    uint64 character_uid = 1; 
+}
+
+message CS_MapLoadEnd
+{
+    //맵로딩 완료됨 (아무것도없음)
+}
+
+message CS_Move
+{
+    PosInfo pos_info=1;
+}
+
+////////////////////////////////////////////////////////
+//						Server						  //
+////////////////////////////////////////////////////////
 
 //서버 -> 클라이언트
 message SC_Echo
@@ -28,3 +129,66 @@ message SC_Echo
 	string message =2;
 }
 
+//로그인응답
+message SC_Login
+{
+	bool login_ok = 1;
+	string error_message =2;
+	//int account_uid 3; //아직은 클라이언트가 알필요가?
+}
+
+//캐릭터 생성 응답
+message SC_CreateChar
+{
+	bool create_ok =1;
+	string error_message=2;
+	CharacterInfo created_char =3; //성공시만 보내기
+}
+
+//캐릭터 목록 갱신
+message SC_CharList
+{
+	//반복
+    repeated CharacterInfo characters = 1;
+}
+
+message SC_SelectCharResult
+{
+	bool success = 1; //성공여부 (캐릭터가 없을수있음)
+	string error_message=2;
+}
+
+//SC_MY_CHARACTER_INFO //서버에서 DB로드완료시그냥주기 (서버에서는 User를 세팅만 해둠 C-> MapLoadEnd 받으면 맵에 추가하고 정보주기)
+message SC_MyCharacterInfo
+{
+	PlayerInfo my_player_info = 1; 
+	int32 map_id =2;
+	MyPlayerDetailInfo my_detail_info= 3;
+} 
+
+//캐릭터 진입 응답
+message SC_EnterGame
+{
+    PosInfo my_pos_info = 1;			//맵의 내캐릭터 위치재조정
+	repeated PlayerInfo players = 2;	//다른캐릭터들
+	//몬스터
+	//아이템
+}
+
+message SC_Spawn
+{
+    repeated PlayerInfo players = 1;	//다른캐릭터들
+	//몬스터
+	//아이템
+}
+
+message SC_Despawn
+{
+    repeated uint64 field_unique = 1;	//사라질 객체
+}
+
+message SC_Move
+{
+    uint64 field_unique = 1; 
+    PosInfo pos_info = 2; 
+}

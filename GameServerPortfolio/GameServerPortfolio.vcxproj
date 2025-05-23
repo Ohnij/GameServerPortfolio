@@ -156,6 +156,9 @@
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Proto\jhnet.proto" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

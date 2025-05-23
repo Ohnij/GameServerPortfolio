@@ -7,6 +7,13 @@
 #include <google/protobuf/message.h>
 
 
+IocpServer::IocpServer()
+{
+	PoolManager::GetPool<Client>().ReserveObject(3000); //클라이언트3000개
+	PoolManager::GetPool<Client>().LimitCount(-1);		//3000개 까지만 클라이언트 소켓받겠다.
+
+}
+
 IocpServer::~IocpServer()
 {
 	for (auto& t : _worker_threads)
@@ -54,7 +61,8 @@ bool IocpServer::ServerStart(int accept_count)
 
 	SYSTEM_INFO sys_info;
 	GetSystemInfo(&sys_info);
-	int threadCount = sys_info.dwNumberOfProcessors * 2;
+	//int threadCount = sys_info.dwNumberOfProcessors * 2;
+	int threadCount = 4;
 	for (int i = 0; i < threadCount; ++i)
 	{
 		_worker_threads.emplace_back([iocp = shared_from_this()]() { 
@@ -123,71 +131,38 @@ bool IocpServer::Run()
 	else
 	{
 		DWORD error = WSAGetLastError();
-		if (overlapped_data)
+		if (overlapped_data && overlapped_data->type == IOCP_WORK::IOCP_SEND)
 		{
-			if(overlapped_data->type == IOCP_WORK::IOCP_SEND)
-			{
-				//실패해도 메모리 릭 안나게
-				OnSend(static_cast<OVERLAPPED_SEND*>(overlapped_data), transferred_byte); 
-				return true;
-			}
-
-			switch (error)
-			{
-				case ERROR_NETNAME_DELETED:
-				{
-					//클라이언트 hard close 
-					//하나하나 파싱해서 종료할것인가???
-					if (key == 0 || key == INVALID_SOCKET)
-					{
-
-					}
-					else
-					{
-						SOCKET socket = static_cast<SOCKET>(key);
-						ClientManager::Instance().DisconnectClient(socket);
-					}
-				}
-				break;
-				case WAIT_TIMEOUT:
-				{
-
-				}
-				break;
-				default:
-				{
-					//서버 종료해야하는 오류?
-				}
-			}
+			//실패해도 메모리 릭 안나게
+			OnSend(static_cast<OVERLAPPED_SEND*>(overlapped_data), transferred_byte);
+			return true;
 		}
-		else
+
+		switch (error)
 		{
-			switch (error)
+			case ERROR_NETNAME_DELETED:
 			{
-				case ERROR_NETNAME_DELETED:
-				{
-					//클라이언트 hard close 
-					//하나하나 파싱해서 종료할것인가???
-					if (key == 0 || key == INVALID_SOCKET)
-					{
-
-					}
-					else
-					{
-						SOCKET socket = static_cast<SOCKET>(key);
-						ClientManager::Instance().DisconnectClient(socket);
-					}
-				}
-				break;
-				case WAIT_TIMEOUT:
+				//클라이언트 hard close 
+				//하나하나 파싱해서 종료할것인가???
+				if (key == 0 || key == INVALID_SOCKET)
 				{
 
 				}
-				break;
-				default:
+				else
 				{
-					//서버 종료해야하는 오류?
+					SOCKET socket = static_cast<SOCKET>(key);
+					ClientManager::Instance().DisconnectClient(socket);
 				}
+			}
+			break;
+			case WAIT_TIMEOUT:
+			{
+
+			}
+			break;
+			default:
+			{
+				//서버 종료해야하는 오류?
 			}
 		}
 	}
@@ -215,7 +190,7 @@ void IocpServer::OnRecive(OVERLAPPED_RECV* recv_data, DWORD transferred_bytes)
 	if (p_client == nullptr)
 	{
 		//TODO : 에러처리
-		std::cerr << "클라이언트 " << client_id << " Nullptr !!!" << std::endl;
+		std::cerr << "IOCP::OnRecive 클라이언트 " << client_id << " Nullptr !!!" << std::endl;
 		return;
 	}
 
@@ -224,12 +199,38 @@ void IocpServer::OnRecive(OVERLAPPED_RECV* recv_data, DWORD transferred_bytes)
 
 void IocpServer::OnSend(OVERLAPPED_SEND* send_data, DWORD transferred_bytes)
 {
-	//OVERLAPPED_SEND* sendData = reinterpret_cast<OVERLAPPED_SEND*>(overlappedData);
-	if (send_data->buffer != nullptr)
+	//Queue방식 처리 shared_ptr 풀반환 및 순환참조 해제
+	std::shared_ptr<Client> p_client = ClientManager::Instance().GetClientBySocket(send_data->socket);
+	if (p_client == nullptr)
 	{
-		send_data->buffer->ResetBuffer();
-		PoolManager::GetPool<SendBuffer>().Return(send_data->buffer);
-		send_data->buffer = nullptr;
+		//TODO : 에러처리
+		std::cerr << "IOCP::OnSend 클라이언트 Nullptr !!!" << std::endl;
+		//그래도 send는 어떻게든 반환해야한다.!!!
+		auto shared = send_data->self;
+		send_data->self = nullptr; //순환참조 해제
+		if (send_data->buffer != nullptr)
+		{
+			send_data->buffer->ResetBuffer();
+			PoolManager::GetPool<SendBuffer>().Return(send_data->buffer);
+			send_data->buffer = nullptr; //순환참조 해제
+		}
+		PoolManager::GetPool<OVERLAPPED_SEND>().Return(shared);
+		return;
 	}
-	delete send_data;
+	else
+	{
+		//클라이언트내에서 알아서 처리해줌. 추가 queue있으면 재송신까지.
+		p_client->CompleteSend(send_data);
+	}
+
+
+	//raw pointer 일때 로직
+	////OVERLAPPED_SEND* sendData = reinterpret_cast<OVERLAPPED_SEND*>(overlappedData);
+	//if (send_data->buffer != nullptr)
+	//{
+	//	send_data->buffer->ResetBuffer();
+	//	PoolManager::GetPool<SendBuffer>().Return(send_data->buffer);
+	//	send_data->buffer = nullptr;
+	//}
+	//delete send_data;
 }

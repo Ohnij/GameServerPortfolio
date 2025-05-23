@@ -131,7 +131,19 @@ void Listener::ProcessAccept(LPOVERLAPPED overlappedPtr)
 
 	//acceptData->accept_buffer; //->주소 파싱
 	std::shared_ptr<Client> p_client = ClientManager::Instance().CreateClient(acceptData->socket);
+	if (p_client == nullptr)
+	{
+		//acceptData->socket; 연결 끊어야함.
 
+		closesocket(acceptData->socket);
+		std::cerr << "[서버가 가득찼습니다. close socket!! ]" << std::endl;
+		RegisterAccept();
+		return;
+	}
+
+	//클라이언트 네이글 끄기 (자잘한 패킷 모아쏘기 안씀!!)
+	int flag = 1;
+	setsockopt(acceptData->socket, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof(flag));
 
 	std::cerr << "[클라 " << p_client->GetClientID() << " 연결]" << std::endl;
 

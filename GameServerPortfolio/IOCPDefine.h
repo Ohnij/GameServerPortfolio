@@ -43,4 +43,6 @@ struct OVERLAPPED_SEND : OVERLAPPED_EX
 public:
 	//BYTE send_buffer[1024];
 	std::shared_ptr<SendBuffer> buffer;
+	std::shared_ptr<OVERLAPPED_SEND> self;	//자기자신 쉐어드포인터 (참조삭제안되게 !! 완료시 반드시 nullptr)
+	SOCKET socket;
 };

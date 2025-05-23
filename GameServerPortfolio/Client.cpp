@@ -27,6 +27,14 @@ void Client::ResetClient()
 		_client_number = 0;
 		closesocket(_socket);
 	}
+	
+	while (!_send_queue.empty())
+	{
+		auto ret = _send_queue.front();
+		_send_queue.pop();
+		ReturnOverlapped(std::move(ret));
+	}
+		
 	_socket = INVALID_SOCKET;
 }
 
@@ -69,29 +77,25 @@ void Client::ProcessRecv(int data_size)
 			break;
 		//여기를 넘으면 패킷을 파싱을 할수 있다는거고, 읽어야한다는것. (실패시에도 해당 부분만큼은 읽어야함.)
 
-		//auto iter = g_PacketHandler.find(header->packet_id);
-		auto func = PacketManager::Instance().GetPacketHandle(header->packet_id);
-		if (func == nullptr)
-		{
-			//함수포인터 안나옴 (정의되지 않은 패킷 or 정의를 안했음 (사용자문제))
-			//누적기록 해서 Ban / kick  (패킷 해킹시도 가능성)
-		}
-		else
-		{
-			func(shared_from_this(), _recive_buffer.GetReadPos() + sizeof(PacketHeader), header->packet_length - sizeof(PacketHeader));
-		}
 
-		//if (iter != g_PacketHandler.end())
+		PacketManager::Instance().HandlePacket(
+			shared_from_this(),
+			header,
+			_recive_buffer.GetReadPos() + sizeof(PacketHeader),
+			header->packet_length - sizeof(PacketHeader));
+
+
+		//auto func = PacketManager::Instance().GetPacketHandle(header->packet_id);
+		//if (func == nullptr)
 		//{
-		//	//client, byte*, int
-		//	//TODO : 처리결과??? 파싱못했을경우는 어떻게 것인지
-		//	//함수포인터로 넘기기엔 조금 이상한느낌 확실히 분기로 분할하기위해선 id, packet으로 수정필요하고
-		//	//지금같은경우 함수안에다가 집어넣고 알아서 처리하는부분인데,
-		//	//패킷을 먼저 파싱을 확인하고 Read완료를 해야할듯.
-		//	iter->second(shared_from_this(),
-		//		data + sizeof(PacketHeader),
-		//		header->packet_length - sizeof(PacketHeader));
+		//	//함수포인터 안나옴 (정의되지 않은 패킷 or 정의를 안했음 (사용자문제))
+		//	//누적기록 해서 Ban / kick  (패킷 해킹시도 가능성)
 		//}
+		//else
+		//{
+		//	func(shared_from_this(), _recive_buffer.GetReadPos() + sizeof(PacketHeader), header->packet_length - sizeof(PacketHeader));
+		//}
+
 		_recive_buffer.Read(header->packet_length);
 		//data += header->packet_length;
 		data_size -= header->packet_length;
@@ -108,40 +112,95 @@ void Client::RegisterSend(BYTE* p_data, int data_size)
 		auto buffer = PoolManager::GetPool<SendBuffer>().Get();
 		buffer->ResetBuffer();
 
-		OVERLAPPED_SEND* sendOverlapped = new OVERLAPPED_SEND();
+		//OVERLAPPED_SEND* sendOverlapped = new OVERLAPPED_SEND();
+		auto sendOverlapped = PoolManager::GetPool<OVERLAPPED_SEND>().Get();
 		sendOverlapped->type = IOCP_WORK::IOCP_SEND;	//_ex
 		sendOverlapped->buffer = buffer;
-		//ZeroMemory(sendOverlapped->send_buffer, 1024);	//_send
-		//CopyMemory(sendOverlapped, p_data, data_size);	//데이터복사
+		sendOverlapped->self = sendOverlapped;
+		sendOverlapped->socket = _socket;
 		int write_size = (buffer->GetFreeSize() < data_size) ? buffer->GetFreeSize(): data_size;
 		buffer->Write(p_data, write_size);
 
-
-		//커널 복사용 정보 (내부적으로 커널이 복사해가기때문에 지역변수라도 상관없다)
-		WSABUF wsaSendBuf;
-		//wsaSendBuf.buf = reinterpret_cast<CHAR*>(sendOverlapped->send_buffer);
-		wsaSendBuf.buf = reinterpret_cast<CHAR*>(buffer->GetBuffer());
-		wsaSendBuf.len = write_size;
-
-		DWORD sendByte = 0;
-		DWORD flag = 0;
 		p_data += write_size;
 		data_size -= write_size;
-		int ret = WSASend(_socket, &wsaSendBuf, 1, &sendByte, flag, static_cast<OVERLAPPED*>(sendOverlapped), nullptr);
-		if (ret == SOCKET_ERROR)
 		{
-			int err = WSAGetLastError();
-			if (err != WSA_IO_PENDING)
-			{
-				std::cerr << "[Send Error] code: " << err << std::endl;
-				delete sendOverlapped;
-				break;
-			}
+			std::lock_guard<std::mutex> sendlock(_send_mutex);
+			_send_queue.push(sendOverlapped);
 		}
 	}
+
+	ProcessSend();
 }
 
-void Client::SendPacket(BYTE* data, int size)
+void Client::ProcessSend()
 {
-	RegisterSend(data, size);
+	//경합?발생할수있다 병목 가능성 있음 is sending을 아토믹으로 하면서 여기선 읽어서 false체크만하고 return시키는방법도 좋아보임
+	std::lock_guard<std::mutex> sendlock(_send_mutex);
+	if (_is_sending)
+	{
+		return;
+	}
+	_is_sending = true;
+	if (_send_queue.empty())
+	{
+		_is_sending = false;
+		return;
+	}
+
+	auto peek = _send_queue.front();
+
+	//커널 복사용 정보 (내부적으로 커널이 복사해가기때문에 지역변수라도 상관없다)
+	WSABUF wsaSendBuf;
+	//wsaSendBuf.buf = reinterpret_cast<CHAR*>(sendOverlapped->send_buffer);
+	wsaSendBuf.buf = reinterpret_cast<CHAR*>(peek->buffer->GetBuffer());
+	wsaSendBuf.len = peek->buffer->GetWriteSize();
+
+	DWORD sendByte = 0;
+	DWORD flag = 0;
+	int ret = WSASend(_socket, &wsaSendBuf, 1, &sendByte, flag, static_cast<OVERLAPPED*>(peek.get()), nullptr);
+	if (ret == SOCKET_ERROR)
+	{
+		int err = WSAGetLastError();
+		if (err != WSA_IO_PENDING)
+		{
+			std::cerr << "[Send Error] code: " << err << std::endl;
+			_send_queue.pop();
+			_is_sending = false;
+			ReturnOverlapped(std::move(peek));
+			return; //?오류상황?
+		}
+	}
+	//챗지피티가 0이면 즉시완료되서 GQCS통지 안온다고하길래
+	//ret =0 시 CompleteSend -> 타면 Queue많으면 무한재귀도 가능할것같아서
+	//직접해제로 while(!queue empty)체크로 했는데 왠걸? 바로터짐 
+	//즉시완료시에도 GQCS통지 오길래 항상 GQCS를 통해 send 반납하는것으로 수정함
+}
+
+void Client::CompleteSend(OVERLAPPED_SEND* overlepped_send)
+{
+	//완료시에만 (Queue비워주기~)
+	{
+		std::lock_guard<std::mutex> sendlock(_send_mutex);
+		_send_queue.pop();
+		_is_sending = false;
+	}
+	
+	auto shard_ptr = overlepped_send->self;
+	ReturnOverlapped(std::move(shard_ptr));
+	ProcessSend(); //다시한번더 (락은 안에서 확인하기때문에 다른 스레드가 뺏어갈수도있음)
+}
+
+//참조 1이라도 없애기위해 RR참조 move이용
+void Client::ReturnOverlapped(std::shared_ptr<OVERLAPPED_SEND>&& return_shared_ptr)
+{
+	//오버랩드매번 하길래 함수로 뺏다
+	return_shared_ptr->self = nullptr;
+	if (return_shared_ptr->buffer != nullptr)
+	{
+		return_shared_ptr->buffer->ResetBuffer();
+		PoolManager::GetPool<SendBuffer>().Return(return_shared_ptr->buffer);
+		return_shared_ptr->buffer = nullptr;
+	}
+	PoolManager::GetPool<OVERLAPPED_SEND>().Return(return_shared_ptr);
+
 }

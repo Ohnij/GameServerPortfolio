@@ -19,7 +19,7 @@ class Listener;
 class IocpServer : public std::enable_shared_from_this<IocpServer>
 {
 public:
-	IocpServer() = default;
+	IocpServer();
 	~IocpServer();
 
 

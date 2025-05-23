@@ -1,6 +1,8 @@
 #pragma once
 #include "IOCPDefine.h"
 #include <memory>
+#include <queue>
+#include <mutex>
 #include "RecvBuffer.h"
 #include "SendBuffer.h"
 
@@ -22,16 +24,23 @@ public:
 	void RegisterRecv();
 	void ProcessRecv(int data_size);
 	void RegisterSend(BYTE* p_data, int data_size);
+	void ProcessSend();
+	void CompleteSend(OVERLAPPED_SEND* overlepped_send);
+	void ReturnOverlapped(std::shared_ptr<OVERLAPPED_SEND>&& return_shared_ptr);
 
-	void SendPacket(BYTE* data, int size);
+
 	inline int GetClientID() { return _client_number; }
 	inline SOCKET GetSocket() { return _socket; }
+
 private:
 	SOCKET _socket = INVALID_SOCKET;
 	OVERLAPPED_RECV _recive;
 	RecvBuffer _recive_buffer;
 	//BYTE _recive_buffer[1024];
 	
+	std::mutex _send_mutex;
+	bool _is_sending = false;
+	std::queue<std::shared_ptr<OVERLAPPED_SEND>> _send_queue;
 
 
 	int _client_number;

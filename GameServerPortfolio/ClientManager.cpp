@@ -41,6 +41,8 @@ int ClientManager::GetClientIdBySocket(SOCKET socket)
 std::shared_ptr<Client> ClientManager::CreateClient(SOCKET socket)
 {
 	auto client = PoolManager::GetPool<Client>().Get();
+	if (client == nullptr)
+		return nullptr;
 
 	int client_uid = GenerateClientId();
 	client->SetClient(client_uid, socket);
