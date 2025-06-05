@@ -1,2 +1,0 @@
-# ServerPortfolio
-2025_RestartServerMaking

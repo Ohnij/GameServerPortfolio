@@ -5,28 +5,39 @@ package jhnet;
 //proto3 에서는 첫번째 값은 반드시 0
 enum PacketId
 {
-	NONE = 0;
-	CS_PING = 1001;
-	CS_ECHO = 1002;
-	CS_LOGIN = 1003;
-	CS_CREATE_CHAR = 1004;
-	CS_SELECT_CHAR = 1005;
-	CS_MAP_LOAD_END = 1006; //맵로딩 완료 (주변정보 주세요~)
-	CS_MOVE= 1007;
+	PACKET_ID_NONE = 0;
+////////////////////////////////////////////////////////////
+//클라이언트
 
-	SC_PING = 2001;
-	SC_ECHO = 2002;
-	SC_LOGIN = 2003;
-	SC_CHAR_LIST=2004;
-	SC_CREATE_CHAR=2005;
-	SC_SELECT_CHAR_RESULT=2006;
-	SC_MY_CHARACTER_INFO = 2007; //첫 로그인시 내캐릭터의 모든정보
+	//CONNECTED
+	C2S_PING = 1001;
+	C2S_ECHO = 1002;
+	C2S_LOGIN = 1003;
+	//AUTHED ~
+	C2S_CREATE_CHAR = 1004;
+	C2S_SELECT_CHAR = 1005;
 
-	SC_ENTER_GAME=2008; //맵 로드완료시 주변정보
+	//INGAME
+	C2S_MAP_LOAD_END = 1006; //맵로딩 완료 (주변정보 주세요~)
+	C2S_MOVE= 1007;
+
+////////////////////////////////////////////////////////////
+//서버
+
+
+	S2C_PING = 2001;
+	S2C_ECHO = 2002;
+	S2C_LOGIN = 2003;
+	S2C_CHAR_LIST=2004;
+	S2C_CREATE_CHAR=2005;
+	S2C_SELECT_CHAR_RESULT=2006;
+	S2C_MY_CHARACTER_INFO = 2007; //첫 로그인시 내캐릭터의 모든정보
+
+	S2C_ENTER_GAME=2008; //맵 로드완료시 주변정보
 	
-	SC_SPAWN=2009;
-    SC_DESPAWN=2010;
-    SC_MOVE=2011;
+	S2C_SPAWN=2009;
+    S2C_DESPAWN=2010;
+    S2C_MOVE=2011;
 }
 
 
@@ -81,14 +92,14 @@ message MyPlayerDetailInfo
 ////////////////////////////////////////////////////////
 
 //클라이언트 -> 서버
-message CS_Echo
+message CSP_Echo
 {
 	uint32 number = 1;
 	string message =2;
 }
 
 //로그인요청
-message CS_Login
+message CSP_Login
 {
 	string account_id =1;
 	string password =2;
@@ -96,24 +107,24 @@ message CS_Login
 
 
 //캐릭터 생성요청
-message CS_CreateChar
+message CSP_CreateChar
 {
     string name = 1;
     int32 job_code = 2;
 }
 
 //캐릭터 선택 (입장)
-message CS_SelectChar
+message CSP_SelectChar
 {
     uint64 character_uid = 1; 
 }
 
-message CS_MapLoadEnd
+message CSP_MapLoadEnd
 {
     //맵로딩 완료됨 (아무것도없음)
 }
 
-message CS_Move
+message CSP_Move
 {
     PosInfo pos_info=1;
 }
@@ -123,14 +134,14 @@ message CS_Move
 ////////////////////////////////////////////////////////
 
 //서버 -> 클라이언트
-message SC_Echo
+message SCP_Echo
 {
 	uint32 number =1;
 	string message =2;
 }
 
 //로그인응답
-message SC_Login
+message SCP_Login
 {
 	bool login_ok = 1;
 	string error_message =2;
@@ -138,7 +149,7 @@ message SC_Login
 }
 
 //캐릭터 생성 응답
-message SC_CreateChar
+message SCP_CreateChar
 {
 	bool create_ok =1;
 	string error_message=2;
@@ -146,20 +157,20 @@ message SC_CreateChar
 }
 
 //캐릭터 목록 갱신
-message SC_CharList
+message SCP_CharList
 {
 	//반복
     repeated CharacterInfo characters = 1;
 }
 
-message SC_SelectCharResult
+message SCP_SelectCharResult
 {
 	bool success = 1; //성공여부 (캐릭터가 없을수있음)
 	string error_message=2;
 }
 
 //SC_MY_CHARACTER_INFO //서버에서 DB로드완료시그냥주기 (서버에서는 User를 세팅만 해둠 C-> MapLoadEnd 받으면 맵에 추가하고 정보주기)
-message SC_MyCharacterInfo
+message SCP_MyCharacterInfo
 {
 	PlayerInfo my_player_info = 1; 
 	int32 map_id =2;
@@ -167,7 +178,7 @@ message SC_MyCharacterInfo
 } 
 
 //캐릭터 진입 응답
-message SC_EnterGame
+message SCP_EnterGame
 {
     PosInfo my_pos_info = 1;			//맵의 내캐릭터 위치재조정
 	repeated PlayerInfo players = 2;	//다른캐릭터들
@@ -175,20 +186,20 @@ message SC_EnterGame
 	//아이템
 }
 
-message SC_Spawn
+message SCP_Spawn
 {
     repeated PlayerInfo players = 1;	//다른캐릭터들
 	//몬스터
 	//아이템
 }
 
-message SC_Despawn
+message SCP_Despawn
 {
     repeated uint64 field_unique = 1;	//사라질 객체
 }
 
-message SC_Move
+message SCP_Move
 {
-    uint64 field_unique = 1; 
+    uint64 field_unique = 1;  
     PosInfo pos_info = 2; 
 }

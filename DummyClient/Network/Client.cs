@@ -16,7 +16,7 @@ namespace DummyClient
     {
         private static readonly Dictionary<PacketId, Func<byte[], bool>> _packet_function = new()
         {
-            { PacketId.ScEcho, SC_ECHO },
+            { PacketId.S2CEcho, RecvPcket_SCP_ECHO },
         };
 
         enum CLIENT_STATE
@@ -89,8 +89,8 @@ namespace DummyClient
                     if (input.ToLower() == "exit")
                         break;
 
-                    Jhnet.CS_Echo packet = new Jhnet.CS_Echo { Message = input, Number = 1229 };
-                    byte[] buffer = PacketBuilder.Build(PacketId.CsEcho, packet);
+                    Jhnet.CSP_Echo packet = new Jhnet.CSP_Echo { Message = input, Number = 1229 };
+                    byte[] buffer = PacketBuilder.Build(PacketId.C2SEcho, packet);
                     //Span<byte> buffer = PacketBuilder.Build(PacketId.CsEcho, packet);
                     //Console.WriteLine($"[Send]");
                     _stream.Write(buffer.ToArray(), 0, buffer.Length);
@@ -158,9 +158,9 @@ namespace DummyClient
 
 
         ///======================================= packet function ===============================================///
-        private static bool SC_ECHO(byte[] packet_data)
+        private static bool RecvPcket_SCP_ECHO(byte[] packet_data)
         {
-            var packet = SC_Echo.Parser.ParseFrom(packet_data);
+            var packet = SCP_Echo.Parser.ParseFrom(packet_data);
             Console.WriteLine($"[echo] n:{packet.Number} / m:{packet.Message}");
             return false;
         }

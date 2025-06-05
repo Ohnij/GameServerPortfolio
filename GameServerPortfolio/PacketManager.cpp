@@ -73,9 +73,9 @@ PacketManager& PacketManager::Instance()
 void PacketManager::InitPacketHandler()
 {
 	//_PacketHandler[jhnet::PacketId::CS_ECHO] = [this](std::shared_ptr<Client> client, BYTE* data, int size) { return this->Handle_CS_ECHO(client, data, size); };
-	_proto_message_factory[jhnet::PacketId::CS_ECHO] = []() { return std::make_shared<jhnet::CS_Echo>(); };
+	_proto_message_factory[jhnet::PacketId::C2S_ECHO] = []() { return std::make_shared<jhnet::CSP_Echo>(); };
 
-	_PacketHandler[jhnet::PacketId::CS_ECHO] = [this](std::shared_ptr<Client> client, std::shared_ptr<google::protobuf::Message> msg) {
+	_PacketHandler[jhnet::PacketId::C2S_ECHO] = [this](std::shared_ptr<Client> client, std::shared_ptr<google::protobuf::Message> msg) {
 		return this->Handle_CS_ECHO(client, msg);
 	};
 }
@@ -97,7 +97,7 @@ void PacketManager::InitPacketHandler()
 bool PacketManager::Handle_CS_ECHO(std::shared_ptr<Client> client, std::shared_ptr<google::protobuf::Message> message)
 {
 	//스마트 포인터 형변환 > static_pointer_cast / dynamic_pointer_cast
-	std::shared_ptr<jhnet::CS_Echo> packet = std::dynamic_pointer_cast<jhnet::CS_Echo>(message);
+	std::shared_ptr<jhnet::CSP_Echo> packet = std::dynamic_pointer_cast<jhnet::CSP_Echo>(message);
 	if (!packet)
 	{
 		//들어온 메세지가 다르다
@@ -106,10 +106,10 @@ bool PacketManager::Handle_CS_ECHO(std::shared_ptr<Client> client, std::shared_p
 
 	std::cout << "[" << GetCurrentThreadId() << "]client [" << client->GetClientID() << "] echo: number=" << packet->number() << ", message=" << packet->message() << std::endl;
 
-	jhnet::SC_Echo res;
+	jhnet::SCP_Echo res;
 	res.set_number(packet->number());
 	res.set_message(packet->message());
 
-	Send(client, res, jhnet::PacketId::SC_ECHO);
+	Send(client, res, jhnet::PacketId::S2C_ECHO);
 	return true;
 }

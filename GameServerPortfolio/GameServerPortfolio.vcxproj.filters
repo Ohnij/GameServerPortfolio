@@ -5,26 +5,35 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="IOCPServer">
+    <Filter Include="01_ServerFramework">
+      <UniqueIdentifier>{976c05ed-5e9c-4259-97df-4a454c2c6e9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_ServerFramework\IOCPServer">
       <UniqueIdentifier>{c56617e5-a5e9-4b4d-ad7a-e8d33c41f1ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOCPServer\Object">
+    <Filter Include="01_ServerFramework\IOCPServer\Object">
       <UniqueIdentifier>{59019dad-294f-4a2b-93de-22d37320a378}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOCPServer\Core">
+    <Filter Include="01_ServerFramework\IOCPServer\Core">
       <UniqueIdentifier>{a5401708-ddf1-4b68-8b46-4d86628f7fb2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOCPServer\Packet">
-      <UniqueIdentifier>{d0164d05-f138-4d8a-994a-7d717ea584a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="IOCPServer\Core\Buffer">
+    <Filter Include="01_ServerFramework\IOCPServer\Core\Buffer">
       <UniqueIdentifier>{91b707b5-0c87-4493-a290-3f85a65a917c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOCPServer\Thread">
+    <Filter Include="01_ServerFramework\IOCPServer\Packet">
+      <UniqueIdentifier>{d0164d05-f138-4d8a-994a-7d717ea584a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_ServerFramework\IOCPServer\Thread">
       <UniqueIdentifier>{7d01d645-82bf-4940-baa1-a77b427d3e72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game">
+    <Filter Include="02_GameContents">
+      <UniqueIdentifier>{58326ee8-9c98-4f45-8234-73bd19b03843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02_GameContents\Game">
       <UniqueIdentifier>{7dd19d78-cb73-4da8-bb5f-2dbd06b66a9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02_GameContents\Login">
+      <UniqueIdentifier>{b2136a46-f7fd-43d1-83b3-2426f161d4cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -32,83 +41,95 @@
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Client.cpp">
-      <Filter>IOCPServer\Object</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Object</Filter>
     </ClCompile>
     <ClCompile Include="Listener.cpp">
-      <Filter>IOCPServer\Object</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Object</Filter>
     </ClCompile>
     <ClCompile Include="ClientManager.cpp">
-      <Filter>IOCPServer\Core</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Core</Filter>
     </ClCompile>
     <ClCompile Include="IocpServer.cpp">
-      <Filter>IOCPServer\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="jhnet.pb.cc">
-      <Filter>IOCPServer\Packet</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Core</Filter>
     </ClCompile>
     <ClCompile Include="PacketManager.cpp">
-      <Filter>IOCPServer\Packet</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Packet</Filter>
     </ClCompile>
     <ClCompile Include="RecvBuffer.cpp">
-      <Filter>IOCPServer\Core\Buffer</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Core\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="SendBuffer.cpp">
-      <Filter>IOCPServer\Core\Buffer</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Core\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="ThreadManager.cpp">
-      <Filter>IOCPServer\Thread</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Thread</Filter>
     </ClCompile>
     <ClCompile Include="GameMap.cpp">
-      <Filter>Game</Filter>
+      <Filter>02_GameContents\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginManager.cpp">
+      <Filter>02_GameContents\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClient.cpp">
+      <Filter>02_GameContents\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Generated\jhnet.pb.cc">
+      <Filter>01_ServerFramework\IOCPServer\Packet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOCPDefine.h">
-      <Filter>IOCPServer</Filter>
+      <Filter>01_ServerFramework\IOCPServer</Filter>
     </ClInclude>
     <ClInclude Include="Util.h">
-      <Filter>IOCPServer</Filter>
+      <Filter>01_ServerFramework\IOCPServer</Filter>
     </ClInclude>
     <ClInclude Include="Client.h">
-      <Filter>IOCPServer\Object</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Object</Filter>
     </ClInclude>
     <ClInclude Include="Listener.h">
-      <Filter>IOCPServer\Object</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Object</Filter>
     </ClInclude>
     <ClInclude Include="ClientManager.h">
-      <Filter>IOCPServer\Core</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Core</Filter>
     </ClInclude>
     <ClInclude Include="IocpServer.h">
-      <Filter>IOCPServer\Core</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Core</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h">
-      <Filter>IOCPServer\Core</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Core</Filter>
     </ClInclude>
     <ClInclude Include="Packet.h">
-      <Filter>IOCPServer\Packet</Filter>
-    </ClInclude>
-    <ClInclude Include="jhnet.pb.h">
-      <Filter>IOCPServer\Packet</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Packet</Filter>
     </ClInclude>
     <ClInclude Include="PacketManager.h">
-      <Filter>IOCPServer\Packet</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Packet</Filter>
     </ClInclude>
     <ClInclude Include="SendBuffer.h">
-      <Filter>IOCPServer\Core\Buffer</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Core\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="RecvBuffer.h">
-      <Filter>IOCPServer\Core\Buffer</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Core\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="ThreadManager.h">
-      <Filter>IOCPServer\Thread</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Thread</Filter>
     </ClInclude>
     <ClInclude Include="GameMap.h">
-      <Filter>Game</Filter>
+      <Filter>02_GameContents\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginManager.h">
+      <Filter>02_GameContents\Login</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClient.h">
+      <Filter>02_GameContents\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Generated\jhnet.pb.h">
+      <Filter>01_ServerFramework\IOCPServer\Packet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Proto\jhnet.proto">
-      <Filter>IOCPServer\Packet</Filter>
+      <Filter>01_ServerFramework\IOCPServer\Packet</Filter>
     </None>
   </ItemGroup>
 </Project>

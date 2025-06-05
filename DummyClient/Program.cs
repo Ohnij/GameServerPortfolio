@@ -60,9 +60,9 @@ namespace DummyClient
 
 
                 
-                Jhnet.CS_Echo packet = new Jhnet.CS_Echo { Message = input, Number = 1229 };
+                Jhnet.CSP_Echo packet = new Jhnet.CSP_Echo { Message = input, Number = 1229 };
                 //byte[] buffer = PacketBuilder.Build(PacketId.CsEcho, packet);
-                Span<byte> buffer = PacketBuilder.Build(PacketId.CsEcho, packet);
+                Span<byte> buffer = PacketBuilder.Build(PacketId.C2SEcho, packet);
 
                 stream.Write(buffer.ToArray(), 0, buffer.Length);
 
@@ -106,9 +106,9 @@ namespace DummyClient
 
                         switch (packet_id)
                         {
-                            case PacketId.ScEcho:
+                            case PacketId.S2CEcho:
                             {
-                                SC_Echo response = (SC_Echo)parse_packet;
+                                SCP_Echo response = (SCP_Echo)parse_packet;
                                 Console.WriteLine($"[echo] n:{response.Number} / m:{response.Message}");
                             }
                             break;

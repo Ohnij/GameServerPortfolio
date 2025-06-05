@@ -13,7 +13,7 @@ namespace DummyClient
         //패킷아이디로 생성자함수 매핑
         private static readonly Dictionary<PacketId, Func<IMessage>> _message_factory = new()
         {
-            { PacketId.ScEcho, () => new SC_Echo() },
+            { PacketId.S2CEcho, () => new SCP_Echo() },
         };
 
         public static PacketId GetPacketId(ReadOnlySpan<byte> data)

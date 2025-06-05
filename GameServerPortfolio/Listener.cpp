@@ -141,6 +141,12 @@ void Listener::ProcessAccept(LPOVERLAPPED overlappedPtr)
 		return;
 	}
 
+	//리슨소켓과 연결?
+	//마소문서나 블로그를 찾아봐도 왜 하는지 정확하게 알수가없었음
+	//챗지피티에게 물어봤다.
+	//주소정보, 원격주소정보, 소켓상태정보, 등 os에서 해당 소켓이 어떤 소켓으로부터 연결되었는지의 정보들이 담긴다고한다.
+	//하지 않으면 기본소켓동작( getpeername(), getsockname(), shutdown()등 )에 비정상 동작을 할수있다고 한다.
+	setsockopt(acceptData->socket, SOL_SOCKET, SO_UPDATE_ACCEPT_CONTEXT, (char*)&_listen_socket, sizeof(_listen_socket));
 	//클라이언트 네이글 끄기 (자잘한 패킷 모아쏘기 안씀!!)
 	int flag = 1;
 	setsockopt(acceptData->socket, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof(flag));
