@@ -32,3 +32,10 @@ Get-Package Google.Protobuf >>입력
 파워셀 실행
 ./protoc.exe --version --->> libprotoc 29.3
 
+
+SQL Server 2022 Express Edition 
+SQL Server Management Studio 21 
+
+Windows 설치되어있는 상태여서 직접 설치는 안했다.
+ODBC Driver 17 for SQL Server / 2017.1710.06.01
+SQL Server / 10.00.26100.3624

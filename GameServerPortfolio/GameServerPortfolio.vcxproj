@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="DBConnection.cpp" />
     <ClCompile Include="GameClient.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Generated\jhnet.pb.cc" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="ClientManager.h" />
+    <ClInclude Include="DBConnection.h" />
     <ClInclude Include="GameClient.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Generated\jhnet.pb.h" />

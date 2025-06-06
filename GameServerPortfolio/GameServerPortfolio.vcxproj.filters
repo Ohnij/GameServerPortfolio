@@ -35,6 +35,9 @@
     <Filter Include="02_GameContents\Login">
       <UniqueIdentifier>{b2136a46-f7fd-43d1-83b3-2426f161d4cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03_DB">
+      <UniqueIdentifier>{cd0801b9-16af-4196-95aa-5c7637a2f547}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="Generated\jhnet.pb.cc">
       <Filter>01_ServerFramework\IOCPServer\Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="DBConnection.cpp">
+      <Filter>03_DB</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="Generated\jhnet.pb.h">
       <Filter>01_ServerFramework\IOCPServer\Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="DBConnection.h">
+      <Filter>03_DB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <thread>
 #include "PacketManager.h"
+#include "DBConnection.h"
 
 //#include <WinSock2.h>
 //#include <MSWSock.h>
@@ -36,6 +37,14 @@ int main()
 	//		_iocpServer->Run();
 	//	}
 	//});
+	DBConnection dbc;
+	if (false == dbc.Init())
+	{
+		std::cerr << "DB Error" << std::endl;
+		return 0;
+	}
+	dbc.TestQuery();
+	dbc.TestQuery2();
 
 	while (true)
 	{
