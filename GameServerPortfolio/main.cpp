@@ -1,9 +1,10 @@
+#include "stdafx.h"
 #pragma comment (lib, "ws2_32.lib")
 #include "IocpServer.h"
-#include <iostream>
 #include <thread>
 #include "PacketManager.h"
-#include "DBConnection.h"
+#include "DBManager.h"
+#include "GameClientAllocater.h"
 
 //#include <WinSock2.h>
 //#include <MSWSock.h>
@@ -22,11 +23,12 @@
 
 int main()
 {
-	//패킷핸들러 초기화 (미리등록)
-	PacketManager::Instance().InitPacketHandler();
+	//패킷핸들러 초기화 (미리등록) 생성자에 추가함 
+	//PacketManager::Instance().InitPacketHandler();
 
 	std::shared_ptr<IocpServer> _iocpServer = std::make_shared<IocpServer>();
-	if (_iocpServer->ServerStart() == false)
+	auto allocator = std::make_shared<GameClientAllocater>();
+	if (_iocpServer->ServerStart(allocator) == false)
 		return -1;
 	
 	
@@ -37,14 +39,14 @@ int main()
 	//		_iocpServer->Run();
 	//	}
 	//});
-	DBConnection dbc;
-	if (false == dbc.Init())
+	
+	if (DBManager::Instance().Init() == false)
 	{
-		std::cerr << "DB Error" << std::endl;
+		std::cerr << "DB Error\n";
 		return 0;
+
 	}
-	dbc.TestQuery();
-	dbc.TestQuery2();
+	DBManager::Instance().DBTest();
 
 	while (true)
 	{
@@ -54,7 +56,7 @@ int main()
 
 
 
-	std::cerr << "서버를 종료합니다" << std::endl;
+	std::cerr << "서버를 종료합니다\n";
 	return 0;
 }
 

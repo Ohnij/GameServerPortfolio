@@ -1,6 +1,5 @@
 #pragma once
 #include <WinSock2.h>
-#include <memory>
 
 #define PORT 7777
 

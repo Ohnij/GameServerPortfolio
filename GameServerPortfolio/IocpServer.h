@@ -1,7 +1,5 @@
 #pragma once
 #include "IOCPDefine.h"
-#include <vector>
-#include <memory>
 #include <thread>
 
 
@@ -23,7 +21,7 @@ public:
 	~IocpServer();
 
 
-	bool ServerStart(int accept_count = 1);
+	bool ServerStart(std::shared_ptr<class ClientAllocator> allocater = nullptr, int accept_count = 1);
 	bool RegisterIOCP(HANDLE handle);
 	bool Run();
 

@@ -1,9 +1,5 @@
 #pragma once
-
-#include <unordered_map>
 #include <functional>
-#include <memory>
-#include <vector>
 #include "Client.h"
 #include "Packet.h"
 #include "jhnet.pb.h"
@@ -19,8 +15,8 @@ class PacketManager
 public:
 	static PacketManager& Instance();
 		
-	//패킷핸들러 모음(insert function)
-	void InitPacketHandler();
+	
+	
 
 	//직렬화부분 (거의 자동) 
 	void Send(std::shared_ptr<Client> client, const ::google::protobuf::Message& packet, PACKET_ID packet_id);
@@ -29,6 +25,12 @@ public:
 
 	bool HandlePacket(std::shared_ptr<Client> client, PacketHeader* header, BYTE* data, int size);
 private:
+	PacketManager();
+	~PacketManager() = default;
+
+	//패킷핸들러 모음(insert function)
+	void InitPacketHandler();
+
 	//패킷 메시지 생성자 맵핑
 	std::unordered_map<PACKET_ID, std::function<std::shared_ptr<google::protobuf::Message>()>> _proto_message_factory; //메세지생성자 포인터?
 	//패킷 메세지별 함수 맵핑

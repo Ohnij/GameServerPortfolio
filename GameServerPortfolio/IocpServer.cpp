@@ -1,16 +1,18 @@
+#include "stdafx.h"
 #include "IocpServer.h"
 #include "Listener.h"
 #include "Client.h"
 #include "Util.h"
 #include "ClientManager.h"
 #include "ObjectPool.h"
+#include "ClientAllocator.h"
 #include <google/protobuf/message.h>
 
 
 IocpServer::IocpServer()
 {
-	PoolManager::GetPool<Client>().ReserveObject(3000); //클라이언트3000개
-	PoolManager::GetPool<Client>().LimitCount(-1);		//3000개 까지만 클라이언트 소켓받겠다.
+	PoolManager::GetPool<Client>().ReserveObject(5000); //클라이언트5000개
+	PoolManager::GetPool<Client>().LimitCount(-1);		//5000개 까지만 클라이언트 소켓받겠다.
 
 }
 
@@ -26,7 +28,7 @@ IocpServer::~IocpServer()
 	WSACleanup();
 }
 
-bool IocpServer::ServerStart(int accept_count)
+bool IocpServer::ServerStart(std::shared_ptr<class ClientAllocator> allocater, int accept_count )
 {
 	
 	//Wsa 라이브러리 로딩
@@ -42,8 +44,14 @@ bool IocpServer::ServerStart(int accept_count)
 	if (_listener->Init(shared_from_this()) == false)
 		return false;
 
-	_iocp_handle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
+	if (!allocater)
+	{
+		allocater = std::make_shared<ClientAllocator>();
+	}	
+	ClientManager::Instance().SetFactory(allocater);
+
 	//IOCP객체 생성
+	_iocp_handle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
 
 
 	//IOCP에 Listen소켓 비동기로 받게 등록

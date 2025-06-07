@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GameMap.h"
 
 GameMap::GameMap(int map_id)

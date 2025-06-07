@@ -10,8 +10,6 @@ enum class ClientState
 	CLIENT_INGAME,		//게임안에 진입
 };
 
-
-class GameMap;
 class GameClient : public Client
 {
 public:
@@ -23,8 +21,8 @@ public:
 	inline ClientState GetState() const { return _state; }
 	
 	//셋게임맵
-	inline void SetGameMap(std::shared_ptr<GameMap> game_map) { _game_map = game_map; }
-	inline std::shared_ptr<GameMap> GetGameMap() const { return _game_map; }
+	inline void SetGameMap(std::shared_ptr<class GameMap> game_map) { _game_map = game_map; }
+	inline std::shared_ptr<class GameMap> GetGameMap() const { return _game_map; }
 
 	//셋플레이어
 	//inline void SetState(ClientState state) { _state = state; }
@@ -33,7 +31,7 @@ public:
 
 private:
 	ClientState _state = ClientState::CLIENT_CONNECTED;
-	std::shared_ptr<GameMap> _game_map;	
+	std::shared_ptr<class GameMap> _game_map;	
 	//플레이어정보?
 };
 

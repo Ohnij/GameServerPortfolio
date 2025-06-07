@@ -1,6 +1,4 @@
 #pragma once
-#include <vector>
-#include <memory>
 using BYTE = uint8_t;
 
 class SendBuffer : public std::enable_shared_from_this<SendBuffer>

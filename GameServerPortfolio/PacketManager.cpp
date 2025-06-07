@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "PacketManager.h"
 #include "Packet.h"
 
@@ -61,6 +62,11 @@ bool PacketManager::HandlePacket(std::shared_ptr<Client> client, PacketHeader* h
 	}
 
 	return func_iter->second(client, msg); 
+}
+
+PacketManager::PacketManager()
+{
+	InitPacketHandler();
 }
 
 

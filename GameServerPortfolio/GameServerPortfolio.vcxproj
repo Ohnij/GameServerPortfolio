@@ -113,6 +113,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,9 +141,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientAllocator.cpp" />
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="DBConnection.cpp" />
+    <ClCompile Include="DBManager.cpp" />
+    <ClCompile Include="DBRequest_CheckAccountLogin.cpp" />
     <ClCompile Include="GameClient.cpp" />
+    <ClCompile Include="GameClientAllocater.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Generated\jhnet.pb.cc" />
     <ClCompile Include="IocpServer.cpp" />
@@ -152,13 +157,21 @@
     <ClCompile Include="PacketManager.cpp" />
     <ClCompile Include="RecvBuffer.cpp" />
     <ClCompile Include="SendBuffer.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="ThreadManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
+    <ClInclude Include="ClientAllocator.h" />
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="DBConnection.h" />
+    <ClInclude Include="DBManager.h" />
+    <ClInclude Include="DBRequest.h" />
+    <ClInclude Include="DBRequest_CheckAccountLogin.h" />
     <ClInclude Include="GameClient.h" />
+    <ClInclude Include="GameClientAllocater.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Generated\jhnet.pb.h" />
     <ClInclude Include="IOCPDefine.h" />
@@ -170,6 +183,7 @@
     <ClInclude Include="PacketManager.h" />
     <ClInclude Include="RecvBuffer.h" />
     <ClInclude Include="SendBuffer.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>

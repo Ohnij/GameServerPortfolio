@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Listener.h"
 #include "IocpServer.h"
 #include "Client.h"

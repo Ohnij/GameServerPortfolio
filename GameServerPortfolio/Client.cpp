@@ -1,5 +1,5 @@
+#include "stdafx.h"
 #include "Client.h"
-#include <iostream>
 #include "Packet.h"
 #include "jhnet.pb.h"
 #include "PacketManager.h"

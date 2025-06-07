@@ -1,6 +1,4 @@
 #pragma once
-#include <memory>
-#include <queue>
 #include <mutex>
 
 //ObjectPool
@@ -11,6 +9,12 @@ template <class T>
 class ObjectPool
 {
 public:
+	ObjectPool() = default;
+	~ObjectPool()
+	{
+		Clear();
+	}
+
 	std::shared_ptr<T> Get() 
 	{
 		std::lock_guard<std::mutex> lock(_queue_mutex);
@@ -57,6 +61,16 @@ public:
 		else
 			_pool_object_limit = limit_count; //ÀÔ·Â°ª
 	}
+
+	void Clear()
+	{
+		std::lock_guard<std::mutex> lock(_queue_mutex);
+		while (!_pool_queue.empty())
+		{
+			_pool_queue.pop();
+		}
+		_pool_object_count = 0;
+	}
 private:
 
 private:
@@ -79,4 +93,7 @@ public:
 		static ObjectPool<T> instance;
 		return instance;
 	}
+private:
+	PoolManager() = default;
+	~PoolManager() = default;
 };

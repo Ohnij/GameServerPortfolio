@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SendBuffer.h"
 
 SendBuffer::SendBuffer(int buffer_size)

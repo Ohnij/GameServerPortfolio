@@ -1,7 +1,4 @@
 #pragma once
-
-#include <vector>
-
 using BYTE = uint8_t;
 
 class RecvBuffer

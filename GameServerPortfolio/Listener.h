@@ -1,6 +1,6 @@
+#pragma once
 #include "IOCPDefine.h"
 #include <MSWSock.h>
-#include <memory>
 
 
 //Listener

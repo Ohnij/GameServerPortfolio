@@ -1,7 +1,8 @@
+#include "stdafx.h"
 #include "ClientManager.h"
 #include "Client.h"
 #include "ObjectPool.h"
-#include <iostream>
+#include "ClientAllocator.h"
 
 ClientManager& ClientManager::Instance()
 {
@@ -40,7 +41,12 @@ int ClientManager::GetClientIdBySocket(SOCKET socket)
 
 std::shared_ptr<Client> ClientManager::CreateClient(SOCKET socket)
 {
-	auto client = PoolManager::GetPool<Client>().Get();
+
+	//auto client = PoolManager::GetPool<Client>().Get();
+	//if (client == nullptr)
+	//	return nullptr;
+
+	auto client = _allocator->Create();
 	if (client == nullptr)
 		return nullptr;
 
@@ -95,11 +101,16 @@ bool ClientManager::RemoveClient(SOCKET sock)
 
 
 	auto client_object = find_socket_client->second;
-	client_object->ResetClient();
-	PoolManager::GetPool<Client>().Return(client_object);
 
+	//client_object로 shared_ptr 참조중 이므로 먼저 삭제하는것으로 수정
 	_socket_clients.erase(sock);
 	_id_clients.erase(client_id);
+
+	client_object->ResetClient();
+	_allocator->Release(client_object);
+	//PoolManager::GetPool<Client>().Return(client_object);
+
+
 	return true;
 }
 

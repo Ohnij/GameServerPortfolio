@@ -1,7 +1,5 @@
 #pragma once
 #include "IOCPDefine.h"
-#include <memory>
-#include <queue>
 #include <mutex>
 #include "RecvBuffer.h"
 #include "SendBuffer.h"
@@ -17,7 +15,7 @@ class Client : public std::enable_shared_from_this<Client>
 {
 public:
 	Client();
-	~Client();
+	virtual ~Client();
 
 	void ResetClient(); //shared_ptr reset과 혼동하지 않도록!!! (완전히 사용종료)-> 소켓클로즈
 	void SetClient(int client_number, SOCKET client_socket);

@@ -1,7 +1,5 @@
-#include <windows.h>
-#include <sql.h>
+#include "stdafx.h"
 #include "DBConnection.h"
-#include <iostream>
 
 DBConnection::DBConnection()
 {
@@ -82,7 +80,6 @@ bool DBConnection::Init()
 bool DBConnection::Release()
 {
     // 핸들 해제
-    SQLFreeHandle(SQL_HANDLE_STMT, _h_stmt);
     SQLDisconnect(_h_dbc);
     SQLFreeHandle(SQL_HANDLE_DBC, _h_dbc);
     SQLFreeHandle(SQL_HANDLE_ENV, _h_env);
@@ -91,10 +88,13 @@ bool DBConnection::Release()
 
 bool DBConnection::TestQuery()
 {
+    SQLHSTMT stmt;
+
     // 쿼리 실행을 위한 문장 핸들 생성
-    if (SQL_ERROR == SQLAllocHandle(SQL_HANDLE_STMT, _h_dbc, &_h_stmt))
+    if (SQL_ERROR == SQLAllocHandle(SQL_HANDLE_STMT, _h_dbc, &stmt))
     {
-        PrintErrorMessage(SQL_HANDLE_STMT, _h_stmt);
+        PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+        //생성 못했으니 Free 해줄필요 없음.
         return false;
     }
 
@@ -102,10 +102,11 @@ bool DBConnection::TestQuery()
     SQLWCHAR sql[] = L"SELECT * FROM accountDB.dbo.account";
     //SQLWCHAR sql[] = L"SELECT * FROM GameDB.dbo.testtable; ";
 
-    SQLRETURN ret = SQLExecDirectW(_h_stmt, sql, SQL_NTS);
+    SQLRETURN ret = SQLExecDirectW(stmt, sql, SQL_NTS);
     if (ret == SQL_ERROR)
     {
-        PrintErrorMessage(SQL_HANDLE_STMT, _h_stmt);
+        PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+        SQLFreeHandle(SQL_HANDLE_STMT, stmt);
         return false;
     }
 
@@ -129,27 +130,31 @@ bool DBConnection::TestQuery()
 		//DATETIME, SMALLDATETIME   SQL_C_TYPE_TIMESTAMP
         //UNIQUEIDENTIFIER(16바이트) SQL_C_GUID
 
-        while (SQLFetch(_h_stmt) == SQL_SUCCESS) {
+        while (SQLFetch(stmt) == SQL_SUCCESS) {
             //SQLGetData(_h_stmt, 1, SQL_C_WCHAR, name, 50, NULL);
             //SQLGetData(_h_stmt, 2, SQL_C_LONG, &accuid, sizeof(age), NULL);
-            SQLGetData(_h_stmt, 1, SQL_C_SBIGINT, &accuid, sizeof(accuid), NULL);
-            SQLGetData(_h_stmt, 2, SQL_C_CHAR, id, sizeof(id), NULL);
-            SQLGetData(_h_stmt, 3, SQL_C_CHAR, pw, sizeof(pw), NULL);
+            SQLGetData(stmt, 1, SQL_C_SBIGINT, &accuid, sizeof(accuid), NULL);
+            SQLGetData(stmt, 2, SQL_C_CHAR, id, sizeof(id), NULL);
+            SQLGetData(stmt, 3, SQL_C_CHAR, pw, sizeof(pw), NULL);
 
             // 결과 출력
             std::cout << "inidata_uid:"<< accuid << " / id:" << id << " / pw:" << pw << "\n";
         }
 
     }
+
+    SQLFreeHandle(SQL_HANDLE_STMT, stmt);
     return true;
 }
 
 bool DBConnection::TestQuery2()
 {
+    SQLHSTMT stmt; 
     // 쿼리 실행을 위한 문장 핸들 생성
-    if (SQL_ERROR == SQLAllocHandle(SQL_HANDLE_STMT, _h_dbc, &_h_stmt))
+    if (SQL_ERROR == SQLAllocHandle(SQL_HANDLE_STMT, _h_dbc, &stmt))
     {
-        PrintErrorMessage(SQL_HANDLE_STMT, _h_stmt);
+        PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+        //생성 못했으니 Free 해줄필요 없음.
         return false;
     }
 
@@ -157,10 +162,11 @@ bool DBConnection::TestQuery2()
     //SQLWCHAR sql[] = L"SELECT * FROM account";
     SQLWCHAR sql[] = L"SELECT * FROM GameDB.dbo.testtable; ";
 
-    SQLRETURN ret = SQLExecDirectW(_h_stmt, sql, SQL_NTS);
+    SQLRETURN ret = SQLExecDirectW(stmt, sql, SQL_NTS);
     if (ret == SQL_ERROR)
     {
-        PrintErrorMessage(SQL_HANDLE_STMT, _h_stmt);
+        PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+        SQLFreeHandle(SQL_HANDLE_STMT, stmt);
         return false;
     }
 
@@ -169,17 +175,24 @@ bool DBConnection::TestQuery2()
         SQLVARCHAR test[50] = {};
 
 
-        while (SQLFetch(_h_stmt) == SQL_SUCCESS) {
+        while (SQLFetch(stmt) == SQL_SUCCESS) {
             //SQLGetData(_h_stmt, 1, SQL_C_WCHAR, name, 50, NULL);
             //SQLGetData(_h_stmt, 2, SQL_C_LONG, &accuid, sizeof(age), NULL);
-            SQLGetData(_h_stmt, 1, SQL_C_CHAR, test, sizeof(test), NULL);
+            SQLGetData(stmt, 1, SQL_C_CHAR, test, sizeof(test), NULL);
 
             // 결과 출력
             std::cout << "test:" << test << "\n";
         }
 
     }
+    SQLFreeHandle(SQL_HANDLE_STMT, stmt);
     return true;
+}
+
+bool DBConnection::TestQuery3(const std::string& id, const std::string& pw, int& out_uid, int& out_result_code)
+{
+    CallCheckAccountLogin(id, pw, out_uid, out_result_code);
+    return false;
 }
 
 void DBConnection::PrintErrorMessage(SQLSMALLINT handleType, SQLHANDLE handle)
@@ -221,5 +234,51 @@ void DBConnection::PrintErrorMessage(SQLSMALLINT handleType, SQLHANDLE handle)
 
         recNumber++;
     }
+}
+
+void DBConnection::CallCheckAccountLogin(const std::string& id, const std::string& pw, int& out_uid, int& out_result_code)
+{
+    SQLHSTMT stmt = nullptr;
+    SQLRETURN ret;
+
+    out_uid = -1;
+    out_result_code = 2;
+
+    ret = SQLAllocHandle(SQL_HANDLE_STMT, _h_dbc, &stmt);
+    if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+    {
+        PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+        //생성 못했으니 Free 해줄필요 없음.
+        return;
+    }
+
+    const char* sql = "{CALL accountdb.dbo.sp_CheckAccountLogin(?, ?, ?, ?)}";
+    ret = SQLPrepareA(stmt, (SQLCHAR*)sql, SQL_NTS);
+    if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+    {
+        PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+        SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+        return;
+    }
+    //SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_LONG, SQL_INTEGER, sizeof(ret), 0 & ret, 0, 0);
+    //SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_LONG, SQL_INTEGER, sizeof(prm), 0 & prm, 0, 0);
+
+    SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 20, 0, (SQLPOINTER)id.c_str(), 0, 0);
+    SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 30, 0, (SQLPOINTER)pw.c_str(), 0, 0);
+    SQLBindParameter(stmt, 3, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_uid), 0, &out_uid, 0, 0);
+    SQLBindParameter(stmt, 4, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_result_code), 0, &out_result_code, 0, 0);
+
+    ret = SQLExecute(stmt);
+   
+
+    if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+    {
+        PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+        SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+        //로그등..
+        return;
+    }
+   
+    SQLFreeHandle(SQL_HANDLE_STMT, stmt);
 }
 
