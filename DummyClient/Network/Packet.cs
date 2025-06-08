@@ -1,5 +1,4 @@
-﻿
-using System.Text;
+﻿using System.Text;
 
 namespace DummyClient
 {
@@ -65,7 +64,7 @@ namespace DummyClient
             //string data_message = Encoding.UTF8.GetString(buffer, 8, 128).TrimEnd('\0');
             string data_message = Encoding.UTF8.GetString(buffer, 8, 128).Split('\0')[0];
 
-            return new SCP_ECHO { number = data_number, message = data_message};
+            return new SCP_ECHO { number = data_number, message = data_message };
         }
     }
 }

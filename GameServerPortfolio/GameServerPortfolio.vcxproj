@@ -149,7 +149,9 @@
     <ClCompile Include="GameClient.cpp" />
     <ClCompile Include="GameClientAllocater.cpp" />
     <ClCompile Include="GameMap.cpp" />
-    <ClCompile Include="Generated\jhnet.pb.cc" />
+    <ClCompile Include="Generated\jhnet.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="IocpServer.cpp" />
     <ClCompile Include="Listener.cpp" />
     <ClCompile Include="LoginManager.cpp" />

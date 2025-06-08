@@ -6,7 +6,7 @@
 #include "ClientManager.h"
 #include "ObjectPool.h"
 #include "ClientAllocator.h"
-#include <google/protobuf/message.h>
+
 
 
 IocpServer::IocpServer()
@@ -36,13 +36,16 @@ bool IocpServer::ServerStart(std::shared_ptr<class ClientAllocator> allocater, i
 	WSADATA wsaData;
 	if (0 != WSAStartup(MAKEWORD(2, 2), &wsaData))
 	{
-		WSAError("WSAStartUp 오류!! >> ", ::WSAGetLastError());
+		WSAError("IOCP..Failed\nWSAStartUp 오류!! >> ", ::WSAGetLastError());
 		return false;
 	}
 
 	_listener = std::make_shared<Listener>();
 	if (_listener->Init(shared_from_this()) == false)
+	{
+		std::cerr << "IOCP..Failed\n";
 		return false;
+	}
 
 	if (!allocater)
 	{
@@ -71,16 +74,19 @@ bool IocpServer::ServerStart(std::shared_ptr<class ClientAllocator> allocater, i
 	GetSystemInfo(&sys_info);
 	//int threadCount = sys_info.dwNumberOfProcessors * 2;
 	int threadCount = 4;
+
+	std::cerr << "IOCP.. OK\n";
 	for (int i = 0; i < threadCount; ++i)
 	{
 		_worker_threads.emplace_back([iocp = shared_from_this()]() { 
-			//std::cerr << "WorkerThread On " << std::endl;
+			std::cerr << "WorkerThread On\n ";
 			while (true)
 			{
 				iocp->Run();
 			}
 		});
 	}
+	
 	return true;
 }
 

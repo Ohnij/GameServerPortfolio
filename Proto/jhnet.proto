@@ -92,6 +92,13 @@ message MyPlayerDetailInfo
 ////////////////////////////////////////////////////////
 
 //클라이언트 -> 서버
+message CSP_Ping
+{
+	uint32 number = 1;
+	uint64 timestamp = 2;
+}
+
+
 message CSP_Echo
 {
 	uint32 number = 1;
@@ -101,8 +108,8 @@ message CSP_Echo
 //로그인요청
 message CSP_Login
 {
-	string account_id =1;
-	string password =2;
+	string login_id =1;
+	string login_pw =2;
 }
 
 
@@ -134,6 +141,12 @@ message CSP_Move
 ////////////////////////////////////////////////////////
 
 //서버 -> 클라이언트
+message SCP_Ping
+{
+	uint32 number = 1;
+	uint64 timestamp = 2;
+}
+
 message SCP_Echo
 {
 	uint32 number =1;
@@ -145,7 +158,7 @@ message SCP_Login
 {
 	bool login_ok = 1;
 	string error_message =2;
-	//int account_uid 3; //아직은 클라이언트가 알필요가?
+	uint32 account_uid = 3;
 }
 
 //캐릭터 생성 응답

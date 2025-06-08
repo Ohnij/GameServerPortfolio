@@ -54,12 +54,39 @@ struct SCP_SelectCharResultDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCP_SelectCharResultDefaultTypeInternal _SCP_SelectCharResult_default_instance_;
 
+inline constexpr SCP_Ping::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : timestamp_{::uint64_t{0u}},
+        number_{0u},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SCP_Ping::SCP_Ping(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct SCP_PingDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SCP_PingDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SCP_PingDefaultTypeInternal() {}
+  union {
+    SCP_Ping _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCP_PingDefaultTypeInternal _SCP_Ping_default_instance_;
+
 inline constexpr SCP_Login::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : error_message_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         login_ok_{false},
+        account_uid_{0u},
         _cached_size_{0} {}
 
 template <typename>
@@ -249,6 +276,32 @@ struct CSP_SelectCharDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CSP_SelectCharDefaultTypeInternal _CSP_SelectChar_default_instance_;
+
+inline constexpr CSP_Ping::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : timestamp_{::uint64_t{0u}},
+        number_{0u},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR CSP_Ping::CSP_Ping(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct CSP_PingDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CSP_PingDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CSP_PingDefaultTypeInternal() {}
+  union {
+    CSP_Ping _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CSP_PingDefaultTypeInternal _CSP_Ping_default_instance_;
               template <typename>
 PROTOBUF_CONSTEXPR CSP_MapLoadEnd::CSP_MapLoadEnd(::_pbi::ConstantInitialized)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
@@ -270,10 +323,10 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr CSP_Login::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : account_id_(
+      : login_id_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
-        password_(
+        login_pw_(
             &::google::protobuf::internal::fixed_address_empty_string,
             ::_pbi::ConstantInitialized()),
         _cached_size_{0} {}
@@ -632,6 +685,16 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::jhnet::MyPlayerDetailInfo, _impl_.defense_),
         PROTOBUF_FIELD_OFFSET(::jhnet::MyPlayerDetailInfo, _impl_.gold_),
         ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Ping, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Ping, _impl_.number_),
+        PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Ping, _impl_.timestamp_),
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Echo, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -649,8 +712,8 @@ const ::uint32_t
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Login, _impl_.account_id_),
-        PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Login, _impl_.password_),
+        PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Login, _impl_.login_id_),
+        PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Login, _impl_.login_pw_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::jhnet::CSP_CreateChar, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -689,6 +752,16 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Move, _impl_.pos_info_),
         0,
         ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Ping, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Ping, _impl_.number_),
+        PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Ping, _impl_.timestamp_),
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Echo, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -708,6 +781,7 @@ const ::uint32_t
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Login, _impl_.login_ok_),
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Login, _impl_.error_message_),
+        PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Login, _impl_.account_uid_),
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_CreateChar, _impl_._has_bits_),
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_CreateChar, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -805,34 +879,38 @@ static const ::_pbi::MigrationSchema
         {11, -1, -1, sizeof(::jhnet::CharacterInfo)},
         {23, 36, -1, sizeof(::jhnet::PlayerInfo)},
         {41, -1, -1, sizeof(::jhnet::MyPlayerDetailInfo)},
-        {57, -1, -1, sizeof(::jhnet::CSP_Echo)},
-        {67, -1, -1, sizeof(::jhnet::CSP_Login)},
-        {77, -1, -1, sizeof(::jhnet::CSP_CreateChar)},
-        {87, -1, -1, sizeof(::jhnet::CSP_SelectChar)},
-        {96, -1, -1, sizeof(::jhnet::CSP_MapLoadEnd)},
-        {104, 113, -1, sizeof(::jhnet::CSP_Move)},
-        {114, -1, -1, sizeof(::jhnet::SCP_Echo)},
-        {124, -1, -1, sizeof(::jhnet::SCP_Login)},
-        {134, 145, -1, sizeof(::jhnet::SCP_CreateChar)},
-        {148, -1, -1, sizeof(::jhnet::SCP_CharList)},
-        {157, -1, -1, sizeof(::jhnet::SCP_SelectCharResult)},
-        {167, 178, -1, sizeof(::jhnet::SCP_MyCharacterInfo)},
-        {181, 191, -1, sizeof(::jhnet::SCP_EnterGame)},
-        {193, -1, -1, sizeof(::jhnet::SCP_Spawn)},
-        {202, -1, -1, sizeof(::jhnet::SCP_Despawn)},
-        {211, 221, -1, sizeof(::jhnet::SCP_Move)},
+        {57, -1, -1, sizeof(::jhnet::CSP_Ping)},
+        {67, -1, -1, sizeof(::jhnet::CSP_Echo)},
+        {77, -1, -1, sizeof(::jhnet::CSP_Login)},
+        {87, -1, -1, sizeof(::jhnet::CSP_CreateChar)},
+        {97, -1, -1, sizeof(::jhnet::CSP_SelectChar)},
+        {106, -1, -1, sizeof(::jhnet::CSP_MapLoadEnd)},
+        {114, 123, -1, sizeof(::jhnet::CSP_Move)},
+        {124, -1, -1, sizeof(::jhnet::SCP_Ping)},
+        {134, -1, -1, sizeof(::jhnet::SCP_Echo)},
+        {144, -1, -1, sizeof(::jhnet::SCP_Login)},
+        {155, 166, -1, sizeof(::jhnet::SCP_CreateChar)},
+        {169, -1, -1, sizeof(::jhnet::SCP_CharList)},
+        {178, -1, -1, sizeof(::jhnet::SCP_SelectCharResult)},
+        {188, 199, -1, sizeof(::jhnet::SCP_MyCharacterInfo)},
+        {202, 212, -1, sizeof(::jhnet::SCP_EnterGame)},
+        {214, -1, -1, sizeof(::jhnet::SCP_Spawn)},
+        {223, -1, -1, sizeof(::jhnet::SCP_Despawn)},
+        {232, 242, -1, sizeof(::jhnet::SCP_Move)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::jhnet::_PosInfo_default_instance_._instance,
     &::jhnet::_CharacterInfo_default_instance_._instance,
     &::jhnet::_PlayerInfo_default_instance_._instance,
     &::jhnet::_MyPlayerDetailInfo_default_instance_._instance,
+    &::jhnet::_CSP_Ping_default_instance_._instance,
     &::jhnet::_CSP_Echo_default_instance_._instance,
     &::jhnet::_CSP_Login_default_instance_._instance,
     &::jhnet::_CSP_CreateChar_default_instance_._instance,
     &::jhnet::_CSP_SelectChar_default_instance_._instance,
     &::jhnet::_CSP_MapLoadEnd_default_instance_._instance,
     &::jhnet::_CSP_Move_default_instance_._instance,
+    &::jhnet::_SCP_Ping_default_instance_._instance,
     &::jhnet::_SCP_Echo_default_instance_._instance,
     &::jhnet::_SCP_Login_default_instance_._instance,
     &::jhnet::_SCP_CreateChar_default_instance_._instance,
@@ -856,53 +934,55 @@ const char descriptor_table_protodef_jhnet_2eproto[] ABSL_ATTRIBUTE_SECTION_VARI
     "(\005\"\215\001\n\022MyPlayerDetailInfo\022\r\n\005level\030\001 \001(\005"
     "\022\020\n\010job_code\030\002 \001(\005\022\013\n\003exp\030\003 \001(\003\022\n\n\002hp\030\004 "
     "\001(\005\022\016\n\006max_hp\030\005 \001(\005\022\016\n\006damage\030\006 \001(\005\022\017\n\007d"
-    "efense\030\007 \001(\005\022\014\n\004gold\030\010 \001(\003\"+\n\010CSP_Echo\022\016"
-    "\n\006number\030\001 \001(\r\022\017\n\007message\030\002 \001(\t\"1\n\tCSP_L"
-    "ogin\022\022\n\naccount_id\030\001 \001(\t\022\020\n\010password\030\002 \001"
-    "(\t\"0\n\016CSP_CreateChar\022\014\n\004name\030\001 \001(\t\022\020\n\010jo"
-    "b_code\030\002 \001(\005\"\'\n\016CSP_SelectChar\022\025\n\rcharac"
-    "ter_uid\030\001 \001(\004\"\020\n\016CSP_MapLoadEnd\",\n\010CSP_M"
-    "ove\022 \n\010pos_info\030\001 \001(\0132\016.jhnet.PosInfo\"+\n"
-    "\010SCP_Echo\022\016\n\006number\030\001 \001(\r\022\017\n\007message\030\002 \001"
-    "(\t\"4\n\tSCP_Login\022\020\n\010login_ok\030\001 \001(\010\022\025\n\rerr"
-    "or_message\030\002 \001(\t\"f\n\016SCP_CreateChar\022\021\n\tcr"
-    "eate_ok\030\001 \001(\010\022\025\n\rerror_message\030\002 \001(\t\022*\n\014"
-    "created_char\030\003 \001(\0132\024.jhnet.CharacterInfo"
-    "\"8\n\014SCP_CharList\022(\n\ncharacters\030\001 \003(\0132\024.j"
-    "hnet.CharacterInfo\">\n\024SCP_SelectCharResu"
-    "lt\022\017\n\007success\030\001 \001(\010\022\025\n\rerror_message\030\002 \001"
-    "(\t\"\203\001\n\023SCP_MyCharacterInfo\022)\n\016my_player_"
-    "info\030\001 \001(\0132\021.jhnet.PlayerInfo\022\016\n\006map_id\030"
-    "\002 \001(\005\0221\n\016my_detail_info\030\003 \001(\0132\031.jhnet.My"
-    "PlayerDetailInfo\"X\n\rSCP_EnterGame\022#\n\013my_"
-    "pos_info\030\001 \001(\0132\016.jhnet.PosInfo\022\"\n\007player"
-    "s\030\002 \003(\0132\021.jhnet.PlayerInfo\"/\n\tSCP_Spawn\022"
-    "\"\n\007players\030\001 \003(\0132\021.jhnet.PlayerInfo\"#\n\013S"
-    "CP_Despawn\022\024\n\014field_unique\030\001 \003(\004\"B\n\010SCP_"
-    "Move\022\024\n\014field_unique\030\001 \001(\004\022 \n\010pos_info\030\002"
-    " \001(\0132\016.jhnet.PosInfo*\365\002\n\010PacketId\022\022\n\016PAC"
-    "KET_ID_NONE\020\000\022\r\n\010C2S_PING\020\351\007\022\r\n\010C2S_ECHO"
-    "\020\352\007\022\016\n\tC2S_LOGIN\020\353\007\022\024\n\017C2S_CREATE_CHAR\020\354"
-    "\007\022\024\n\017C2S_SELECT_CHAR\020\355\007\022\025\n\020C2S_MAP_LOAD_"
-    "END\020\356\007\022\r\n\010C2S_MOVE\020\357\007\022\r\n\010S2C_PING\020\321\017\022\r\n\010"
-    "S2C_ECHO\020\322\017\022\016\n\tS2C_LOGIN\020\323\017\022\022\n\rS2C_CHAR_"
-    "LIST\020\324\017\022\024\n\017S2C_CREATE_CHAR\020\325\017\022\033\n\026S2C_SEL"
-    "ECT_CHAR_RESULT\020\326\017\022\032\n\025S2C_MY_CHARACTER_I"
-    "NFO\020\327\017\022\023\n\016S2C_ENTER_GAME\020\330\017\022\016\n\tS2C_SPAWN"
-    "\020\331\017\022\020\n\013S2C_DESPAWN\020\332\017\022\r\n\010S2C_MOVE\020\333\017b\006pr"
-    "oto3"
+    "efense\030\007 \001(\005\022\014\n\004gold\030\010 \001(\003\"-\n\010CSP_Ping\022\016"
+    "\n\006number\030\001 \001(\r\022\021\n\ttimestamp\030\002 \001(\004\"+\n\010CSP"
+    "_Echo\022\016\n\006number\030\001 \001(\r\022\017\n\007message\030\002 \001(\t\"/"
+    "\n\tCSP_Login\022\020\n\010login_id\030\001 \001(\t\022\020\n\010login_p"
+    "w\030\002 \001(\t\"0\n\016CSP_CreateChar\022\014\n\004name\030\001 \001(\t\022"
+    "\020\n\010job_code\030\002 \001(\005\"\'\n\016CSP_SelectChar\022\025\n\rc"
+    "haracter_uid\030\001 \001(\004\"\020\n\016CSP_MapLoadEnd\",\n\010"
+    "CSP_Move\022 \n\010pos_info\030\001 \001(\0132\016.jhnet.PosIn"
+    "fo\"-\n\010SCP_Ping\022\016\n\006number\030\001 \001(\r\022\021\n\ttimest"
+    "amp\030\002 \001(\004\"+\n\010SCP_Echo\022\016\n\006number\030\001 \001(\r\022\017\n"
+    "\007message\030\002 \001(\t\"I\n\tSCP_Login\022\020\n\010login_ok\030"
+    "\001 \001(\010\022\025\n\rerror_message\030\002 \001(\t\022\023\n\013account_"
+    "uid\030\003 \001(\r\"f\n\016SCP_CreateChar\022\021\n\tcreate_ok"
+    "\030\001 \001(\010\022\025\n\rerror_message\030\002 \001(\t\022*\n\014created"
+    "_char\030\003 \001(\0132\024.jhnet.CharacterInfo\"8\n\014SCP"
+    "_CharList\022(\n\ncharacters\030\001 \003(\0132\024.jhnet.Ch"
+    "aracterInfo\">\n\024SCP_SelectCharResult\022\017\n\007s"
+    "uccess\030\001 \001(\010\022\025\n\rerror_message\030\002 \001(\t\"\203\001\n\023"
+    "SCP_MyCharacterInfo\022)\n\016my_player_info\030\001 "
+    "\001(\0132\021.jhnet.PlayerInfo\022\016\n\006map_id\030\002 \001(\005\0221"
+    "\n\016my_detail_info\030\003 \001(\0132\031.jhnet.MyPlayerD"
+    "etailInfo\"X\n\rSCP_EnterGame\022#\n\013my_pos_inf"
+    "o\030\001 \001(\0132\016.jhnet.PosInfo\022\"\n\007players\030\002 \003(\013"
+    "2\021.jhnet.PlayerInfo\"/\n\tSCP_Spawn\022\"\n\007play"
+    "ers\030\001 \003(\0132\021.jhnet.PlayerInfo\"#\n\013SCP_Desp"
+    "awn\022\024\n\014field_unique\030\001 \003(\004\"B\n\010SCP_Move\022\024\n"
+    "\014field_unique\030\001 \001(\004\022 \n\010pos_info\030\002 \001(\0132\016."
+    "jhnet.PosInfo*\365\002\n\010PacketId\022\022\n\016PACKET_ID_"
+    "NONE\020\000\022\r\n\010C2S_PING\020\351\007\022\r\n\010C2S_ECHO\020\352\007\022\016\n\t"
+    "C2S_LOGIN\020\353\007\022\024\n\017C2S_CREATE_CHAR\020\354\007\022\024\n\017C2"
+    "S_SELECT_CHAR\020\355\007\022\025\n\020C2S_MAP_LOAD_END\020\356\007\022"
+    "\r\n\010C2S_MOVE\020\357\007\022\r\n\010S2C_PING\020\321\017\022\r\n\010S2C_ECH"
+    "O\020\322\017\022\016\n\tS2C_LOGIN\020\323\017\022\022\n\rS2C_CHAR_LIST\020\324\017"
+    "\022\024\n\017S2C_CREATE_CHAR\020\325\017\022\033\n\026S2C_SELECT_CHA"
+    "R_RESULT\020\326\017\022\032\n\025S2C_MY_CHARACTER_INFO\020\327\017\022"
+    "\023\n\016S2C_ENTER_GAME\020\330\017\022\016\n\tS2C_SPAWN\020\331\017\022\020\n\013"
+    "S2C_DESPAWN\020\332\017\022\r\n\010S2C_MOVE\020\333\017b\006proto3"
 };
 static ::absl::once_flag descriptor_table_jhnet_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_jhnet_2eproto = {
     false,
     false,
-    1764,
+    1877,
     descriptor_table_protodef_jhnet_2eproto,
     "jhnet.proto",
     &descriptor_table_jhnet_2eproto_once,
     nullptr,
     0,
-    20,
+    22,
     schemas,
     file_default_instances,
     TableStruct_jhnet_2eproto::offsets,
@@ -2241,6 +2321,247 @@ void MyPlayerDetailInfo::InternalSwap(MyPlayerDetailInfo* PROTOBUF_RESTRICT othe
 }
 // ===================================================================
 
+class CSP_Ping::_Internal {
+ public:
+};
+
+CSP_Ping::CSP_Ping(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:jhnet.CSP_Ping)
+}
+CSP_Ping::CSP_Ping(
+    ::google::protobuf::Arena* arena, const CSP_Ping& from)
+    : CSP_Ping(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE CSP_Ping::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void CSP_Ping::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, timestamp_),
+           0,
+           offsetof(Impl_, number_) -
+               offsetof(Impl_, timestamp_) +
+               sizeof(Impl_::number_));
+}
+CSP_Ping::~CSP_Ping() {
+  // @@protoc_insertion_point(destructor:jhnet.CSP_Ping)
+  SharedDtor(*this);
+}
+inline void CSP_Ping::SharedDtor(MessageLite& self) {
+  CSP_Ping& this_ = static_cast<CSP_Ping&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.~Impl_();
+}
+
+inline void* CSP_Ping::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) CSP_Ping(arena);
+}
+constexpr auto CSP_Ping::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(CSP_Ping),
+                                            alignof(CSP_Ping));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull CSP_Ping::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_CSP_Ping_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &CSP_Ping::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<CSP_Ping>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &CSP_Ping::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<CSP_Ping>(), &CSP_Ping::ByteSizeLong,
+            &CSP_Ping::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(CSP_Ping, _impl_._cached_size_),
+        false,
+    },
+    &CSP_Ping::kDescriptorMethods,
+    &descriptor_table_jhnet_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* CSP_Ping::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> CSP_Ping::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::jhnet::CSP_Ping>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // uint64 timestamp = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(CSP_Ping, _impl_.timestamp_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(CSP_Ping, _impl_.timestamp_)}},
+    // uint32 number = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(CSP_Ping, _impl_.number_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(CSP_Ping, _impl_.number_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // uint32 number = 1;
+    {PROTOBUF_FIELD_OFFSET(CSP_Ping, _impl_.number_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    // uint64 timestamp = 2;
+    {PROTOBUF_FIELD_OFFSET(CSP_Ping, _impl_.timestamp_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void CSP_Ping::Clear() {
+// @@protoc_insertion_point(message_clear_start:jhnet.CSP_Ping)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.timestamp_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.number_) -
+      reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.number_));
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* CSP_Ping::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const CSP_Ping& this_ = static_cast<const CSP_Ping&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* CSP_Ping::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const CSP_Ping& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:jhnet.CSP_Ping)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // uint32 number = 1;
+          if (this_._internal_number() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+                1, this_._internal_number(), target);
+          }
+
+          // uint64 timestamp = 2;
+          if (this_._internal_timestamp() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+                2, this_._internal_timestamp(), target);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:jhnet.CSP_Ping)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t CSP_Ping::ByteSizeLong(const MessageLite& base) {
+          const CSP_Ping& this_ = static_cast<const CSP_Ping&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t CSP_Ping::ByteSizeLong() const {
+          const CSP_Ping& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:jhnet.CSP_Ping)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // uint64 timestamp = 2;
+            if (this_._internal_timestamp() != 0) {
+              total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+                  this_._internal_timestamp());
+            }
+            // uint32 number = 1;
+            if (this_._internal_number() != 0) {
+              total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+                  this_._internal_number());
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void CSP_Ping::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<CSP_Ping*>(&to_msg);
+  auto& from = static_cast<const CSP_Ping&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:jhnet.CSP_Ping)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_timestamp() != 0) {
+    _this->_impl_.timestamp_ = from._impl_.timestamp_;
+  }
+  if (from._internal_number() != 0) {
+    _this->_impl_.number_ = from._impl_.number_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CSP_Ping::CopyFrom(const CSP_Ping& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:jhnet.CSP_Ping)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void CSP_Ping::InternalSwap(CSP_Ping* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CSP_Ping, _impl_.number_)
+      + sizeof(CSP_Ping::_impl_.number_)
+      - PROTOBUF_FIELD_OFFSET(CSP_Ping, _impl_.timestamp_)>(
+          reinterpret_cast<char*>(&_impl_.timestamp_),
+          reinterpret_cast<char*>(&other->_impl_.timestamp_));
+}
+
+::google::protobuf::Metadata CSP_Ping::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
 class CSP_Echo::_Internal {
  public:
 };
@@ -2514,8 +2835,8 @@ CSP_Login::CSP_Login(::google::protobuf::Arena* arena)
 inline PROTOBUF_NDEBUG_INLINE CSP_Login::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from, const ::jhnet::CSP_Login& from_msg)
-      : account_id_(arena, from.account_id_),
-        password_(arena, from.password_),
+      : login_id_(arena, from.login_id_),
+        login_pw_(arena, from.login_pw_),
         _cached_size_{0} {}
 
 CSP_Login::CSP_Login(
@@ -2537,8 +2858,8 @@ CSP_Login::CSP_Login(
 inline PROTOBUF_NDEBUG_INLINE CSP_Login::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : account_id_(arena),
-        password_(arena),
+      : login_id_(arena),
+        login_pw_(arena),
         _cached_size_{0} {}
 
 inline void CSP_Login::SharedCtor(::_pb::Arena* arena) {
@@ -2552,8 +2873,8 @@ inline void CSP_Login::SharedDtor(MessageLite& self) {
   CSP_Login& this_ = static_cast<CSP_Login&>(self);
   this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   ABSL_DCHECK(this_.GetArena() == nullptr);
-  this_._impl_.account_id_.Destroy();
-  this_._impl_.password_.Destroy();
+  this_._impl_.login_id_.Destroy();
+  this_._impl_.login_pw_.Destroy();
   this_._impl_.~Impl_();
 }
 
@@ -2593,7 +2914,7 @@ const ::google::protobuf::internal::ClassData* CSP_Login::GetClassData() const {
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 42, 2> CSP_Login::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 0, 40, 2> CSP_Login::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -2611,28 +2932,28 @@ const ::_pbi::TcParseTable<1, 2, 0, 42, 2> CSP_Login::_table_ = {
     ::_pbi::TcParser::GetTable<::jhnet::CSP_Login>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // string password = 2;
+    // string login_pw = 2;
     {::_pbi::TcParser::FastUS1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(CSP_Login, _impl_.password_)}},
-    // string account_id = 1;
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(CSP_Login, _impl_.login_pw_)}},
+    // string login_id = 1;
     {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(CSP_Login, _impl_.account_id_)}},
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(CSP_Login, _impl_.login_id_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // string account_id = 1;
-    {PROTOBUF_FIELD_OFFSET(CSP_Login, _impl_.account_id_), 0, 0,
+    // string login_id = 1;
+    {PROTOBUF_FIELD_OFFSET(CSP_Login, _impl_.login_id_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // string password = 2;
-    {PROTOBUF_FIELD_OFFSET(CSP_Login, _impl_.password_), 0, 0,
+    // string login_pw = 2;
+    {PROTOBUF_FIELD_OFFSET(CSP_Login, _impl_.login_pw_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\17\12\10\0\0\0\0\0"
+    "\17\10\10\0\0\0\0\0"
     "jhnet.CSP_Login"
-    "account_id"
-    "password"
+    "login_id"
+    "login_pw"
   }},
 };
 
@@ -2643,8 +2964,8 @@ PROTOBUF_NOINLINE void CSP_Login::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.account_id_.ClearToEmpty();
-  _impl_.password_.ClearToEmpty();
+  _impl_.login_id_.ClearToEmpty();
+  _impl_.login_pw_.ClearToEmpty();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -2663,19 +2984,19 @@ PROTOBUF_NOINLINE void CSP_Login::Clear() {
           ::uint32_t cached_has_bits = 0;
           (void)cached_has_bits;
 
-          // string account_id = 1;
-          if (!this_._internal_account_id().empty()) {
-            const std::string& _s = this_._internal_account_id();
+          // string login_id = 1;
+          if (!this_._internal_login_id().empty()) {
+            const std::string& _s = this_._internal_login_id();
             ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "jhnet.CSP_Login.account_id");
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "jhnet.CSP_Login.login_id");
             target = stream->WriteStringMaybeAliased(1, _s, target);
           }
 
-          // string password = 2;
-          if (!this_._internal_password().empty()) {
-            const std::string& _s = this_._internal_password();
+          // string login_pw = 2;
+          if (!this_._internal_login_pw().empty()) {
+            const std::string& _s = this_._internal_login_pw();
             ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "jhnet.CSP_Login.password");
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "jhnet.CSP_Login.login_pw");
             target = stream->WriteStringMaybeAliased(2, _s, target);
           }
 
@@ -2704,15 +3025,15 @@ PROTOBUF_NOINLINE void CSP_Login::Clear() {
 
           ::_pbi::Prefetch5LinesFrom7Lines(&this_);
            {
-            // string account_id = 1;
-            if (!this_._internal_account_id().empty()) {
+            // string login_id = 1;
+            if (!this_._internal_login_id().empty()) {
               total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                              this_._internal_account_id());
+                                              this_._internal_login_id());
             }
-            // string password = 2;
-            if (!this_._internal_password().empty()) {
+            // string login_pw = 2;
+            if (!this_._internal_login_pw().empty()) {
               total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                              this_._internal_password());
+                                              this_._internal_login_pw());
             }
           }
           return this_.MaybeComputeUnknownFieldsSize(total_size,
@@ -2727,11 +3048,11 @@ void CSP_Login::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::googl
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (!from._internal_account_id().empty()) {
-    _this->_internal_set_account_id(from._internal_account_id());
+  if (!from._internal_login_id().empty()) {
+    _this->_internal_set_login_id(from._internal_login_id());
   }
-  if (!from._internal_password().empty()) {
-    _this->_internal_set_password(from._internal_password());
+  if (!from._internal_login_pw().empty()) {
+    _this->_internal_set_login_pw(from._internal_login_pw());
   }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
@@ -2749,8 +3070,8 @@ void CSP_Login::InternalSwap(CSP_Login* PROTOBUF_RESTRICT other) {
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.account_id_, &other->_impl_.account_id_, arena);
-  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.password_, &other->_impl_.password_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.login_id_, &other->_impl_.login_id_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.login_pw_, &other->_impl_.login_pw_, arena);
 }
 
 ::google::protobuf::Metadata CSP_Login::GetMetadata() const {
@@ -3575,6 +3896,247 @@ void CSP_Move::InternalSwap(CSP_Move* PROTOBUF_RESTRICT other) {
 }
 // ===================================================================
 
+class SCP_Ping::_Internal {
+ public:
+};
+
+SCP_Ping::SCP_Ping(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:jhnet.SCP_Ping)
+}
+SCP_Ping::SCP_Ping(
+    ::google::protobuf::Arena* arena, const SCP_Ping& from)
+    : SCP_Ping(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE SCP_Ping::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void SCP_Ping::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, timestamp_),
+           0,
+           offsetof(Impl_, number_) -
+               offsetof(Impl_, timestamp_) +
+               sizeof(Impl_::number_));
+}
+SCP_Ping::~SCP_Ping() {
+  // @@protoc_insertion_point(destructor:jhnet.SCP_Ping)
+  SharedDtor(*this);
+}
+inline void SCP_Ping::SharedDtor(MessageLite& self) {
+  SCP_Ping& this_ = static_cast<SCP_Ping&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.~Impl_();
+}
+
+inline void* SCP_Ping::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) SCP_Ping(arena);
+}
+constexpr auto SCP_Ping::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(SCP_Ping),
+                                            alignof(SCP_Ping));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull SCP_Ping::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_SCP_Ping_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &SCP_Ping::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<SCP_Ping>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &SCP_Ping::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<SCP_Ping>(), &SCP_Ping::ByteSizeLong,
+            &SCP_Ping::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(SCP_Ping, _impl_._cached_size_),
+        false,
+    },
+    &SCP_Ping::kDescriptorMethods,
+    &descriptor_table_jhnet_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* SCP_Ping::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> SCP_Ping::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::jhnet::SCP_Ping>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // uint64 timestamp = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(SCP_Ping, _impl_.timestamp_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(SCP_Ping, _impl_.timestamp_)}},
+    // uint32 number = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(SCP_Ping, _impl_.number_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SCP_Ping, _impl_.number_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // uint32 number = 1;
+    {PROTOBUF_FIELD_OFFSET(SCP_Ping, _impl_.number_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    // uint64 timestamp = 2;
+    {PROTOBUF_FIELD_OFFSET(SCP_Ping, _impl_.timestamp_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void SCP_Ping::Clear() {
+// @@protoc_insertion_point(message_clear_start:jhnet.SCP_Ping)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&_impl_.timestamp_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.number_) -
+      reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.number_));
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* SCP_Ping::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const SCP_Ping& this_ = static_cast<const SCP_Ping&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* SCP_Ping::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const SCP_Ping& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:jhnet.SCP_Ping)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // uint32 number = 1;
+          if (this_._internal_number() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+                1, this_._internal_number(), target);
+          }
+
+          // uint64 timestamp = 2;
+          if (this_._internal_timestamp() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+                2, this_._internal_timestamp(), target);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:jhnet.SCP_Ping)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t SCP_Ping::ByteSizeLong(const MessageLite& base) {
+          const SCP_Ping& this_ = static_cast<const SCP_Ping&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t SCP_Ping::ByteSizeLong() const {
+          const SCP_Ping& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:jhnet.SCP_Ping)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // uint64 timestamp = 2;
+            if (this_._internal_timestamp() != 0) {
+              total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+                  this_._internal_timestamp());
+            }
+            // uint32 number = 1;
+            if (this_._internal_number() != 0) {
+              total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+                  this_._internal_number());
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void SCP_Ping::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<SCP_Ping*>(&to_msg);
+  auto& from = static_cast<const SCP_Ping&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:jhnet.SCP_Ping)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_timestamp() != 0) {
+    _this->_impl_.timestamp_ = from._impl_.timestamp_;
+  }
+  if (from._internal_number() != 0) {
+    _this->_impl_.number_ = from._impl_.number_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void SCP_Ping::CopyFrom(const SCP_Ping& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:jhnet.SCP_Ping)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void SCP_Ping::InternalSwap(SCP_Ping* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SCP_Ping, _impl_.number_)
+      + sizeof(SCP_Ping::_impl_.number_)
+      - PROTOBUF_FIELD_OFFSET(SCP_Ping, _impl_.timestamp_)>(
+          reinterpret_cast<char*>(&_impl_.timestamp_),
+          reinterpret_cast<char*>(&other->_impl_.timestamp_));
+}
+
+::google::protobuf::Metadata SCP_Ping::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
 class SCP_Echo::_Internal {
  public:
 };
@@ -3864,7 +4426,13 @@ SCP_Login::SCP_Login(
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-  _impl_.login_ok_ = from._impl_.login_ok_;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, login_ok_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, login_ok_),
+           offsetof(Impl_, account_uid_) -
+               offsetof(Impl_, login_ok_) +
+               sizeof(Impl_::account_uid_));
 
   // @@protoc_insertion_point(copy_constructor:jhnet.SCP_Login)
 }
@@ -3876,7 +4444,12 @@ inline PROTOBUF_NDEBUG_INLINE SCP_Login::Impl_::Impl_(
 
 inline void SCP_Login::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.login_ok_ = {};
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, login_ok_),
+           0,
+           offsetof(Impl_, account_uid_) -
+               offsetof(Impl_, login_ok_) +
+               sizeof(Impl_::account_uid_));
 }
 SCP_Login::~SCP_Login() {
   // @@protoc_insertion_point(destructor:jhnet.SCP_Login)
@@ -3926,15 +4499,15 @@ const ::google::protobuf::internal::ClassData* SCP_Login::GetClassData() const {
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 0, 37, 2> SCP_Login::_table_ = {
+const ::_pbi::TcParseTable<2, 3, 0, 37, 2> SCP_Login::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
+    3, 24,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
+    4294967288,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
+    3,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     _class_data_.base(),
@@ -3944,12 +4517,16 @@ const ::_pbi::TcParseTable<1, 2, 0, 37, 2> SCP_Login::_table_ = {
     ::_pbi::TcParser::GetTable<::jhnet::SCP_Login>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // string error_message = 2;
-    {::_pbi::TcParser::FastUS1,
-     {18, 63, 0, PROTOBUF_FIELD_OFFSET(SCP_Login, _impl_.error_message_)}},
+    {::_pbi::TcParser::MiniParse, {}},
     // bool login_ok = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(SCP_Login, _impl_.login_ok_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(SCP_Login, _impl_.login_ok_)}},
+    // string error_message = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(SCP_Login, _impl_.error_message_)}},
+    // uint32 account_uid = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(SCP_Login, _impl_.account_uid_), 63>(),
+     {24, 63, 0, PROTOBUF_FIELD_OFFSET(SCP_Login, _impl_.account_uid_)}},
   }}, {{
     65535, 65535
   }}, {{
@@ -3959,6 +4536,9 @@ const ::_pbi::TcParseTable<1, 2, 0, 37, 2> SCP_Login::_table_ = {
     // string error_message = 2;
     {PROTOBUF_FIELD_OFFSET(SCP_Login, _impl_.error_message_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // uint32 account_uid = 3;
+    {PROTOBUF_FIELD_OFFSET(SCP_Login, _impl_.account_uid_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
   }},
   // no aux_entries
   {{
@@ -3976,7 +4556,9 @@ PROTOBUF_NOINLINE void SCP_Login::Clear() {
   (void) cached_has_bits;
 
   _impl_.error_message_.ClearToEmpty();
-  _impl_.login_ok_ = false;
+  ::memset(&_impl_.login_ok_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.account_uid_) -
+      reinterpret_cast<char*>(&_impl_.login_ok_)) + sizeof(_impl_.account_uid_));
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -4008,6 +4590,13 @@ PROTOBUF_NOINLINE void SCP_Login::Clear() {
             ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
                 _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "jhnet.SCP_Login.error_message");
             target = stream->WriteStringMaybeAliased(2, _s, target);
+          }
+
+          // uint32 account_uid = 3;
+          if (this_._internal_account_uid() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+                3, this_._internal_account_uid(), target);
           }
 
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
@@ -4044,6 +4633,11 @@ PROTOBUF_NOINLINE void SCP_Login::Clear() {
             if (this_._internal_login_ok() != 0) {
               total_size += 2;
             }
+            // uint32 account_uid = 3;
+            if (this_._internal_account_uid() != 0) {
+              total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+                  this_._internal_account_uid());
+            }
           }
           return this_.MaybeComputeUnknownFieldsSize(total_size,
                                                      &this_._impl_._cached_size_);
@@ -4063,6 +4657,9 @@ void SCP_Login::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::googl
   if (from._internal_login_ok() != 0) {
     _this->_impl_.login_ok_ = from._impl_.login_ok_;
   }
+  if (from._internal_account_uid() != 0) {
+    _this->_impl_.account_uid_ = from._impl_.account_uid_;
+  }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -4080,7 +4677,12 @@ void SCP_Login::InternalSwap(SCP_Login* PROTOBUF_RESTRICT other) {
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.error_message_, &other->_impl_.error_message_, arena);
-        swap(_impl_.login_ok_, other->_impl_.login_ok_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SCP_Login, _impl_.account_uid_)
+      + sizeof(SCP_Login::_impl_.account_uid_)
+      - PROTOBUF_FIELD_OFFSET(SCP_Login, _impl_.login_ok_)>(
+          reinterpret_cast<char*>(&_impl_.login_ok_),
+          reinterpret_cast<char*>(&other->_impl_.login_ok_));
 }
 
 ::google::protobuf::Metadata SCP_Login::GetMetadata() const {

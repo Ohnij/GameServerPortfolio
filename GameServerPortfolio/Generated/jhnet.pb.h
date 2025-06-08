@@ -69,6 +69,9 @@ extern CSP_MapLoadEndDefaultTypeInternal _CSP_MapLoadEnd_default_instance_;
 class CSP_Move;
 struct CSP_MoveDefaultTypeInternal;
 extern CSP_MoveDefaultTypeInternal _CSP_Move_default_instance_;
+class CSP_Ping;
+struct CSP_PingDefaultTypeInternal;
+extern CSP_PingDefaultTypeInternal _CSP_Ping_default_instance_;
 class CSP_SelectChar;
 struct CSP_SelectCharDefaultTypeInternal;
 extern CSP_SelectCharDefaultTypeInternal _CSP_SelectChar_default_instance_;
@@ -108,6 +111,9 @@ extern SCP_MoveDefaultTypeInternal _SCP_Move_default_instance_;
 class SCP_MyCharacterInfo;
 struct SCP_MyCharacterInfoDefaultTypeInternal;
 extern SCP_MyCharacterInfoDefaultTypeInternal _SCP_MyCharacterInfo_default_instance_;
+class SCP_Ping;
+struct SCP_PingDefaultTypeInternal;
+extern SCP_PingDefaultTypeInternal _SCP_Ping_default_instance_;
 class SCP_SelectCharResult;
 struct SCP_SelectCharResultDefaultTypeInternal;
 extern SCP_SelectCharResultDefaultTypeInternal _SCP_SelectCharResult_default_instance_;
@@ -230,7 +236,7 @@ class SCP_SelectCharResult final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_SelectCharResult*>(
         &_SCP_SelectCharResult_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 14;
+  static constexpr int kIndexInFileMessages = 16;
   friend void swap(SCP_SelectCharResult& a, SCP_SelectCharResult& b) { a.Swap(&b); }
   inline void Swap(SCP_SelectCharResult* other) {
     if (other == this) return;
@@ -379,6 +385,208 @@ class SCP_SelectCharResult final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
+class SCP_Ping final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:jhnet.SCP_Ping) */ {
+ public:
+  inline SCP_Ping() : SCP_Ping(nullptr) {}
+  ~SCP_Ping() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(SCP_Ping* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(SCP_Ping));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR SCP_Ping(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline SCP_Ping(const SCP_Ping& from) : SCP_Ping(nullptr, from) {}
+  inline SCP_Ping(SCP_Ping&& from) noexcept
+      : SCP_Ping(nullptr, std::move(from)) {}
+  inline SCP_Ping& operator=(const SCP_Ping& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SCP_Ping& operator=(SCP_Ping&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SCP_Ping& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SCP_Ping* internal_default_instance() {
+    return reinterpret_cast<const SCP_Ping*>(
+        &_SCP_Ping_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 11;
+  friend void swap(SCP_Ping& a, SCP_Ping& b) { a.Swap(&b); }
+  inline void Swap(SCP_Ping* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SCP_Ping* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SCP_Ping* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<SCP_Ping>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const SCP_Ping& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const SCP_Ping& from) { SCP_Ping::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(SCP_Ping* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "jhnet.SCP_Ping"; }
+
+ protected:
+  explicit SCP_Ping(::google::protobuf::Arena* arena);
+  SCP_Ping(::google::protobuf::Arena* arena, const SCP_Ping& from);
+  SCP_Ping(::google::protobuf::Arena* arena, SCP_Ping&& from) noexcept
+      : SCP_Ping(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kTimestampFieldNumber = 2,
+    kNumberFieldNumber = 1,
+  };
+  // uint64 timestamp = 2;
+  void clear_timestamp() ;
+  ::uint64_t timestamp() const;
+  void set_timestamp(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_timestamp() const;
+  void _internal_set_timestamp(::uint64_t value);
+
+  public:
+  // uint32 number = 1;
+  void clear_number() ;
+  ::uint32_t number() const;
+  void set_number(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_number() const;
+  void _internal_set_number(::uint32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:jhnet.SCP_Ping)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const SCP_Ping& from_msg);
+    ::uint64_t timestamp_;
+    ::uint32_t number_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_jhnet_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SCP_Login final : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:jhnet.SCP_Login) */ {
  public:
@@ -438,7 +646,7 @@ class SCP_Login final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Login*>(
         &_SCP_Login_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 11;
+  static constexpr int kIndexInFileMessages = 13;
   friend void swap(SCP_Login& a, SCP_Login& b) { a.Swap(&b); }
   inline void Swap(SCP_Login* other) {
     if (other == this) return;
@@ -527,6 +735,7 @@ class SCP_Login final : public ::google::protobuf::Message
   enum : int {
     kErrorMessageFieldNumber = 2,
     kLoginOkFieldNumber = 1,
+    kAccountUidFieldNumber = 3,
   };
   // string error_message = 2;
   void clear_error_message() ;
@@ -554,12 +763,22 @@ class SCP_Login final : public ::google::protobuf::Message
   void _internal_set_login_ok(bool value);
 
   public:
+  // uint32 account_uid = 3;
+  void clear_account_uid() ;
+  ::uint32_t account_uid() const;
+  void set_account_uid(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_account_uid() const;
+  void _internal_set_account_uid(::uint32_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:jhnet.SCP_Login)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 0,
+      2, 3, 0,
       37, 2>
       _table_;
 
@@ -579,6 +798,7 @@ class SCP_Login final : public ::google::protobuf::Message
                           const SCP_Login& from_msg);
     ::google::protobuf::internal::ArenaStringPtr error_message_;
     bool login_ok_;
+    ::uint32_t account_uid_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -646,7 +866,7 @@ class SCP_Echo final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Echo*>(
         &_SCP_Echo_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 10;
+  static constexpr int kIndexInFileMessages = 12;
   friend void swap(SCP_Echo& a, SCP_Echo& b) { a.Swap(&b); }
   inline void Swap(SCP_Echo* other) {
     if (other == this) return;
@@ -854,7 +1074,7 @@ class SCP_Despawn final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Despawn*>(
         &_SCP_Despawn_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 18;
+  static constexpr int kIndexInFileMessages = 20;
   friend void swap(SCP_Despawn& a, SCP_Despawn& b) { a.Swap(&b); }
   inline void Swap(SCP_Despawn* other) {
     if (other == this) return;
@@ -1773,7 +1993,7 @@ class CSP_SelectChar final : public ::google::protobuf::Message
     return reinterpret_cast<const CSP_SelectChar*>(
         &_CSP_SelectChar_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 7;
+  static constexpr int kIndexInFileMessages = 8;
   friend void swap(CSP_SelectChar& a, CSP_SelectChar& b) { a.Swap(&b); }
   inline void Swap(CSP_SelectChar* other) {
     if (other == this) return;
@@ -1904,6 +2124,208 @@ class CSP_SelectChar final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
+class CSP_Ping final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:jhnet.CSP_Ping) */ {
+ public:
+  inline CSP_Ping() : CSP_Ping(nullptr) {}
+  ~CSP_Ping() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(CSP_Ping* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(CSP_Ping));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR CSP_Ping(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline CSP_Ping(const CSP_Ping& from) : CSP_Ping(nullptr, from) {}
+  inline CSP_Ping(CSP_Ping&& from) noexcept
+      : CSP_Ping(nullptr, std::move(from)) {}
+  inline CSP_Ping& operator=(const CSP_Ping& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CSP_Ping& operator=(CSP_Ping&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CSP_Ping& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CSP_Ping* internal_default_instance() {
+    return reinterpret_cast<const CSP_Ping*>(
+        &_CSP_Ping_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 4;
+  friend void swap(CSP_Ping& a, CSP_Ping& b) { a.Swap(&b); }
+  inline void Swap(CSP_Ping* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CSP_Ping* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CSP_Ping* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<CSP_Ping>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const CSP_Ping& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const CSP_Ping& from) { CSP_Ping::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(CSP_Ping* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "jhnet.CSP_Ping"; }
+
+ protected:
+  explicit CSP_Ping(::google::protobuf::Arena* arena);
+  CSP_Ping(::google::protobuf::Arena* arena, const CSP_Ping& from);
+  CSP_Ping(::google::protobuf::Arena* arena, CSP_Ping&& from) noexcept
+      : CSP_Ping(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kTimestampFieldNumber = 2,
+    kNumberFieldNumber = 1,
+  };
+  // uint64 timestamp = 2;
+  void clear_timestamp() ;
+  ::uint64_t timestamp() const;
+  void set_timestamp(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_timestamp() const;
+  void _internal_set_timestamp(::uint64_t value);
+
+  public:
+  // uint32 number = 1;
+  void clear_number() ;
+  ::uint32_t number() const;
+  void set_number(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_number() const;
+  void _internal_set_number(::uint32_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:jhnet.CSP_Ping)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const CSP_Ping& from_msg);
+    ::uint64_t timestamp_;
+    ::uint32_t number_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_jhnet_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CSP_MapLoadEnd final : public ::google::protobuf::internal::ZeroFieldsBase
 /* @@protoc_insertion_point(class_definition:jhnet.CSP_MapLoadEnd) */ {
  public:
@@ -1962,7 +2384,7 @@ class CSP_MapLoadEnd final : public ::google::protobuf::internal::ZeroFieldsBase
     return reinterpret_cast<const CSP_MapLoadEnd*>(
         &_CSP_MapLoadEnd_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 8;
+  static constexpr int kIndexInFileMessages = 9;
   friend void swap(CSP_MapLoadEnd& a, CSP_MapLoadEnd& b) { a.Swap(&b); }
   inline void Swap(CSP_MapLoadEnd* other) {
     if (other == this) return;
@@ -2108,7 +2530,7 @@ class CSP_Login final : public ::google::protobuf::Message
     return reinterpret_cast<const CSP_Login*>(
         &_CSP_Login_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 5;
+  static constexpr int kIndexInFileMessages = 6;
   friend void swap(CSP_Login& a, CSP_Login& b) { a.Swap(&b); }
   inline void Swap(CSP_Login* other) {
     if (other == this) return;
@@ -2195,39 +2617,39 @@ class CSP_Login final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kAccountIdFieldNumber = 1,
-    kPasswordFieldNumber = 2,
+    kLoginIdFieldNumber = 1,
+    kLoginPwFieldNumber = 2,
   };
-  // string account_id = 1;
-  void clear_account_id() ;
-  const std::string& account_id() const;
+  // string login_id = 1;
+  void clear_login_id() ;
+  const std::string& login_id() const;
   template <typename Arg_ = const std::string&, typename... Args_>
-  void set_account_id(Arg_&& arg, Args_... args);
-  std::string* mutable_account_id();
-  PROTOBUF_NODISCARD std::string* release_account_id();
-  void set_allocated_account_id(std::string* value);
+  void set_login_id(Arg_&& arg, Args_... args);
+  std::string* mutable_login_id();
+  PROTOBUF_NODISCARD std::string* release_login_id();
+  void set_allocated_login_id(std::string* value);
 
   private:
-  const std::string& _internal_account_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_account_id(
+  const std::string& _internal_login_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_login_id(
       const std::string& value);
-  std::string* _internal_mutable_account_id();
+  std::string* _internal_mutable_login_id();
 
   public:
-  // string password = 2;
-  void clear_password() ;
-  const std::string& password() const;
+  // string login_pw = 2;
+  void clear_login_pw() ;
+  const std::string& login_pw() const;
   template <typename Arg_ = const std::string&, typename... Args_>
-  void set_password(Arg_&& arg, Args_... args);
-  std::string* mutable_password();
-  PROTOBUF_NODISCARD std::string* release_password();
-  void set_allocated_password(std::string* value);
+  void set_login_pw(Arg_&& arg, Args_... args);
+  std::string* mutable_login_pw();
+  PROTOBUF_NODISCARD std::string* release_login_pw();
+  void set_allocated_login_pw(std::string* value);
 
   private:
-  const std::string& _internal_password() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_password(
+  const std::string& _internal_login_pw() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_login_pw(
       const std::string& value);
-  std::string* _internal_mutable_password();
+  std::string* _internal_mutable_login_pw();
 
   public:
   // @@protoc_insertion_point(class_scope:jhnet.CSP_Login)
@@ -2236,7 +2658,7 @@ class CSP_Login final : public ::google::protobuf::Message
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
       1, 2, 0,
-      42, 2>
+      40, 2>
       _table_;
 
   friend class ::google::protobuf::MessageLite;
@@ -2253,8 +2675,8 @@ class CSP_Login final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const CSP_Login& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr account_id_;
-    ::google::protobuf::internal::ArenaStringPtr password_;
+    ::google::protobuf::internal::ArenaStringPtr login_id_;
+    ::google::protobuf::internal::ArenaStringPtr login_pw_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -2322,7 +2744,7 @@ class CSP_Echo final : public ::google::protobuf::Message
     return reinterpret_cast<const CSP_Echo*>(
         &_CSP_Echo_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 4;
+  static constexpr int kIndexInFileMessages = 5;
   friend void swap(CSP_Echo& a, CSP_Echo& b) { a.Swap(&b); }
   inline void Swap(CSP_Echo* other) {
     if (other == this) return;
@@ -2530,7 +2952,7 @@ class CSP_CreateChar final : public ::google::protobuf::Message
     return reinterpret_cast<const CSP_CreateChar*>(
         &_CSP_CreateChar_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 6;
+  static constexpr int kIndexInFileMessages = 7;
   friend void swap(CSP_CreateChar& a, CSP_CreateChar& b) { a.Swap(&b); }
   inline void Swap(CSP_CreateChar* other) {
     if (other == this) return;
@@ -2738,7 +3160,7 @@ class SCP_Move final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Move*>(
         &_SCP_Move_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 19;
+  static constexpr int kIndexInFileMessages = 21;
   friend void swap(SCP_Move& a, SCP_Move& b) { a.Swap(&b); }
   inline void Swap(SCP_Move* other) {
     if (other == this) return;
@@ -2946,7 +3368,7 @@ class SCP_CreateChar final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_CreateChar*>(
         &_SCP_CreateChar_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 12;
+  static constexpr int kIndexInFileMessages = 14;
   friend void swap(SCP_CreateChar& a, SCP_CreateChar& b) { a.Swap(&b); }
   inline void Swap(SCP_CreateChar* other) {
     if (other == this) return;
@@ -3172,7 +3594,7 @@ class SCP_CharList final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_CharList*>(
         &_SCP_CharList_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 13;
+  static constexpr int kIndexInFileMessages = 15;
   friend void swap(SCP_CharList& a, SCP_CharList& b) { a.Swap(&b); }
   inline void Swap(SCP_CharList* other) {
     if (other == this) return;
@@ -3619,7 +4041,7 @@ class CSP_Move final : public ::google::protobuf::Message
     return reinterpret_cast<const CSP_Move*>(
         &_CSP_Move_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 9;
+  static constexpr int kIndexInFileMessages = 10;
   friend void swap(CSP_Move& a, CSP_Move& b) { a.Swap(&b); }
   inline void Swap(CSP_Move* other) {
     if (other == this) return;
@@ -3815,7 +4237,7 @@ class SCP_Spawn final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Spawn*>(
         &_SCP_Spawn_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 17;
+  static constexpr int kIndexInFileMessages = 19;
   friend void swap(SCP_Spawn& a, SCP_Spawn& b) { a.Swap(&b); }
   inline void Swap(SCP_Spawn* other) {
     if (other == this) return;
@@ -4012,7 +4434,7 @@ class SCP_MyCharacterInfo final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_MyCharacterInfo*>(
         &_SCP_MyCharacterInfo_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 15;
+  static constexpr int kIndexInFileMessages = 17;
   friend void swap(SCP_MyCharacterInfo& a, SCP_MyCharacterInfo& b) { a.Swap(&b); }
   inline void Swap(SCP_MyCharacterInfo* other) {
     if (other == this) return;
@@ -4237,7 +4659,7 @@ class SCP_EnterGame final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_EnterGame*>(
         &_SCP_EnterGame_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 16;
+  static constexpr int kIndexInFileMessages = 18;
   friend void swap(SCP_EnterGame& a, SCP_EnterGame& b) { a.Swap(&b); }
   inline void Swap(SCP_EnterGame* other) {
     if (other == this) return;
@@ -4988,6 +5410,54 @@ inline void MyPlayerDetailInfo::_internal_set_gold(::int64_t value) {
 
 // -------------------------------------------------------------------
 
+// CSP_Ping
+
+// uint32 number = 1;
+inline void CSP_Ping::clear_number() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.number_ = 0u;
+}
+inline ::uint32_t CSP_Ping::number() const {
+  // @@protoc_insertion_point(field_get:jhnet.CSP_Ping.number)
+  return _internal_number();
+}
+inline void CSP_Ping::set_number(::uint32_t value) {
+  _internal_set_number(value);
+  // @@protoc_insertion_point(field_set:jhnet.CSP_Ping.number)
+}
+inline ::uint32_t CSP_Ping::_internal_number() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.number_;
+}
+inline void CSP_Ping::_internal_set_number(::uint32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.number_ = value;
+}
+
+// uint64 timestamp = 2;
+inline void CSP_Ping::clear_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.timestamp_ = ::uint64_t{0u};
+}
+inline ::uint64_t CSP_Ping::timestamp() const {
+  // @@protoc_insertion_point(field_get:jhnet.CSP_Ping.timestamp)
+  return _internal_timestamp();
+}
+inline void CSP_Ping::set_timestamp(::uint64_t value) {
+  _internal_set_timestamp(value);
+  // @@protoc_insertion_point(field_set:jhnet.CSP_Ping.timestamp)
+}
+inline ::uint64_t CSP_Ping::_internal_timestamp() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.timestamp_;
+}
+inline void CSP_Ping::_internal_set_timestamp(::uint64_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.timestamp_ = value;
+}
+
+// -------------------------------------------------------------------
+
 // CSP_Echo
 
 // uint32 number = 1;
@@ -5064,100 +5534,100 @@ inline void CSP_Echo::set_allocated_message(std::string* value) {
 
 // CSP_Login
 
-// string account_id = 1;
-inline void CSP_Login::clear_account_id() {
+// string login_id = 1;
+inline void CSP_Login::clear_login_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.account_id_.ClearToEmpty();
+  _impl_.login_id_.ClearToEmpty();
 }
-inline const std::string& CSP_Login::account_id() const
+inline const std::string& CSP_Login::login_id() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:jhnet.CSP_Login.account_id)
-  return _internal_account_id();
+  // @@protoc_insertion_point(field_get:jhnet.CSP_Login.login_id)
+  return _internal_login_id();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void CSP_Login::set_account_id(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void CSP_Login::set_login_id(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.account_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:jhnet.CSP_Login.account_id)
+  _impl_.login_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:jhnet.CSP_Login.login_id)
 }
-inline std::string* CSP_Login::mutable_account_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_account_id();
-  // @@protoc_insertion_point(field_mutable:jhnet.CSP_Login.account_id)
+inline std::string* CSP_Login::mutable_login_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_login_id();
+  // @@protoc_insertion_point(field_mutable:jhnet.CSP_Login.login_id)
   return _s;
 }
-inline const std::string& CSP_Login::_internal_account_id() const {
+inline const std::string& CSP_Login::_internal_login_id() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.account_id_.Get();
+  return _impl_.login_id_.Get();
 }
-inline void CSP_Login::_internal_set_account_id(const std::string& value) {
+inline void CSP_Login::_internal_set_login_id(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.account_id_.Set(value, GetArena());
+  _impl_.login_id_.Set(value, GetArena());
 }
-inline std::string* CSP_Login::_internal_mutable_account_id() {
+inline std::string* CSP_Login::_internal_mutable_login_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.account_id_.Mutable( GetArena());
+  return _impl_.login_id_.Mutable( GetArena());
 }
-inline std::string* CSP_Login::release_account_id() {
+inline std::string* CSP_Login::release_login_id() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:jhnet.CSP_Login.account_id)
-  return _impl_.account_id_.Release();
+  // @@protoc_insertion_point(field_release:jhnet.CSP_Login.login_id)
+  return _impl_.login_id_.Release();
 }
-inline void CSP_Login::set_allocated_account_id(std::string* value) {
+inline void CSP_Login::set_allocated_login_id(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.account_id_.SetAllocated(value, GetArena());
-  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.account_id_.IsDefault()) {
-    _impl_.account_id_.Set("", GetArena());
+  _impl_.login_id_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.login_id_.IsDefault()) {
+    _impl_.login_id_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:jhnet.CSP_Login.account_id)
+  // @@protoc_insertion_point(field_set_allocated:jhnet.CSP_Login.login_id)
 }
 
-// string password = 2;
-inline void CSP_Login::clear_password() {
+// string login_pw = 2;
+inline void CSP_Login::clear_login_pw() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.password_.ClearToEmpty();
+  _impl_.login_pw_.ClearToEmpty();
 }
-inline const std::string& CSP_Login::password() const
+inline const std::string& CSP_Login::login_pw() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:jhnet.CSP_Login.password)
-  return _internal_password();
+  // @@protoc_insertion_point(field_get:jhnet.CSP_Login.login_pw)
+  return _internal_login_pw();
 }
 template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void CSP_Login::set_password(Arg_&& arg,
+inline PROTOBUF_ALWAYS_INLINE void CSP_Login::set_login_pw(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.password_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:jhnet.CSP_Login.password)
+  _impl_.login_pw_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:jhnet.CSP_Login.login_pw)
 }
-inline std::string* CSP_Login::mutable_password() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_password();
-  // @@protoc_insertion_point(field_mutable:jhnet.CSP_Login.password)
+inline std::string* CSP_Login::mutable_login_pw() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_login_pw();
+  // @@protoc_insertion_point(field_mutable:jhnet.CSP_Login.login_pw)
   return _s;
 }
-inline const std::string& CSP_Login::_internal_password() const {
+inline const std::string& CSP_Login::_internal_login_pw() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.password_.Get();
+  return _impl_.login_pw_.Get();
 }
-inline void CSP_Login::_internal_set_password(const std::string& value) {
+inline void CSP_Login::_internal_set_login_pw(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.password_.Set(value, GetArena());
+  _impl_.login_pw_.Set(value, GetArena());
 }
-inline std::string* CSP_Login::_internal_mutable_password() {
+inline std::string* CSP_Login::_internal_mutable_login_pw() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.password_.Mutable( GetArena());
+  return _impl_.login_pw_.Mutable( GetArena());
 }
-inline std::string* CSP_Login::release_password() {
+inline std::string* CSP_Login::release_login_pw() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:jhnet.CSP_Login.password)
-  return _impl_.password_.Release();
+  // @@protoc_insertion_point(field_release:jhnet.CSP_Login.login_pw)
+  return _impl_.login_pw_.Release();
 }
-inline void CSP_Login::set_allocated_password(std::string* value) {
+inline void CSP_Login::set_allocated_login_pw(std::string* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.password_.SetAllocated(value, GetArena());
-  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.password_.IsDefault()) {
-    _impl_.password_.Set("", GetArena());
+  _impl_.login_pw_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.login_pw_.IsDefault()) {
+    _impl_.login_pw_.Set("", GetArena());
   }
-  // @@protoc_insertion_point(field_set_allocated:jhnet.CSP_Login.password)
+  // @@protoc_insertion_point(field_set_allocated:jhnet.CSP_Login.login_pw)
 }
 
 // -------------------------------------------------------------------
@@ -5366,6 +5836,54 @@ inline void CSP_Move::set_allocated_pos_info(::jhnet::PosInfo* value) {
 
 // -------------------------------------------------------------------
 
+// SCP_Ping
+
+// uint32 number = 1;
+inline void SCP_Ping::clear_number() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.number_ = 0u;
+}
+inline ::uint32_t SCP_Ping::number() const {
+  // @@protoc_insertion_point(field_get:jhnet.SCP_Ping.number)
+  return _internal_number();
+}
+inline void SCP_Ping::set_number(::uint32_t value) {
+  _internal_set_number(value);
+  // @@protoc_insertion_point(field_set:jhnet.SCP_Ping.number)
+}
+inline ::uint32_t SCP_Ping::_internal_number() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.number_;
+}
+inline void SCP_Ping::_internal_set_number(::uint32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.number_ = value;
+}
+
+// uint64 timestamp = 2;
+inline void SCP_Ping::clear_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.timestamp_ = ::uint64_t{0u};
+}
+inline ::uint64_t SCP_Ping::timestamp() const {
+  // @@protoc_insertion_point(field_get:jhnet.SCP_Ping.timestamp)
+  return _internal_timestamp();
+}
+inline void SCP_Ping::set_timestamp(::uint64_t value) {
+  _internal_set_timestamp(value);
+  // @@protoc_insertion_point(field_set:jhnet.SCP_Ping.timestamp)
+}
+inline ::uint64_t SCP_Ping::_internal_timestamp() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.timestamp_;
+}
+inline void SCP_Ping::_internal_set_timestamp(::uint64_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.timestamp_ = value;
+}
+
+// -------------------------------------------------------------------
+
 // SCP_Echo
 
 // uint32 number = 1;
@@ -5510,6 +6028,28 @@ inline void SCP_Login::set_allocated_error_message(std::string* value) {
     _impl_.error_message_.Set("", GetArena());
   }
   // @@protoc_insertion_point(field_set_allocated:jhnet.SCP_Login.error_message)
+}
+
+// uint32 account_uid = 3;
+inline void SCP_Login::clear_account_uid() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.account_uid_ = 0u;
+}
+inline ::uint32_t SCP_Login::account_uid() const {
+  // @@protoc_insertion_point(field_get:jhnet.SCP_Login.account_uid)
+  return _internal_account_uid();
+}
+inline void SCP_Login::set_account_uid(::uint32_t value) {
+  _internal_set_account_uid(value);
+  // @@protoc_insertion_point(field_set:jhnet.SCP_Login.account_uid)
+}
+inline ::uint32_t SCP_Login::_internal_account_uid() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.account_uid_;
+}
+inline void SCP_Login::_internal_set_account_uid(::uint32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.account_uid_ = value;
 }
 
 // -------------------------------------------------------------------

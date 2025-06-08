@@ -33,37 +33,39 @@ namespace Jhnet {
             "b29rX2lkGAUgASgFIo0BChJNeVBsYXllckRldGFpbEluZm8SDQoFbGV2ZWwY",
             "ASABKAUSEAoIam9iX2NvZGUYAiABKAUSCwoDZXhwGAMgASgDEgoKAmhwGAQg",
             "ASgFEg4KBm1heF9ocBgFIAEoBRIOCgZkYW1hZ2UYBiABKAUSDwoHZGVmZW5z",
-            "ZRgHIAEoBRIMCgRnb2xkGAggASgDIisKCENTUF9FY2hvEg4KBm51bWJlchgB",
-            "IAEoDRIPCgdtZXNzYWdlGAIgASgJIjEKCUNTUF9Mb2dpbhISCgphY2NvdW50",
-            "X2lkGAEgASgJEhAKCHBhc3N3b3JkGAIgASgJIjAKDkNTUF9DcmVhdGVDaGFy",
+            "ZRgHIAEoBRIMCgRnb2xkGAggASgDIi0KCENTUF9QaW5nEg4KBm51bWJlchgB",
+            "IAEoDRIRCgl0aW1lc3RhbXAYAiABKAQiKwoIQ1NQX0VjaG8SDgoGbnVtYmVy",
+            "GAEgASgNEg8KB21lc3NhZ2UYAiABKAkiLwoJQ1NQX0xvZ2luEhAKCGxvZ2lu",
+            "X2lkGAEgASgJEhAKCGxvZ2luX3B3GAIgASgJIjAKDkNTUF9DcmVhdGVDaGFy",
             "EgwKBG5hbWUYASABKAkSEAoIam9iX2NvZGUYAiABKAUiJwoOQ1NQX1NlbGVj",
             "dENoYXISFQoNY2hhcmFjdGVyX3VpZBgBIAEoBCIQCg5DU1BfTWFwTG9hZEVu",
             "ZCIsCghDU1BfTW92ZRIgCghwb3NfaW5mbxgBIAEoCzIOLmpobmV0LlBvc0lu",
-            "Zm8iKwoIU0NQX0VjaG8SDgoGbnVtYmVyGAEgASgNEg8KB21lc3NhZ2UYAiAB",
-            "KAkiNAoJU0NQX0xvZ2luEhAKCGxvZ2luX29rGAEgASgIEhUKDWVycm9yX21l",
-            "c3NhZ2UYAiABKAkiZgoOU0NQX0NyZWF0ZUNoYXISEQoJY3JlYXRlX29rGAEg",
-            "ASgIEhUKDWVycm9yX21lc3NhZ2UYAiABKAkSKgoMY3JlYXRlZF9jaGFyGAMg",
-            "ASgLMhQuamhuZXQuQ2hhcmFjdGVySW5mbyI4CgxTQ1BfQ2hhckxpc3QSKAoK",
-            "Y2hhcmFjdGVycxgBIAMoCzIULmpobmV0LkNoYXJhY3RlckluZm8iPgoUU0NQ",
-            "X1NlbGVjdENoYXJSZXN1bHQSDwoHc3VjY2VzcxgBIAEoCBIVCg1lcnJvcl9t",
-            "ZXNzYWdlGAIgASgJIoMBChNTQ1BfTXlDaGFyYWN0ZXJJbmZvEikKDm15X3Bs",
-            "YXllcl9pbmZvGAEgASgLMhEuamhuZXQuUGxheWVySW5mbxIOCgZtYXBfaWQY",
-            "AiABKAUSMQoObXlfZGV0YWlsX2luZm8YAyABKAsyGS5qaG5ldC5NeVBsYXll",
-            "ckRldGFpbEluZm8iWAoNU0NQX0VudGVyR2FtZRIjCgtteV9wb3NfaW5mbxgB",
-            "IAEoCzIOLmpobmV0LlBvc0luZm8SIgoHcGxheWVycxgCIAMoCzIRLmpobmV0",
-            "LlBsYXllckluZm8iLwoJU0NQX1NwYXduEiIKB3BsYXllcnMYASADKAsyES5q",
-            "aG5ldC5QbGF5ZXJJbmZvIiMKC1NDUF9EZXNwYXduEhQKDGZpZWxkX3VuaXF1",
-            "ZRgBIAMoBCJCCghTQ1BfTW92ZRIUCgxmaWVsZF91bmlxdWUYASABKAQSIAoI",
-            "cG9zX2luZm8YAiABKAsyDi5qaG5ldC5Qb3NJbmZvKvUCCghQYWNrZXRJZBIS",
-            "Cg5QQUNLRVRfSURfTk9ORRAAEg0KCEMyU19QSU5HEOkHEg0KCEMyU19FQ0hP",
-            "EOoHEg4KCUMyU19MT0dJThDrBxIUCg9DMlNfQ1JFQVRFX0NIQVIQ7AcSFAoP",
-            "QzJTX1NFTEVDVF9DSEFSEO0HEhUKEEMyU19NQVBfTE9BRF9FTkQQ7gcSDQoI",
-            "QzJTX01PVkUQ7wcSDQoIUzJDX1BJTkcQ0Q8SDQoIUzJDX0VDSE8Q0g8SDgoJ",
-            "UzJDX0xPR0lOENMPEhIKDVMyQ19DSEFSX0xJU1QQ1A8SFAoPUzJDX0NSRUFU",
-            "RV9DSEFSENUPEhsKFlMyQ19TRUxFQ1RfQ0hBUl9SRVNVTFQQ1g8SGgoVUzJD",
-            "X01ZX0NIQVJBQ1RFUl9JTkZPENcPEhMKDlMyQ19FTlRFUl9HQU1FENgPEg4K",
-            "CVMyQ19TUEFXThDZDxIQCgtTMkNfREVTUEFXThDaDxINCghTMkNfTU9WRRDb",
-            "D2IGcHJvdG8z"));
+            "Zm8iLQoIU0NQX1BpbmcSDgoGbnVtYmVyGAEgASgNEhEKCXRpbWVzdGFtcBgC",
+            "IAEoBCIrCghTQ1BfRWNobxIOCgZudW1iZXIYASABKA0SDwoHbWVzc2FnZRgC",
+            "IAEoCSJJCglTQ1BfTG9naW4SEAoIbG9naW5fb2sYASABKAgSFQoNZXJyb3Jf",
+            "bWVzc2FnZRgCIAEoCRITCgthY2NvdW50X3VpZBgDIAEoDSJmCg5TQ1BfQ3Jl",
+            "YXRlQ2hhchIRCgljcmVhdGVfb2sYASABKAgSFQoNZXJyb3JfbWVzc2FnZRgC",
+            "IAEoCRIqCgxjcmVhdGVkX2NoYXIYAyABKAsyFC5qaG5ldC5DaGFyYWN0ZXJJ",
+            "bmZvIjgKDFNDUF9DaGFyTGlzdBIoCgpjaGFyYWN0ZXJzGAEgAygLMhQuamhu",
+            "ZXQuQ2hhcmFjdGVySW5mbyI+ChRTQ1BfU2VsZWN0Q2hhclJlc3VsdBIPCgdz",
+            "dWNjZXNzGAEgASgIEhUKDWVycm9yX21lc3NhZ2UYAiABKAkigwEKE1NDUF9N",
+            "eUNoYXJhY3RlckluZm8SKQoObXlfcGxheWVyX2luZm8YASABKAsyES5qaG5l",
+            "dC5QbGF5ZXJJbmZvEg4KBm1hcF9pZBgCIAEoBRIxCg5teV9kZXRhaWxfaW5m",
+            "bxgDIAEoCzIZLmpobmV0Lk15UGxheWVyRGV0YWlsSW5mbyJYCg1TQ1BfRW50",
+            "ZXJHYW1lEiMKC215X3Bvc19pbmZvGAEgASgLMg4uamhuZXQuUG9zSW5mbxIi",
+            "CgdwbGF5ZXJzGAIgAygLMhEuamhuZXQuUGxheWVySW5mbyIvCglTQ1BfU3Bh",
+            "d24SIgoHcGxheWVycxgBIAMoCzIRLmpobmV0LlBsYXllckluZm8iIwoLU0NQ",
+            "X0Rlc3Bhd24SFAoMZmllbGRfdW5pcXVlGAEgAygEIkIKCFNDUF9Nb3ZlEhQK",
+            "DGZpZWxkX3VuaXF1ZRgBIAEoBBIgCghwb3NfaW5mbxgCIAEoCzIOLmpobmV0",
+            "LlBvc0luZm8q9QIKCFBhY2tldElkEhIKDlBBQ0tFVF9JRF9OT05FEAASDQoI",
+            "QzJTX1BJTkcQ6QcSDQoIQzJTX0VDSE8Q6gcSDgoJQzJTX0xPR0lOEOsHEhQK",
+            "D0MyU19DUkVBVEVfQ0hBUhDsBxIUCg9DMlNfU0VMRUNUX0NIQVIQ7QcSFQoQ",
+            "QzJTX01BUF9MT0FEX0VORBDuBxINCghDMlNfTU9WRRDvBxINCghTMkNfUElO",
+            "RxDRDxINCghTMkNfRUNITxDSDxIOCglTMkNfTE9HSU4Q0w8SEgoNUzJDX0NI",
+            "QVJfTElTVBDUDxIUCg9TMkNfQ1JFQVRFX0NIQVIQ1Q8SGwoWUzJDX1NFTEVD",
+            "VF9DSEFSX1JFU1VMVBDWDxIaChVTMkNfTVlfQ0hBUkFDVEVSX0lORk8Q1w8S",
+            "EwoOUzJDX0VOVEVSX0dBTUUQ2A8SDgoJUzJDX1NQQVdOENkPEhAKC1MyQ19E",
+            "RVNQQVdOENoPEg0KCFMyQ19NT1ZFENsPYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Jhnet.PacketId), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -71,14 +73,16 @@ namespace Jhnet {
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.CharacterInfo), global::Jhnet.CharacterInfo.Parser, new[]{ "CharacterUid", "Nickname", "Level", "JobCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.PlayerInfo), global::Jhnet.PlayerInfo.Parser, new[]{ "FieldUnique", "Nickname", "PosInfo", "HpPercent", "LookId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.MyPlayerDetailInfo), global::Jhnet.MyPlayerDetailInfo.Parser, new[]{ "Level", "JobCode", "Exp", "Hp", "MaxHp", "Damage", "Defense", "Gold" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.CSP_Ping), global::Jhnet.CSP_Ping.Parser, new[]{ "Number", "Timestamp" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.CSP_Echo), global::Jhnet.CSP_Echo.Parser, new[]{ "Number", "Message" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.CSP_Login), global::Jhnet.CSP_Login.Parser, new[]{ "AccountId", "Password" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.CSP_Login), global::Jhnet.CSP_Login.Parser, new[]{ "LoginId", "LoginPw" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.CSP_CreateChar), global::Jhnet.CSP_CreateChar.Parser, new[]{ "Name", "JobCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.CSP_SelectChar), global::Jhnet.CSP_SelectChar.Parser, new[]{ "CharacterUid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.CSP_MapLoadEnd), global::Jhnet.CSP_MapLoadEnd.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.CSP_Move), global::Jhnet.CSP_Move.Parser, new[]{ "PosInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.SCP_Ping), global::Jhnet.SCP_Ping.Parser, new[]{ "Number", "Timestamp" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.SCP_Echo), global::Jhnet.SCP_Echo.Parser, new[]{ "Number", "Message" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.SCP_Login), global::Jhnet.SCP_Login.Parser, new[]{ "LoginOk", "ErrorMessage" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.SCP_Login), global::Jhnet.SCP_Login.Parser, new[]{ "LoginOk", "ErrorMessage", "AccountUid" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.SCP_CreateChar), global::Jhnet.SCP_CreateChar.Parser, new[]{ "CreateOk", "ErrorMessage", "CreatedChar" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.SCP_CharList), global::Jhnet.SCP_CharList.Parser, new[]{ "Characters" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Jhnet.SCP_SelectCharResult), global::Jhnet.SCP_SelectCharResult.Parser, new[]{ "Success", "ErrorMessage" }, null, null, null, null),
@@ -1564,6 +1568,241 @@ namespace Jhnet {
   ///클라이언트 -> 서버
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class CSP_Ping : pb::IMessage<CSP_Ping>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<CSP_Ping> _parser = new pb::MessageParser<CSP_Ping>(() => new CSP_Ping());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<CSP_Ping> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CSP_Ping() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CSP_Ping(CSP_Ping other) : this() {
+      number_ = other.number_;
+      timestamp_ = other.timestamp_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public CSP_Ping Clone() {
+      return new CSP_Ping(this);
+    }
+
+    /// <summary>Field number for the "number" field.</summary>
+    public const int NumberFieldNumber = 1;
+    private uint number_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint Number {
+      get { return number_; }
+      set {
+        number_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "timestamp" field.</summary>
+    public const int TimestampFieldNumber = 2;
+    private ulong timestamp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ulong Timestamp {
+      get { return timestamp_; }
+      set {
+        timestamp_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as CSP_Ping);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(CSP_Ping other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Number != other.Number) return false;
+      if (Timestamp != other.Timestamp) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Number != 0) hash ^= Number.GetHashCode();
+      if (Timestamp != 0UL) hash ^= Timestamp.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Number != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(Number);
+      }
+      if (Timestamp != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(Timestamp);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Number != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(Number);
+      }
+      if (Timestamp != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(Timestamp);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Number != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Number);
+      }
+      if (Timestamp != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Timestamp);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(CSP_Ping other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Number != 0) {
+        Number = other.Number;
+      }
+      if (other.Timestamp != 0UL) {
+        Timestamp = other.Timestamp;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Number = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Timestamp = input.ReadUInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Number = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Timestamp = input.ReadUInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class CSP_Echo : pb::IMessage<CSP_Echo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -1578,7 +1817,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1816,7 +2055,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1836,8 +2075,8 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public CSP_Login(CSP_Login other) : this() {
-      accountId_ = other.accountId_;
-      password_ = other.password_;
+      loginId_ = other.loginId_;
+      loginPw_ = other.loginPw_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1847,27 +2086,27 @@ namespace Jhnet {
       return new CSP_Login(this);
     }
 
-    /// <summary>Field number for the "account_id" field.</summary>
-    public const int AccountIdFieldNumber = 1;
-    private string accountId_ = "";
+    /// <summary>Field number for the "login_id" field.</summary>
+    public const int LoginIdFieldNumber = 1;
+    private string loginId_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string AccountId {
-      get { return accountId_; }
+    public string LoginId {
+      get { return loginId_; }
       set {
-        accountId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        loginId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "password" field.</summary>
-    public const int PasswordFieldNumber = 2;
-    private string password_ = "";
+    /// <summary>Field number for the "login_pw" field.</summary>
+    public const int LoginPwFieldNumber = 2;
+    private string loginPw_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Password {
-      get { return password_; }
+    public string LoginPw {
+      get { return loginPw_; }
       set {
-        password_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        loginPw_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -1886,8 +2125,8 @@ namespace Jhnet {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (AccountId != other.AccountId) return false;
-      if (Password != other.Password) return false;
+      if (LoginId != other.LoginId) return false;
+      if (LoginPw != other.LoginPw) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1895,8 +2134,8 @@ namespace Jhnet {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (AccountId.Length != 0) hash ^= AccountId.GetHashCode();
-      if (Password.Length != 0) hash ^= Password.GetHashCode();
+      if (LoginId.Length != 0) hash ^= LoginId.GetHashCode();
+      if (LoginPw.Length != 0) hash ^= LoginPw.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1915,13 +2154,13 @@ namespace Jhnet {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (AccountId.Length != 0) {
+      if (LoginId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(AccountId);
+        output.WriteString(LoginId);
       }
-      if (Password.Length != 0) {
+      if (LoginPw.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Password);
+        output.WriteString(LoginPw);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1933,13 +2172,13 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (AccountId.Length != 0) {
+      if (LoginId.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(AccountId);
+        output.WriteString(LoginId);
       }
-      if (Password.Length != 0) {
+      if (LoginPw.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Password);
+        output.WriteString(LoginPw);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1951,11 +2190,11 @@ namespace Jhnet {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (AccountId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(AccountId);
+      if (LoginId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(LoginId);
       }
-      if (Password.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Password);
+      if (LoginPw.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(LoginPw);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1969,11 +2208,11 @@ namespace Jhnet {
       if (other == null) {
         return;
       }
-      if (other.AccountId.Length != 0) {
-        AccountId = other.AccountId;
+      if (other.LoginId.Length != 0) {
+        LoginId = other.LoginId;
       }
-      if (other.Password.Length != 0) {
-        Password = other.Password;
+      if (other.LoginPw.Length != 0) {
+        LoginPw = other.LoginPw;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1995,11 +2234,11 @@ namespace Jhnet {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            AccountId = input.ReadString();
+            LoginId = input.ReadString();
             break;
           }
           case 18: {
-            Password = input.ReadString();
+            LoginPw = input.ReadString();
             break;
           }
         }
@@ -2022,11 +2261,11 @@ namespace Jhnet {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            AccountId = input.ReadString();
+            LoginId = input.ReadString();
             break;
           }
           case 18: {
-            Password = input.ReadString();
+            LoginPw = input.ReadString();
             break;
           }
         }
@@ -2054,7 +2293,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2292,7 +2531,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2493,7 +2732,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2654,7 +2893,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2850,6 +3089,241 @@ namespace Jhnet {
   ///서버 -> 클라이언트
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class SCP_Ping : pb::IMessage<SCP_Ping>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<SCP_Ping> _parser = new pb::MessageParser<SCP_Ping>(() => new SCP_Ping());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<SCP_Ping> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[11]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SCP_Ping() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SCP_Ping(SCP_Ping other) : this() {
+      number_ = other.number_;
+      timestamp_ = other.timestamp_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public SCP_Ping Clone() {
+      return new SCP_Ping(this);
+    }
+
+    /// <summary>Field number for the "number" field.</summary>
+    public const int NumberFieldNumber = 1;
+    private uint number_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint Number {
+      get { return number_; }
+      set {
+        number_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "timestamp" field.</summary>
+    public const int TimestampFieldNumber = 2;
+    private ulong timestamp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ulong Timestamp {
+      get { return timestamp_; }
+      set {
+        timestamp_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as SCP_Ping);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(SCP_Ping other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Number != other.Number) return false;
+      if (Timestamp != other.Timestamp) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Number != 0) hash ^= Number.GetHashCode();
+      if (Timestamp != 0UL) hash ^= Timestamp.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (Number != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(Number);
+      }
+      if (Timestamp != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(Timestamp);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Number != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(Number);
+      }
+      if (Timestamp != 0UL) {
+        output.WriteRawTag(16);
+        output.WriteUInt64(Timestamp);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (Number != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Number);
+      }
+      if (Timestamp != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(Timestamp);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(SCP_Ping other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Number != 0) {
+        Number = other.Number;
+      }
+      if (other.Timestamp != 0UL) {
+        Timestamp = other.Timestamp;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Number = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Timestamp = input.ReadUInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            Number = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            Timestamp = input.ReadUInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class SCP_Echo : pb::IMessage<SCP_Echo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -2864,7 +3338,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3102,7 +3576,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3124,6 +3598,7 @@ namespace Jhnet {
     public SCP_Login(SCP_Login other) : this() {
       loginOk_ = other.loginOk_;
       errorMessage_ = other.errorMessage_;
+      accountUid_ = other.accountUid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3148,15 +3623,24 @@ namespace Jhnet {
     /// <summary>Field number for the "error_message" field.</summary>
     public const int ErrorMessageFieldNumber = 2;
     private string errorMessage_ = "";
-    /// <summary>
-    ///int account_uid 3; //아직은 클라이언트가 알필요가?
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public string ErrorMessage {
       get { return errorMessage_; }
       set {
         errorMessage_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "account_uid" field.</summary>
+    public const int AccountUidFieldNumber = 3;
+    private uint accountUid_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint AccountUid {
+      get { return accountUid_; }
+      set {
+        accountUid_ = value;
       }
     }
 
@@ -3177,6 +3661,7 @@ namespace Jhnet {
       }
       if (LoginOk != other.LoginOk) return false;
       if (ErrorMessage != other.ErrorMessage) return false;
+      if (AccountUid != other.AccountUid) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3186,6 +3671,7 @@ namespace Jhnet {
       int hash = 1;
       if (LoginOk != false) hash ^= LoginOk.GetHashCode();
       if (ErrorMessage.Length != 0) hash ^= ErrorMessage.GetHashCode();
+      if (AccountUid != 0) hash ^= AccountUid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3212,6 +3698,10 @@ namespace Jhnet {
         output.WriteRawTag(18);
         output.WriteString(ErrorMessage);
       }
+      if (AccountUid != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(AccountUid);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3230,6 +3720,10 @@ namespace Jhnet {
         output.WriteRawTag(18);
         output.WriteString(ErrorMessage);
       }
+      if (AccountUid != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(AccountUid);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -3245,6 +3739,9 @@ namespace Jhnet {
       }
       if (ErrorMessage.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(ErrorMessage);
+      }
+      if (AccountUid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(AccountUid);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3263,6 +3760,9 @@ namespace Jhnet {
       }
       if (other.ErrorMessage.Length != 0) {
         ErrorMessage = other.ErrorMessage;
+      }
+      if (other.AccountUid != 0) {
+        AccountUid = other.AccountUid;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3289,6 +3789,10 @@ namespace Jhnet {
           }
           case 18: {
             ErrorMessage = input.ReadString();
+            break;
+          }
+          case 24: {
+            AccountUid = input.ReadUInt32();
             break;
           }
         }
@@ -3318,6 +3822,10 @@ namespace Jhnet {
             ErrorMessage = input.ReadString();
             break;
           }
+          case 24: {
+            AccountUid = input.ReadUInt32();
+            break;
+          }
         }
       }
     }
@@ -3343,7 +3851,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3630,7 +4138,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3820,7 +4328,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[14]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4061,7 +4569,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[15]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4354,7 +4862,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[16]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[18]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4593,7 +5101,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[17]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[19]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4783,7 +5291,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[18]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[20]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4975,7 +5483,7 @@ namespace Jhnet {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[19]; }
+      get { return global::Jhnet.JhnetReflection.Descriptor.MessageTypes[21]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

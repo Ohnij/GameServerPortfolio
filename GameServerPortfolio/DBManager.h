@@ -11,13 +11,14 @@ public:
 
 	bool Init();
 
-	void DBWorkerThread();
 	
 	void PushRequest(std::shared_ptr<class DBRequest>&& request);
+
+private:
 	std::shared_ptr<class DBRequest> PopRequest();
-
-
-	void DBTest();
+	void DBWorkerThread();
+public:
+	void DBTest(); 
 private:
 	DBManager();	//외부에서 생성하지 않도록 Instance에서만 생성, 획득
 	~DBManager();

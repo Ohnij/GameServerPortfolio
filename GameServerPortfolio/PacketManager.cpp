@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "PacketManager.h"
 #include "Packet.h"
-
+#include "GameClient.h"
+#include "DBManager.h"
+#include "DBRequest_CheckAccountLogin.h"
 //std::unordered_map<uint16_t, PacketHandlerFunction> g_PacketHandler;
 
 
@@ -35,7 +37,7 @@ void PacketManager::Send(std::shared_ptr<Client> client, const::google::protobuf
 //	return func->second;
 //}
 
-bool PacketManager::HandlePacket(std::shared_ptr<Client> client, PacketHeader* header, BYTE* data, int size)
+bool PacketManager::HandlePacket(std::shared_ptr<GameClient> client, PacketHeader* header, BYTE* data, int size)
 {
 	auto factory_iter = _proto_message_factory.find(header->packet_id);
 	if (factory_iter == _proto_message_factory.end()) 
@@ -79,11 +81,28 @@ PacketManager& PacketManager::Instance()
 void PacketManager::InitPacketHandler()
 {
 	//_PacketHandler[jhnet::PacketId::CS_ECHO] = [this](std::shared_ptr<Client> client, BYTE* data, int size) { return this->Handle_CS_ECHO(client, data, size); };
-	_proto_message_factory[jhnet::PacketId::C2S_ECHO] = []() { return std::make_shared<jhnet::CSP_Echo>(); };
+	//_proto_message_factory[jhnet::PacketId::C2S_ECHO] = []() { return std::make_shared<jhnet::CSP_Echo>(); };
+	MakeFactory<jhnet::CSP_Ping>(jhnet::PacketId::C2S_PING);
+	MakeFactory<jhnet::CSP_Echo>(jhnet::PacketId::C2S_ECHO);
+	MakeFactory<jhnet::CSP_Login>(jhnet::PacketId::C2S_LOGIN);
+	MakeFactory<jhnet::CSP_CreateChar>(jhnet::PacketId::C2S_CREATE_CHAR);
+	MakeFactory<jhnet::CSP_SelectChar>(jhnet::PacketId::C2S_SELECT_CHAR);
 
-	_PacketHandler[jhnet::PacketId::C2S_ECHO] = [this](std::shared_ptr<Client> client, std::shared_ptr<google::protobuf::Message> msg) {
-		return this->Handle_CS_ECHO(client, msg);
-	};
+	//_PacketHandler[jhnet::PacketId::C2S_PING] = [this](std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> msg) {
+	//	return this->Handle_CS_PING(client, msg);
+	//};
+	//_PacketHandler[jhnet::PacketId::C2S_ECHO] = [this](std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> msg) {
+	//	return this->Handle_CS_ECHO(client, msg);
+	//};
+	//_PacketHandler[jhnet::PacketId::C2S_LOGIN] = [this](std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> msg) {
+	//	return this->Handle_CS_LOGIN(client, msg);
+	//};
+
+	MakeHandler(jhnet::PacketId::C2S_PING , &PacketManager::Handle_CS_PING);
+	MakeHandler(jhnet::PacketId::C2S_ECHO, &PacketManager::Handle_CS_ECHO);
+	MakeHandler(jhnet::PacketId::C2S_LOGIN, &PacketManager::Handle_CS_LOGIN);
+	MakeHandler(jhnet::PacketId::C2S_CREATE_CHAR, &PacketManager::Handle_CS_CREATE_CHAR);
+	MakeHandler(jhnet::PacketId::C2S_SELECT_CHAR, &PacketManager::Handle_CS_SELECT_CHAR);
 }
 
 //bool PacketManager::Handle_CS_ECHO(std::shared_ptr<Client> client, BYTE* data, int size)
@@ -99,8 +118,28 @@ void PacketManager::InitPacketHandler()
 //
 //	Send(client, res, jhnet::PacketId::SC_ECHO);
 //}
+bool PacketManager::Handle_CS_PING(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message)
+{
+	//스마트 포인터 형변환 > static_pointer_cast / dynamic_pointer_cast
+	std::shared_ptr<jhnet::CSP_Ping> packet = std::dynamic_pointer_cast<jhnet::CSP_Ping>(message);
+	if (!packet)
+	{
+		//들어온 메세지가 다르다
+		return false;
+	}
 
-bool PacketManager::Handle_CS_ECHO(std::shared_ptr<Client> client, std::shared_ptr<google::protobuf::Message> message)
+	std::cout << "[" << GetCurrentThreadId() << "]client [" << client->GetClientID() << "] ping: number=" << packet->number() << ", timstamp=" << packet->timestamp() << "\n";
+
+	jhnet::CSP_Ping res;
+	res.set_number(packet->number());
+	res.set_timestamp(0);
+
+	Send(client, res, jhnet::PacketId::S2C_PING);
+	return true;
+}
+
+
+bool PacketManager::Handle_CS_ECHO(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message)
 {
 	//스마트 포인터 형변환 > static_pointer_cast / dynamic_pointer_cast
 	std::shared_ptr<jhnet::CSP_Echo> packet = std::dynamic_pointer_cast<jhnet::CSP_Echo>(message);
@@ -110,12 +149,47 @@ bool PacketManager::Handle_CS_ECHO(std::shared_ptr<Client> client, std::shared_p
 		return false;
 	}
 
-	std::cout << "[" << GetCurrentThreadId() << "]client [" << client->GetClientID() << "] echo: number=" << packet->number() << ", message=" << packet->message() << std::endl;
+	std::cout << "[" << GetCurrentThreadId() << "]client [" << client->GetClientID() << "] echo: number=" << packet->number() << ", message=" << packet->message() << "\n";
 
 	jhnet::SCP_Echo res;
 	res.set_number(packet->number());
 	res.set_message(packet->message());
 
 	Send(client, res, jhnet::PacketId::S2C_ECHO);
+	return true;
+}
+
+bool PacketManager::Handle_CS_LOGIN(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message)
+{
+	std::shared_ptr<jhnet::CSP_Login> packet = std::dynamic_pointer_cast<jhnet::CSP_Login>(message);
+	if (!packet)
+	{
+		//들어온 메세지가 다르다
+		return false;
+	}
+
+	DBManager::Instance().PushRequest(std::make_shared<DBRequest_CheckAccountLogin>(packet->login_id(), packet->login_pw(), client));
+	return true;
+}
+
+bool PacketManager::Handle_CS_CREATE_CHAR(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message)
+{
+	std::shared_ptr<jhnet::CSP_CreateChar> packet = std::dynamic_pointer_cast<jhnet::CSP_CreateChar>(message);
+	if (!packet)
+	{
+		//들어온 메세지가 다르다
+		return false;
+	}
+	return true;
+}
+
+bool PacketManager::Handle_CS_SELECT_CHAR(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message)
+{
+	std::shared_ptr<jhnet::CSP_SelectChar> packet = std::dynamic_pointer_cast<jhnet::CSP_SelectChar>(message);
+	if (!packet)
+	{
+		//들어온 메세지가 다르다
+		return false;
+	}
 	return true;
 }

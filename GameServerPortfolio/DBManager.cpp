@@ -35,16 +35,6 @@ bool DBManager::Init()
 	return true;
 }
 
-void DBManager::DBWorkerThread()
-{
-    while (_running)
-    {
-        auto request = PopRequest();
-        if (request)
-            request->Execute(_db_connection);
-    }
-}
-
 void DBManager::PushRequest(std::shared_ptr<DBRequest>&& request)
 {
     {
@@ -53,6 +43,8 @@ void DBManager::PushRequest(std::shared_ptr<DBRequest>&& request)
     }
     _cv.notify_one();
 }
+
+
 
 std::shared_ptr<DBRequest> DBManager::PopRequest()
 {
@@ -74,6 +66,17 @@ std::shared_ptr<DBRequest> DBManager::PopRequest()
     return nullptr;
 }
 
+
+
+void DBManager::DBWorkerThread()
+{
+    while (_running)
+    {
+        auto request = PopRequest();
+        if (request)
+            request->Execute(_db_connection);
+    }
+}
 
 
 void DBManager::DBTest()

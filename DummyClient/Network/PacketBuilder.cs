@@ -1,10 +1,7 @@
 ﻿using Google.Protobuf;
 using Jhnet;
-using System.Text;
-using System;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace DummyClient
+namespace DummyClient.Network
 {
     public static class PacketBuilder
     {
@@ -21,7 +18,7 @@ namespace DummyClient
             byte[] packet = new byte[packet_size];
             //패킷헤더
             //총크기       buffer 0번주소
-            BitConverter.GetBytes((ushort)packet_size).CopyTo(packet, 0);    // packet_length
+            BitConverter.GetBytes(packet_size).CopyTo(packet, 0);    // packet_length
             //패킷id      buffer 2번주소 ->CopyTo(시작주소,offset);
             BitConverter.GetBytes((ushort)id).CopyTo(packet, 2);   // packet_id
             //패킷데이터

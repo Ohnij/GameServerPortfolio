@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Client.h"
 #include "Packet.h"
-#include "jhnet.pb.h"
 #include "PacketManager.h"
 #include "ObjectPool.h"
 
@@ -78,23 +77,7 @@ void Client::ProcessRecv(int data_size)
 		//여기를 넘으면 패킷을 파싱을 할수 있다는거고, 읽어야한다는것. (실패시에도 해당 부분만큼은 읽어야함.)
 
 
-		PacketManager::Instance().HandlePacket(
-			shared_from_this(),
-			header,
-			_recive_buffer.GetReadPos() + sizeof(PacketHeader),
-			header->packet_length - sizeof(PacketHeader));
-
-
-		//auto func = PacketManager::Instance().GetPacketHandle(header->packet_id);
-		//if (func == nullptr)
-		//{
-		//	//함수포인터 안나옴 (정의되지 않은 패킷 or 정의를 안했음 (사용자문제))
-		//	//누적기록 해서 Ban / kick  (패킷 해킹시도 가능성)
-		//}
-		//else
-		//{
-		//	func(shared_from_this(), _recive_buffer.GetReadPos() + sizeof(PacketHeader), header->packet_length - sizeof(PacketHeader));
-		//}
+		OnReceive(_recive_buffer.GetReadPos(), header->packet_length);
 
 		_recive_buffer.Read(header->packet_length);
 		//data += header->packet_length;
@@ -104,6 +87,19 @@ void Client::ProcessRecv(int data_size)
 	RegisterRecv();
 
 }
+
+
+void Client::OnReceive(BYTE* data, int size)
+{
+	PacketHeader* header = reinterpret_cast<PacketHeader*>(data);
+	BYTE* payload = reinterpret_cast<BYTE*>(data + sizeof(PacketHeader));
+	int payload_size = size - sizeof(PacketHeader);
+	std::string receive_data(reinterpret_cast<char*>(payload), payload_size);
+	
+	std::cerr << "Recv [" << header->packet_id << "] : " << receive_data << "(" << size << ")\n";
+}
+
+
 
 void Client::RegisterSend(BYTE* p_data, int data_size)
 {

@@ -1,14 +1,6 @@
-﻿using DummyClient.Network;
-using Google.Protobuf;
-using Jhnet;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Jhnet;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using DummyClient.Network;
 
 namespace DummyClient
 {
@@ -16,59 +8,56 @@ namespace DummyClient
     {
         private static readonly Dictionary<PacketId, Func<byte[], bool>> _packet_function = new()
         {
+            { PacketId.S2CPing, RecvPcket_SCP_PING },
             { PacketId.S2CEcho, RecvPcket_SCP_ECHO },
+            { PacketId.S2CLogin, RecvPcket_SCP_LOGIN },
+            { PacketId.S2CCreateChar, RecvPcket_SCP_CREATE_CHAR },
+            { PacketId.S2CCharList, RecvPcket_SCP_CHAR_LIST },
         };
 
         enum CLIENT_STATE
         { 
             CREATED,
-            CONNECTING,
-            CONNECTED,
             DISCONNECTED,
+            CONNECTING,
+            CONNECTED,          //연결됨
+            AUTHED,             //로그인완료
+            CONNECTION_GAME,    //게임들어가는중
+            INGAME,             //게임에 들어감
         }
 
-
-
-        private Task _send_task;
-        private Task _receive_task;
         private TcpClient _tcp_client = new TcpClient();
         private NetworkStream _stream;
-        private CLIENT_STATE _state = CLIENT_STATE.CREATED;
 
-        //private RecvBuffer _recv_buffer;
-        //private SendBuffer _send_buffer;
         private RecvBuffer _recv_buffer = new RecvBuffer();
         private SendBuffer _send_buffer = new SendBuffer();
 
-        public Task RunClient()
+        private CLIENT_STATE _state = CLIENT_STATE.CREATED;
+        public bool IsConnected => _state >= CLIENT_STATE.CONNECTED;
+        
+        //public User = new User;
+
+        public async Task<bool> Connect()
         {
             try
             {
                 _state = CLIENT_STATE.CONNECTING;
-                _tcp_client.Connect("127.0.0.1", 7777);
+                await _tcp_client.ConnectAsync("127.0.0.1", 7777);
                 Console.WriteLine("서버에 연결 되었습니다.");
                 _state = CLIENT_STATE.CONNECTED;
                 _stream = _tcp_client.GetStream();
-
-
-                _send_task = Task.Run(SendTask);
-                _receive_task = Task.Run(ReceiveTask);
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"서버 연결 실패 : {ex.Message}");
+                return false;
             }
-
-
-            
-            //_send_task = SendTask();
-           
-
-            return Task.WhenAll(_send_task, _receive_task);
-         
         }
 
-        private async void SendTask()
+
+
+        private async void SendLoop()
         {
             //Console.WriteLine($"send 실행됨 at {DateTime.Now:HH:mm:ss.fff}");
             //Console.WriteLine("서버에 보낼 메시지를 입력하세요. (exit 입력 시 종료)");
@@ -104,7 +93,7 @@ namespace DummyClient
         }
 
 
-        private void ReceiveTask()
+        public void ReceiveLoop()
         {
             //Console.WriteLine($"Recevie 실행됨 at {DateTime.Now:HH:mm:ss.fff}");
             //우선 메모리 단편화 생각안하고 짜보자..
@@ -115,8 +104,12 @@ namespace DummyClient
                     //header > size(16) > id(16) 
                     Span<byte> write_span = _recv_buffer.GetWriteBuffer();
                     int recv_bytes = _stream.Read(write_span);
+
                     if (recv_bytes == 0)
+                    {
+                        _state = CLIENT_STATE.DISCONNECTED;
                         break; // 서버 종료됨
+                    }
                     _recv_buffer.Write(recv_bytes);
 
                     while (true)
@@ -131,8 +124,6 @@ namespace DummyClient
                         if (read_span.Length < packet_size)
                             break;
 
-
-
                         byte[] recv_packet = read_span.Slice(0, packet_size).ToArray();
                         //0~파싱데이터만큼 삭제 (메모리비용)
                         _recv_buffer.Read(packet_size);
@@ -141,7 +132,7 @@ namespace DummyClient
                         var packet_id = PacketParser.GetPacketId(recv_packet);
                         if(_packet_function.TryGetValue(packet_id, out var func))
                         {
-                            func(recv_packet[4..]);
+                            func(recv_packet[4..]); //4바이트 이후 건네주기
                         }
                         else
                         {
@@ -153,16 +144,86 @@ namespace DummyClient
             catch (Exception ex)
             {
                 Console.WriteLine($"[수신 오류] {ex.Message}");
+                _state = CLIENT_STATE.DISCONNECTED;
             }
         }
 
 
-        ///======================================= packet function ===============================================///
+        ///======================================= Packet Function ===============================================///
+        private static bool RecvPcket_SCP_PING(byte[] packet_data)
+        {
+            var packet = SCP_Ping.Parser.ParseFrom(packet_data);
+            Console.WriteLine($"[ping] n:{packet.Number} / t:{packet.Timestamp}");
+            return true;
+        }
+
         private static bool RecvPcket_SCP_ECHO(byte[] packet_data)
         {
             var packet = SCP_Echo.Parser.ParseFrom(packet_data);
             Console.WriteLine($"[echo] n:{packet.Number} / m:{packet.Message}");
-            return false;
+            return true;
+        }
+
+        private static bool RecvPcket_SCP_LOGIN(byte[] packet_data)
+        {
+            var packet = SCP_Login.Parser.ParseFrom(packet_data);
+            Console.WriteLine($"[login] ok:{packet.LoginOk} / e:{packet.ErrorMessage}");
+            return true;
+        }
+
+        private static bool RecvPcket_SCP_CREATE_CHAR(byte[] packet_data)
+        {
+            var packet = SCP_CreateChar.Parser.ParseFrom(packet_data);
+            Console.WriteLine($"[create_char] ok:{packet.CreateOk} / e:{packet.ErrorMessage}");
+            if(packet.CreateOk == true)
+            {
+                Console.WriteLine($"uid:{packet.CreatedChar.CharacterUid}");
+                Console.WriteLine($"job:{packet.CreatedChar.JobCode}");
+                Console.WriteLine($"name:{packet.CreatedChar.Nickname}");
+                Console.WriteLine($"level:{packet.CreatedChar.Level}");
+            }
+            return true;
+        }
+
+        private static bool RecvPcket_SCP_CHAR_LIST(byte[] packet_data)
+        {
+            var packet = SCP_CharList.Parser.ParseFrom(packet_data);
+            int i = 1;
+            foreach(var c in packet.Characters)
+            {
+                Console.WriteLine($"[{i}번 캐릭터]");
+                Console.WriteLine($"uid:{c.CharacterUid}");
+                Console.WriteLine($"job:{c.JobCode}");
+                Console.WriteLine($"name:{c.Nickname}");
+                Console.WriteLine($"level:{c.Level}");
+            }
+            return true;
+        }
+
+        ///======================================= Command Function ===============================================///
+
+        public void SendEcho(string message)
+        {
+            var packet = new CSP_Echo
+            {
+                Message = message,
+                Number = 1229 // 테스트용 숫자 (필요하면 고정 or 랜덤)
+            };
+
+            byte[] buffer = PacketBuilder.Build(PacketId.C2SEcho, packet);
+            _stream.Write(buffer, 0, buffer.Length);
+        }
+
+        public void SendLogin(string id, string pw)
+        {
+            var packet = new CSP_Login
+            {
+                LoginId = id,
+                LoginPw = pw
+            };
+
+            byte[] buffer = PacketBuilder.Build(PacketId.C2SLogin, packet);
+            _stream.Write(buffer, 0, buffer.Length);
         }
     }
 }

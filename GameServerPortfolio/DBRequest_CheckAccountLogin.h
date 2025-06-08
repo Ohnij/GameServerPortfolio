@@ -9,7 +9,7 @@ public:
         std::string pw,
         std::shared_ptr<class GameClient> client);
 
-    void Execute(std::shared_ptr<DBConnection> db_connection) override;
+    void Execute(std::shared_ptr<class DBConnection> db_connection) override;
 
 private:
     std::string _id;

@@ -55,13 +55,13 @@ bool Listener::Init(std::shared_ptr<IocpServer> iocp)
 	//연결 요청용 소켓에 묶기
 	if (0 != bind(_listen_socket, (sockaddr*)&addr, sizeof(SOCKADDR_IN)))
 	{
-		WSAError("Bind 오류!! >> ", ::WSAGetLastError());
+		WSAError("Listener..Failed\nBind 오류!! >> ", ::WSAGetLastError());
 		return false;
 	}
 
 	if (0 != listen(_listen_socket, SOMAXCONN))
 	{
-		WSAError("listen함수 오류!! >> ", ::WSAGetLastError());
+		WSAError("Listener..Failed\nlisten함수 오류!! >> ", ::WSAGetLastError());
 		return false;
 	}
 
@@ -85,7 +85,10 @@ bool Listener::Init(std::shared_ptr<IocpServer> iocp)
 		&bytes, NULL, NULL);
 
 	if (iocp == nullptr)
+	{
+		std::cerr << "Listener..Failed\niocp object nullptr\n";
 		return false;
+	}
 	//순환잠조를 막기위해
 	_iocp = iocp;
 

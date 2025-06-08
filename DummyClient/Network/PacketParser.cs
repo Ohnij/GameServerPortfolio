@@ -1,19 +1,24 @@
 ﻿using Google.Protobuf;
 using Jhnet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DummyClient
+namespace DummyClient.Network
 {
     public static class PacketParser
     {
         //패킷아이디로 생성자함수 매핑
         private static readonly Dictionary<PacketId, Func<IMessage>> _message_factory = new()
         {
+            { PacketId.S2CPing, () => new SCP_Ping() },
             { PacketId.S2CEcho, () => new SCP_Echo() },
+            { PacketId.S2CLogin, () => new SCP_Login() },
+            { PacketId.S2CCreateChar, () => new SCP_CreateChar() },
+            { PacketId.S2CCharList, () => new SCP_CharList() },
+            { PacketId.S2CSelectCharResult, () => new SCP_SelectCharResult() },
+            { PacketId.S2CMyCharacterInfo, () => new SCP_MyCharacterInfo() },
+            { PacketId.S2CEnterGame, () => new SCP_EnterGame() },
+            { PacketId.S2CSpawn, () => new SCP_Spawn() },
+            { PacketId.S2CDespawn, () => new SCP_Despawn() },
+            { PacketId.S2CMove, () => new SCP_Move() },
         };
 
         public static PacketId GetPacketId(ReadOnlySpan<byte> data)

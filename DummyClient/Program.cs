@@ -1,9 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Net.Sockets;
-using System.Text;
-using Google.Protobuf;
-using Jhnet; //프로토버퍼 내가 파싱한 패킷 네임스페이스
 
 
 namespace DummyClient
@@ -11,11 +6,93 @@ namespace DummyClient
     class Program
     {
 
-        //나중에 메인은 명령어 입력만 하고
-        //클라이언트 자체적으로 로직을 따로구성하기
+        enum DummyClientMode
+        {
+            NONE,   //설정전.
+            MANUAL, // 수동
+            AUTO    // 자동
+        }
 
         public const int CLIENT_COUNT = 100;
         public static void Main(string[] args)
+        {
+           
+            //메인은 무조건 입력처리만 담당 한다!!!.
+            DummyClientMode mode = DummyClientMode.NONE;
+            Task main_task;
+            while (true)
+            {
+                Console.WriteLine("클라이언트 모드를 선택하세요: manual / auto");
+                Console.Write(">");
+                string input = Console.ReadLine()?.Trim().ToLower(); //Null아니면 공백제거, 소문자로.
+                if (input == null)
+                    continue;
+
+                if (input == "manual")
+                {
+                    mode = DummyClientMode.MANUAL;
+                    main_task = RunManualMode();
+                    break;
+                }
+                else if (input == "auto")
+                {
+                    mode = DummyClientMode.AUTO;
+                    main_task = RunAutoMode();
+                    break;
+                }
+                else
+                    Console.WriteLine("잘못된 입력입니다.");
+            }
+           
+            Task.WaitAll(main_task); //main_task끝날때까지 RunManualMode or RunAutoMode
+        }
+
+        static async Task RunManualMode()
+        {
+            while (true)
+            {
+                var client = new Client();
+                bool is_connect = await client.Connect();
+                if (is_connect)
+                {
+                    //Receive 루프
+                    Task recv_task = Task.Run(client.ReceiveLoop);
+                    // 입력 루프 시작
+                    Task input_task = Task.Run(() => InputLoop(client));
+
+                    await Task.WhenAll(recv_task, input_task); //두개 Task(함수)가 끝날때까지 기다리기 (종료안됨)
+                }
+
+                while (true)
+                {
+                    Console.WriteLine("연결이 끊어졌습니다. 다시 연결하시겠습니까? (y/n)");
+                    Console.Write("> ");
+                    var input = Console.ReadLine()?.Trim().ToLower();
+                    if (input == "y")
+                        break; // 다시 루프 시작
+                    else if (input == "n")
+                        return;
+                    else
+                        Console.WriteLine("[y 또는 n 중 하나로 입력해주세요]");
+                }
+
+            }
+        }
+        static void InputLoop(Client client)
+        {
+            while (client.IsConnected)
+            {
+                Console.Write(">");
+                string command = Console.ReadLine()?.Trim().ToLower();
+                if (command == null || false == client.IsConnected)
+                    continue;
+
+                Command.ExecuteCommand(command, client);
+            }
+        }
+
+
+        static async Task RunAutoMode()
         {
             //Task를 여러개 생성하니까 Task가 한번에 생성이 안되는 문제발생
             //ThreadPool.SetMinThreads(CLIENT_COUNT*2, CLIENT_COUNT*2);
@@ -24,103 +101,37 @@ namespace DummyClient
             for (int i = 0; i < clients.Length; i++)
             {
                 clients[i] = new Client();
-                tasks.Add(clients[i].RunClient());
+                await clients[i].Connect();
+                tasks.Add(Task.Run(clients[i].ReceiveLoop));
             }
-
+            //Task input_task = Task.Run(() => InputLoop_Auto(clients));
 
             Task.WaitAll(tasks.ToArray());
+        }
 
-            return;
-            TcpClient tcp_client = new TcpClient();
-            try
-            {
-                tcp_client.Connect("127.0.0.1", 7777);
-                Console.WriteLine("서버에 연결 되었습니다.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"서버 연결 실패 : {ex.Message}");
-            }
+       
 
-            Console.WriteLine("서버에 보낼 메시지를 입력하세요. (exit 입력 시 종료)");
-            NetworkStream stream = tcp_client.GetStream();
-
-
-            Task.Run(() => ReceiveTask(stream));
+        static void InputLoop_Auto(ref Client[] clients)
+        {
+            //클라이언트 개별동작 or 전체 동작
 
             while (true)
             {
                 Console.Write("> ");
-                string input = Console.ReadLine();
-                //입력 없을시 다시처음부터
-                if (string.IsNullOrEmpty(input))
+                string command = Console.ReadLine()?.Trim().ToLower();
+                if (command == null)
                     continue;
-                if (input.ToLower() == "exit")
-                    break;
 
-
-                
-                Jhnet.CSP_Echo packet = new Jhnet.CSP_Echo { Message = input, Number = 1229 };
-                //byte[] buffer = PacketBuilder.Build(PacketId.CsEcho, packet);
-                Span<byte> buffer = PacketBuilder.Build(PacketId.C2SEcho, packet);
-
-                stream.Write(buffer.ToArray(), 0, buffer.Length);
-
-            }
-
-        }
-
-
-        static public void ReceiveTask(NetworkStream stream)
-        {
-            //우선 메모리 단편화 생각안하고 짜보자..
-            List<byte> recv_buffer = new List<byte>();
-            try
-            {
-                while (true)
+                switch (command)
                 {
-                    //header > size(16) > id(16) 
-                    //(메모리비용)
-                    byte[] temp_buffer = new byte[1024];
-                    int recv_bytes = stream.Read(temp_buffer, 0, temp_buffer.Length);
-                    if (recv_bytes == 0)
-                        break; // 서버 종료됨
-
-                    //일단 recv_buffer에 집어넣기
-                    recv_buffer.AddRange(temp_buffer.Take(recv_bytes));
-
-                    while(true)
-                    {
-                        //헤더도 파싱 못함
-                        if (recv_buffer.Count < 4)
-                            break;
-                        UInt16 packet_size = BitConverter.ToUInt16(recv_buffer.ToArray(), 0);   // packet_length
-
-                        //패킷 사이즈 덜도착
-                        if (recv_buffer.Count < packet_size)
-                            break;
-                        byte[] recv_packet = recv_buffer.GetRange(0, packet_size).ToArray();
-                        //0~파싱데이터만큼 삭제 (메모리비용)
-                        recv_buffer.RemoveRange(0, packet_size);
-                        var (packet_id, parse_packet) = PacketParser.Parse(recv_packet);
-
-                        switch (packet_id)
-                        {
-                            case PacketId.S2CEcho:
-                            {
-                                SCP_Echo response = (SCP_Echo)parse_packet;
-                                Console.WriteLine($"[echo] n:{response.Number} / m:{response.Message}");
-                            }
-                            break;
-                        }
-                    }
+                    case "login":
+                        break;
+                    case "quit":
+                        Environment.Exit(0);
+                        break;
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"[수신 오류] {ex.Message}");
             }
         }
     }
-}
 
+}

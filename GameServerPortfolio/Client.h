@@ -26,6 +26,7 @@ public:
 	void CompleteSend(OVERLAPPED_SEND* overlepped_send);
 	void ReturnOverlapped(std::shared_ptr<OVERLAPPED_SEND>&& return_shared_ptr);
 
+	virtual void OnReceive(BYTE* data, int size);
 
 	inline int GetClientID() { return _client_number; }
 	inline SOCKET GetSocket() { return _socket; }
