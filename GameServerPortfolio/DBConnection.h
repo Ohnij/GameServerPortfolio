@@ -12,7 +12,6 @@ public:
 	bool Init();
 	bool TestQuery();
 	bool TestQuery2();
-	bool TestQuery3(const std::string& id, const std::string& pw, int& out_uid, int& out_result_code);
 
 private:
 	bool Release();
@@ -22,9 +21,10 @@ private:
 
 public: //DB Procedure function
 
+	void StoredProcedure_CheckAccountLogin(class DBRequest_CheckAccountLogin* request);
+	void StoredProcedure_GetCharacterList(class DBRequest_GetCharacterList* request);
+	void StoredProcedure_CreateCharacter(class DBRequest_CreateCharacter* request);
 	
-	void CallCheckAccountLogin(const std::string& id, const std::string& pw, int& out_uid, int& out_result_code);
-
 
 };
 

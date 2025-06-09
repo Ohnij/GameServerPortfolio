@@ -6,7 +6,7 @@ namespace DummyClient
 {
     public class Client
     {
-        private static readonly Dictionary<PacketId, Func<byte[], bool>> _packet_function = new()
+        private static readonly Dictionary<PacketId, Func<Client, byte[], bool>> _packet_function = new()
         {
             { PacketId.S2CPing, RecvPcket_SCP_PING },
             { PacketId.S2CEcho, RecvPcket_SCP_ECHO },
@@ -132,7 +132,7 @@ namespace DummyClient
                         var packet_id = PacketParser.GetPacketId(recv_packet);
                         if(_packet_function.TryGetValue(packet_id, out var func))
                         {
-                            func(recv_packet[4..]); //4바이트 이후 건네주기
+                            func(this, recv_packet[4..]); //4바이트 이후 건네주기
                         }
                         else
                         {
@@ -150,52 +150,53 @@ namespace DummyClient
 
 
         ///======================================= Packet Function ===============================================///
-        private static bool RecvPcket_SCP_PING(byte[] packet_data)
+        private static bool RecvPcket_SCP_PING(Client client, byte[] packet_data)
         {
             var packet = SCP_Ping.Parser.ParseFrom(packet_data);
             Console.WriteLine($"[ping] n:{packet.Number} / t:{packet.Timestamp}");
             return true;
         }
 
-        private static bool RecvPcket_SCP_ECHO(byte[] packet_data)
+        private static bool RecvPcket_SCP_ECHO(Client client, byte[] packet_data)
         {
             var packet = SCP_Echo.Parser.ParseFrom(packet_data);
             Console.WriteLine($"[echo] n:{packet.Number} / m:{packet.Message}");
             return true;
         }
 
-        private static bool RecvPcket_SCP_LOGIN(byte[] packet_data)
+        private static bool RecvPcket_SCP_LOGIN(Client client, byte[] packet_data)
         {
             var packet = SCP_Login.Parser.ParseFrom(packet_data);
             Console.WriteLine($"[login] ok:{packet.LoginOk} / e:{packet.ErrorMessage}");
+            if (packet.LoginOk)
+                client.SendCharList();
             return true;
         }
 
-        private static bool RecvPcket_SCP_CREATE_CHAR(byte[] packet_data)
+        private static bool RecvPcket_SCP_CREATE_CHAR(Client client, byte[] packet_data)
         {
             var packet = SCP_CreateChar.Parser.ParseFrom(packet_data);
             Console.WriteLine($"[create_char] ok:{packet.CreateOk} / e:{packet.ErrorMessage}");
-            if(packet.CreateOk == true)
-            {
-                Console.WriteLine($"uid:{packet.CreatedChar.CharacterUid}");
-                Console.WriteLine($"job:{packet.CreatedChar.JobCode}");
-                Console.WriteLine($"name:{packet.CreatedChar.Nickname}");
-                Console.WriteLine($"level:{packet.CreatedChar.Level}");
-            }
+
+            if (packet.CreateOk)
+                client.SendCharList();
             return true;
         }
 
-        private static bool RecvPcket_SCP_CHAR_LIST(byte[] packet_data)
+        private static bool RecvPcket_SCP_CHAR_LIST(Client client, byte[] packet_data)
         {
             var packet = SCP_CharList.Parser.ParseFrom(packet_data);
             int i = 1;
-            foreach(var c in packet.Characters)
+            if(packet.Characters.Count ==0)
             {
-                Console.WriteLine($"[{i}번 캐릭터]");
-                Console.WriteLine($"uid:{c.CharacterUid}");
-                Console.WriteLine($"job:{c.JobCode}");
-                Console.WriteLine($"name:{c.Nickname}");
-                Console.WriteLine($"level:{c.Level}");
+                Console.WriteLine($"[char_list] character가 없습니다.");
+                return true;
+            }
+
+            Console.WriteLine($"[char_list]");
+            foreach (var c in packet.Characters)
+            {
+                Console.WriteLine($"[{i++}번 캐릭터]{c.Nickname}({c.CharacterUid}) job:{c.JobCode} level:{c.Level}");
             }
             return true;
         }
@@ -223,6 +224,26 @@ namespace DummyClient
             };
 
             byte[] buffer = PacketBuilder.Build(PacketId.C2SLogin, packet);
+            _stream.Write(buffer, 0, buffer.Length);
+        }
+
+        public void SendCharList()
+        {
+            var packet = new CSP_CharList { };
+
+            byte[] buffer = PacketBuilder.Build(PacketId.C2SCharList, packet);
+            _stream.Write(buffer, 0, buffer.Length);
+        }
+
+        public void SendCreateChar(string nickname, int job_code)
+        {
+            var packet = new CSP_CreateChar 
+            { 
+                JobCode = job_code,
+                Name = nickname,
+            };
+
+            byte[] buffer = PacketBuilder.Build(PacketId.C2SCreateChar, packet);
             _stream.Write(buffer, 0, buffer.Length);
         }
     }

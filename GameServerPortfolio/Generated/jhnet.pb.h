@@ -54,6 +54,9 @@ struct TableStruct_jhnet_2eproto {
 extern const ::google::protobuf::internal::DescriptorTable
     descriptor_table_jhnet_2eproto;
 namespace jhnet {
+class CSP_CharList;
+struct CSP_CharListDefaultTypeInternal;
+extern CSP_CharListDefaultTypeInternal _CSP_CharList_default_instance_;
 class CSP_CreateChar;
 struct CSP_CreateCharDefaultTypeInternal;
 extern CSP_CreateCharDefaultTypeInternal _CSP_CreateChar_default_instance_;
@@ -132,10 +135,11 @@ enum PacketId : int {
   C2S_PING = 1001,
   C2S_ECHO = 1002,
   C2S_LOGIN = 1003,
-  C2S_CREATE_CHAR = 1004,
-  C2S_SELECT_CHAR = 1005,
-  C2S_MAP_LOAD_END = 1006,
-  C2S_MOVE = 1007,
+  C2S_CHAR_LIST = 1004,
+  C2S_CREATE_CHAR = 1005,
+  C2S_SELECT_CHAR = 1006,
+  C2S_MAP_LOAD_END = 1007,
+  C2S_MOVE = 1008,
   S2C_PING = 2001,
   S2C_ECHO = 2002,
   S2C_LOGIN = 2003,
@@ -236,7 +240,7 @@ class SCP_SelectCharResult final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_SelectCharResult*>(
         &_SCP_SelectCharResult_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 16;
+  static constexpr int kIndexInFileMessages = 17;
   friend void swap(SCP_SelectCharResult& a, SCP_SelectCharResult& b) { a.Swap(&b); }
   inline void Swap(SCP_SelectCharResult* other) {
     if (other == this) return;
@@ -444,7 +448,7 @@ class SCP_Ping final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Ping*>(
         &_SCP_Ping_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 11;
+  static constexpr int kIndexInFileMessages = 12;
   friend void swap(SCP_Ping& a, SCP_Ping& b) { a.Swap(&b); }
   inline void Swap(SCP_Ping* other) {
     if (other == this) return;
@@ -646,7 +650,7 @@ class SCP_Login final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Login*>(
         &_SCP_Login_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 13;
+  static constexpr int kIndexInFileMessages = 14;
   friend void swap(SCP_Login& a, SCP_Login& b) { a.Swap(&b); }
   inline void Swap(SCP_Login* other) {
     if (other == this) return;
@@ -866,7 +870,7 @@ class SCP_Echo final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Echo*>(
         &_SCP_Echo_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 12;
+  static constexpr int kIndexInFileMessages = 13;
   friend void swap(SCP_Echo& a, SCP_Echo& b) { a.Swap(&b); }
   inline void Swap(SCP_Echo* other) {
     if (other == this) return;
@@ -1074,7 +1078,7 @@ class SCP_Despawn final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Despawn*>(
         &_SCP_Despawn_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 20;
+  static constexpr int kIndexInFileMessages = 21;
   friend void swap(SCP_Despawn& a, SCP_Despawn& b) { a.Swap(&b); }
   inline void Swap(SCP_Despawn* other) {
     if (other == this) return;
@@ -1206,6 +1210,214 @@ class SCP_Despawn final : public ::google::protobuf::Message
                           const SCP_Despawn& from_msg);
     ::google::protobuf::RepeatedField<::uint64_t> field_unique_;
     ::google::protobuf::internal::CachedSize _field_unique_cached_byte_size_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_jhnet_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SCP_CreateChar final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:jhnet.SCP_CreateChar) */ {
+ public:
+  inline SCP_CreateChar() : SCP_CreateChar(nullptr) {}
+  ~SCP_CreateChar() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(SCP_CreateChar* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(SCP_CreateChar));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR SCP_CreateChar(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline SCP_CreateChar(const SCP_CreateChar& from) : SCP_CreateChar(nullptr, from) {}
+  inline SCP_CreateChar(SCP_CreateChar&& from) noexcept
+      : SCP_CreateChar(nullptr, std::move(from)) {}
+  inline SCP_CreateChar& operator=(const SCP_CreateChar& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SCP_CreateChar& operator=(SCP_CreateChar&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const SCP_CreateChar& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SCP_CreateChar* internal_default_instance() {
+    return reinterpret_cast<const SCP_CreateChar*>(
+        &_SCP_CreateChar_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 15;
+  friend void swap(SCP_CreateChar& a, SCP_CreateChar& b) { a.Swap(&b); }
+  inline void Swap(SCP_CreateChar* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SCP_CreateChar* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SCP_CreateChar* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<SCP_CreateChar>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const SCP_CreateChar& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const SCP_CreateChar& from) { SCP_CreateChar::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(SCP_CreateChar* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "jhnet.SCP_CreateChar"; }
+
+ protected:
+  explicit SCP_CreateChar(::google::protobuf::Arena* arena);
+  SCP_CreateChar(::google::protobuf::Arena* arena, const SCP_CreateChar& from);
+  SCP_CreateChar(::google::protobuf::Arena* arena, SCP_CreateChar&& from) noexcept
+      : SCP_CreateChar(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kErrorMessageFieldNumber = 2,
+    kCreateOkFieldNumber = 1,
+  };
+  // string error_message = 2;
+  void clear_error_message() ;
+  const std::string& error_message() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_error_message(Arg_&& arg, Args_... args);
+  std::string* mutable_error_message();
+  PROTOBUF_NODISCARD std::string* release_error_message();
+  void set_allocated_error_message(std::string* value);
+
+  private:
+  const std::string& _internal_error_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_error_message(
+      const std::string& value);
+  std::string* _internal_mutable_error_message();
+
+  public:
+  // bool create_ok = 1;
+  void clear_create_ok() ;
+  bool create_ok() const;
+  void set_create_ok(bool value);
+
+  private:
+  bool _internal_create_ok() const;
+  void _internal_set_create_ok(bool value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:jhnet.SCP_CreateChar)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      42, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const SCP_CreateChar& from_msg);
+    ::google::protobuf::internal::ArenaStringPtr error_message_;
+    bool create_ok_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -1993,7 +2205,7 @@ class CSP_SelectChar final : public ::google::protobuf::Message
     return reinterpret_cast<const CSP_SelectChar*>(
         &_CSP_SelectChar_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 8;
+  static constexpr int kIndexInFileMessages = 9;
   friend void swap(CSP_SelectChar& a, CSP_SelectChar& b) { a.Swap(&b); }
   inline void Swap(CSP_SelectChar* other) {
     if (other == this) return;
@@ -2384,7 +2596,7 @@ class CSP_MapLoadEnd final : public ::google::protobuf::internal::ZeroFieldsBase
     return reinterpret_cast<const CSP_MapLoadEnd*>(
         &_CSP_MapLoadEnd_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 9;
+  static constexpr int kIndexInFileMessages = 10;
   friend void swap(CSP_MapLoadEnd& a, CSP_MapLoadEnd& b) { a.Swap(&b); }
   inline void Swap(CSP_MapLoadEnd* other) {
     if (other == this) return;
@@ -2952,7 +3164,7 @@ class CSP_CreateChar final : public ::google::protobuf::Message
     return reinterpret_cast<const CSP_CreateChar*>(
         &_CSP_CreateChar_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 7;
+  static constexpr int kIndexInFileMessages = 8;
   friend void swap(CSP_CreateChar& a, CSP_CreateChar& b) { a.Swap(&b); }
   inline void Swap(CSP_CreateChar* other) {
     if (other == this) return;
@@ -3101,6 +3313,151 @@ class CSP_CreateChar final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
+class CSP_CharList final : public ::google::protobuf::internal::ZeroFieldsBase
+/* @@protoc_insertion_point(class_definition:jhnet.CSP_CharList) */ {
+ public:
+  inline CSP_CharList() : CSP_CharList(nullptr) {}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(CSP_CharList* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(CSP_CharList));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR CSP_CharList(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline CSP_CharList(const CSP_CharList& from) : CSP_CharList(nullptr, from) {}
+  inline CSP_CharList(CSP_CharList&& from) noexcept
+      : CSP_CharList(nullptr, std::move(from)) {}
+  inline CSP_CharList& operator=(const CSP_CharList& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CSP_CharList& operator=(CSP_CharList&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CSP_CharList& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CSP_CharList* internal_default_instance() {
+    return reinterpret_cast<const CSP_CharList*>(
+        &_CSP_CharList_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 7;
+  friend void swap(CSP_CharList& a, CSP_CharList& b) { a.Swap(&b); }
+  inline void Swap(CSP_CharList* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CSP_CharList* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CSP_CharList* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::internal::ZeroFieldsBase::DefaultConstruct<CSP_CharList>(arena);
+  }
+  using ::google::protobuf::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const CSP_CharList& from) {
+    ::google::protobuf::internal::ZeroFieldsBase::CopyImpl(*this, from);
+  }
+  using ::google::protobuf::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const CSP_CharList& from) {
+    ::google::protobuf::internal::ZeroFieldsBase::MergeImpl(*this, from);
+  }
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "jhnet.CSP_CharList"; }
+
+ protected:
+  explicit CSP_CharList(::google::protobuf::Arena* arena);
+  CSP_CharList(::google::protobuf::Arena* arena, const CSP_CharList& from);
+  CSP_CharList(::google::protobuf::Arena* arena, CSP_CharList&& from) noexcept
+      : CSP_CharList(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  // @@protoc_insertion_point(class_scope:jhnet.CSP_CharList)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 0, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const CSP_CharList& from_msg);
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  friend struct ::TableStruct_jhnet_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SCP_Move final : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:jhnet.SCP_Move) */ {
  public:
@@ -3160,7 +3517,7 @@ class SCP_Move final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Move*>(
         &_SCP_Move_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 21;
+  static constexpr int kIndexInFileMessages = 22;
   friend void swap(SCP_Move& a, SCP_Move& b) { a.Swap(&b); }
   inline void Swap(SCP_Move* other) {
     if (other == this) return;
@@ -3309,232 +3666,6 @@ class SCP_Move final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
-class SCP_CreateChar final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:jhnet.SCP_CreateChar) */ {
- public:
-  inline SCP_CreateChar() : SCP_CreateChar(nullptr) {}
-  ~SCP_CreateChar() PROTOBUF_FINAL;
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(SCP_CreateChar* msg, std::destroying_delete_t) {
-    SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(SCP_CreateChar));
-  }
-#endif
-
-  template <typename = void>
-  explicit PROTOBUF_CONSTEXPR SCP_CreateChar(
-      ::google::protobuf::internal::ConstantInitialized);
-
-  inline SCP_CreateChar(const SCP_CreateChar& from) : SCP_CreateChar(nullptr, from) {}
-  inline SCP_CreateChar(SCP_CreateChar&& from) noexcept
-      : SCP_CreateChar(nullptr, std::move(from)) {}
-  inline SCP_CreateChar& operator=(const SCP_CreateChar& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline SCP_CreateChar& operator=(SCP_CreateChar&& from) noexcept {
-    if (this == &from) return *this;
-    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const SCP_CreateChar& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const SCP_CreateChar* internal_default_instance() {
-    return reinterpret_cast<const SCP_CreateChar*>(
-        &_SCP_CreateChar_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages = 14;
-  friend void swap(SCP_CreateChar& a, SCP_CreateChar& b) { a.Swap(&b); }
-  inline void Swap(SCP_CreateChar* other) {
-    if (other == this) return;
-    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
-      InternalSwap(other);
-    } else {
-      ::google::protobuf::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(SCP_CreateChar* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  SCP_CreateChar* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<SCP_CreateChar>(arena);
-  }
-  using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const SCP_CreateChar& from);
-  using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const SCP_CreateChar& from) { SCP_CreateChar::MergeImpl(*this, from); }
-
-  private:
-  static void MergeImpl(
-      ::google::protobuf::MessageLite& to_msg,
-      const ::google::protobuf::MessageLite& from_msg);
-
-  public:
-  bool IsInitialized() const {
-    return true;
-  }
-  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
-  #if defined(PROTOBUF_CUSTOM_VTABLE)
-  private:
-  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
-  static ::uint8_t* _InternalSerialize(
-      const MessageLite& msg, ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream);
-
-  public:
-  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-    return _InternalSerialize(*this, target, stream);
-  }
-  #else   // PROTOBUF_CUSTOM_VTABLE
-  ::size_t ByteSizeLong() const final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
-  #endif  // PROTOBUF_CUSTOM_VTABLE
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::google::protobuf::Arena* arena);
-  static void SharedDtor(MessageLite& self);
-  void InternalSwap(SCP_CreateChar* other);
- private:
-  template <typename T>
-  friend ::absl::string_view(
-      ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "jhnet.SCP_CreateChar"; }
-
- protected:
-  explicit SCP_CreateChar(::google::protobuf::Arena* arena);
-  SCP_CreateChar(::google::protobuf::Arena* arena, const SCP_CreateChar& from);
-  SCP_CreateChar(::google::protobuf::Arena* arena, SCP_CreateChar&& from) noexcept
-      : SCP_CreateChar(arena) {
-    *this = ::std::move(from);
-  }
-  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
-  static void* PlacementNew_(const void*, void* mem,
-                             ::google::protobuf::Arena* arena);
-  static constexpr auto InternalNewImpl_();
-  static const ::google::protobuf::internal::ClassDataFull _class_data_;
-
- public:
-  ::google::protobuf::Metadata GetMetadata() const;
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-  enum : int {
-    kErrorMessageFieldNumber = 2,
-    kCreatedCharFieldNumber = 3,
-    kCreateOkFieldNumber = 1,
-  };
-  // string error_message = 2;
-  void clear_error_message() ;
-  const std::string& error_message() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_error_message(Arg_&& arg, Args_... args);
-  std::string* mutable_error_message();
-  PROTOBUF_NODISCARD std::string* release_error_message();
-  void set_allocated_error_message(std::string* value);
-
-  private:
-  const std::string& _internal_error_message() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_error_message(
-      const std::string& value);
-  std::string* _internal_mutable_error_message();
-
-  public:
-  // .jhnet.CharacterInfo created_char = 3;
-  bool has_created_char() const;
-  void clear_created_char() ;
-  const ::jhnet::CharacterInfo& created_char() const;
-  PROTOBUF_NODISCARD ::jhnet::CharacterInfo* release_created_char();
-  ::jhnet::CharacterInfo* mutable_created_char();
-  void set_allocated_created_char(::jhnet::CharacterInfo* value);
-  void unsafe_arena_set_allocated_created_char(::jhnet::CharacterInfo* value);
-  ::jhnet::CharacterInfo* unsafe_arena_release_created_char();
-
-  private:
-  const ::jhnet::CharacterInfo& _internal_created_char() const;
-  ::jhnet::CharacterInfo* _internal_mutable_created_char();
-
-  public:
-  // bool create_ok = 1;
-  void clear_create_ok() ;
-  bool create_ok() const;
-  void set_create_ok(bool value);
-
-  private:
-  bool _internal_create_ok() const;
-  void _internal_set_create_ok(bool value);
-
-  public:
-  // @@protoc_insertion_point(class_scope:jhnet.SCP_CreateChar)
- private:
-  class _Internal;
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      2, 3, 1,
-      42, 2>
-      _table_;
-
-  friend class ::google::protobuf::MessageLite;
-  friend class ::google::protobuf::Arena;
-  template <typename T>
-  friend class ::google::protobuf::Arena::InternalHelper;
-  using InternalArenaConstructable_ = void;
-  using DestructorSkippable_ = void;
-  struct Impl_ {
-    inline explicit constexpr Impl_(
-        ::google::protobuf::internal::ConstantInitialized) noexcept;
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena);
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena, const Impl_& from,
-                          const SCP_CreateChar& from_msg);
-    ::google::protobuf::internal::HasBits<1> _has_bits_;
-    ::google::protobuf::internal::CachedSize _cached_size_;
-    ::google::protobuf::internal::ArenaStringPtr error_message_;
-    ::jhnet::CharacterInfo* created_char_;
-    bool create_ok_;
-    PROTOBUF_TSAN_DECLARE_MEMBER
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_jhnet_2eproto;
-};
-// -------------------------------------------------------------------
-
 class SCP_CharList final : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:jhnet.SCP_CharList) */ {
  public:
@@ -3594,7 +3725,7 @@ class SCP_CharList final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_CharList*>(
         &_SCP_CharList_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 15;
+  static constexpr int kIndexInFileMessages = 16;
   friend void swap(SCP_CharList& a, SCP_CharList& b) { a.Swap(&b); }
   inline void Swap(SCP_CharList* other) {
     if (other == this) return;
@@ -4041,7 +4172,7 @@ class CSP_Move final : public ::google::protobuf::Message
     return reinterpret_cast<const CSP_Move*>(
         &_CSP_Move_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 10;
+  static constexpr int kIndexInFileMessages = 11;
   friend void swap(CSP_Move& a, CSP_Move& b) { a.Swap(&b); }
   inline void Swap(CSP_Move* other) {
     if (other == this) return;
@@ -4237,7 +4368,7 @@ class SCP_Spawn final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_Spawn*>(
         &_SCP_Spawn_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 19;
+  static constexpr int kIndexInFileMessages = 20;
   friend void swap(SCP_Spawn& a, SCP_Spawn& b) { a.Swap(&b); }
   inline void Swap(SCP_Spawn* other) {
     if (other == this) return;
@@ -4434,7 +4565,7 @@ class SCP_MyCharacterInfo final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_MyCharacterInfo*>(
         &_SCP_MyCharacterInfo_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 17;
+  static constexpr int kIndexInFileMessages = 18;
   friend void swap(SCP_MyCharacterInfo& a, SCP_MyCharacterInfo& b) { a.Swap(&b); }
   inline void Swap(SCP_MyCharacterInfo* other) {
     if (other == this) return;
@@ -4659,7 +4790,7 @@ class SCP_EnterGame final : public ::google::protobuf::Message
     return reinterpret_cast<const SCP_EnterGame*>(
         &_SCP_EnterGame_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 18;
+  static constexpr int kIndexInFileMessages = 19;
   friend void swap(SCP_EnterGame& a, SCP_EnterGame& b) { a.Swap(&b); }
   inline void Swap(SCP_EnterGame* other) {
     if (other == this) return;
@@ -5632,6 +5763,10 @@ inline void CSP_Login::set_allocated_login_pw(std::string* value) {
 
 // -------------------------------------------------------------------
 
+// CSP_CharList
+
+// -------------------------------------------------------------------
+
 // CSP_CreateChar
 
 // string name = 1;
@@ -6124,102 +6259,6 @@ inline void SCP_CreateChar::set_allocated_error_message(std::string* value) {
     _impl_.error_message_.Set("", GetArena());
   }
   // @@protoc_insertion_point(field_set_allocated:jhnet.SCP_CreateChar.error_message)
-}
-
-// .jhnet.CharacterInfo created_char = 3;
-inline bool SCP_CreateChar::has_created_char() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.created_char_ != nullptr);
-  return value;
-}
-inline void SCP_CreateChar::clear_created_char() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.created_char_ != nullptr) _impl_.created_char_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000001u;
-}
-inline const ::jhnet::CharacterInfo& SCP_CreateChar::_internal_created_char() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  const ::jhnet::CharacterInfo* p = _impl_.created_char_;
-  return p != nullptr ? *p : reinterpret_cast<const ::jhnet::CharacterInfo&>(::jhnet::_CharacterInfo_default_instance_);
-}
-inline const ::jhnet::CharacterInfo& SCP_CreateChar::created_char() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:jhnet.SCP_CreateChar.created_char)
-  return _internal_created_char();
-}
-inline void SCP_CreateChar::unsafe_arena_set_allocated_created_char(::jhnet::CharacterInfo* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.created_char_);
-  }
-  _impl_.created_char_ = reinterpret_cast<::jhnet::CharacterInfo*>(value);
-  if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:jhnet.SCP_CreateChar.created_char)
-}
-inline ::jhnet::CharacterInfo* SCP_CreateChar::release_created_char() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::jhnet::CharacterInfo* released = _impl_.created_char_;
-  _impl_.created_char_ = nullptr;
-  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
-    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
-    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-    if (GetArena() == nullptr) {
-      delete old;
-    }
-  } else {
-    if (GetArena() != nullptr) {
-      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-    }
-  }
-  return released;
-}
-inline ::jhnet::CharacterInfo* SCP_CreateChar::unsafe_arena_release_created_char() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:jhnet.SCP_CreateChar.created_char)
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::jhnet::CharacterInfo* temp = _impl_.created_char_;
-  _impl_.created_char_ = nullptr;
-  return temp;
-}
-inline ::jhnet::CharacterInfo* SCP_CreateChar::_internal_mutable_created_char() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.created_char_ == nullptr) {
-    auto* p = ::google::protobuf::Message::DefaultConstruct<::jhnet::CharacterInfo>(GetArena());
-    _impl_.created_char_ = reinterpret_cast<::jhnet::CharacterInfo*>(p);
-  }
-  return _impl_.created_char_;
-}
-inline ::jhnet::CharacterInfo* SCP_CreateChar::mutable_created_char() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  ::jhnet::CharacterInfo* _msg = _internal_mutable_created_char();
-  // @@protoc_insertion_point(field_mutable:jhnet.SCP_CreateChar.created_char)
-  return _msg;
-}
-inline void SCP_CreateChar::set_allocated_created_char(::jhnet::CharacterInfo* value) {
-  ::google::protobuf::Arena* message_arena = GetArena();
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (message_arena == nullptr) {
-    delete (_impl_.created_char_);
-  }
-
-  if (value != nullptr) {
-    ::google::protobuf::Arena* submessage_arena = (value)->GetArena();
-    if (message_arena != submessage_arena) {
-      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
-    }
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-
-  _impl_.created_char_ = reinterpret_cast<::jhnet::CharacterInfo*>(value);
-  // @@protoc_insertion_point(field_set_allocated:jhnet.SCP_CreateChar.created_char)
 }
 
 // -------------------------------------------------------------------

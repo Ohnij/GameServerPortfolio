@@ -163,6 +163,34 @@ struct SCP_DespawnDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCP_DespawnDefaultTypeInternal _SCP_Despawn_default_instance_;
 
+inline constexpr SCP_CreateChar::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : error_message_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        create_ok_{false},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR SCP_CreateChar::SCP_CreateChar(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct SCP_CreateCharDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR SCP_CreateCharDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~SCP_CreateCharDefaultTypeInternal() {}
+  union {
+    SCP_CreateChar _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCP_CreateCharDefaultTypeInternal _SCP_CreateChar_default_instance_;
+
 inline constexpr PosInfo::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : x_{0},
@@ -406,6 +434,24 @@ struct CSP_CreateCharDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CSP_CreateCharDefaultTypeInternal _CSP_CreateChar_default_instance_;
+              template <typename>
+PROTOBUF_CONSTEXPR CSP_CharList::CSP_CharList(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::internal::ZeroFieldsBase(_class_data_.base()){}
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::internal::ZeroFieldsBase() {
+}
+#endif  // PROTOBUF_CUSTOM_VTABLE
+struct CSP_CharListDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CSP_CharListDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CSP_CharListDefaultTypeInternal() {}
+  union {
+    CSP_CharList _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CSP_CharListDefaultTypeInternal _CSP_CharList_default_instance_;
 
 inline constexpr SCP_Move::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -432,35 +478,6 @@ struct SCP_MoveDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCP_MoveDefaultTypeInternal _SCP_Move_default_instance_;
-
-inline constexpr SCP_CreateChar::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : _cached_size_{0},
-        error_message_(
-            &::google::protobuf::internal::fixed_address_empty_string,
-            ::_pbi::ConstantInitialized()),
-        created_char_{nullptr},
-        create_ok_{false} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR SCP_CreateChar::SCP_CreateChar(::_pbi::ConstantInitialized)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(_class_data_.base()),
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(),
-#endif  // PROTOBUF_CUSTOM_VTABLE
-      _impl_(::_pbi::ConstantInitialized()) {
-}
-struct SCP_CreateCharDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR SCP_CreateCharDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~SCP_CreateCharDefaultTypeInternal() {}
-  union {
-    SCP_CreateChar _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SCP_CreateCharDefaultTypeInternal _SCP_CreateChar_default_instance_;
 
 inline constexpr SCP_CharList::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -715,6 +732,14 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Login, _impl_.login_id_),
         PROTOBUF_FIELD_OFFSET(::jhnet::CSP_Login, _impl_.login_pw_),
         ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::jhnet::CSP_CharList, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::jhnet::CSP_CreateChar, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -782,7 +807,7 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Login, _impl_.login_ok_),
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Login, _impl_.error_message_),
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_Login, _impl_.account_uid_),
-        PROTOBUF_FIELD_OFFSET(::jhnet::SCP_CreateChar, _impl_._has_bits_),
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_CreateChar, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -792,10 +817,6 @@ const ::uint32_t
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_CreateChar, _impl_.create_ok_),
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_CreateChar, _impl_.error_message_),
-        PROTOBUF_FIELD_OFFSET(::jhnet::SCP_CreateChar, _impl_.created_char_),
-        ~0u,
-        ~0u,
-        0,
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::jhnet::SCP_CharList, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -882,21 +903,22 @@ static const ::_pbi::MigrationSchema
         {57, -1, -1, sizeof(::jhnet::CSP_Ping)},
         {67, -1, -1, sizeof(::jhnet::CSP_Echo)},
         {77, -1, -1, sizeof(::jhnet::CSP_Login)},
-        {87, -1, -1, sizeof(::jhnet::CSP_CreateChar)},
-        {97, -1, -1, sizeof(::jhnet::CSP_SelectChar)},
-        {106, -1, -1, sizeof(::jhnet::CSP_MapLoadEnd)},
-        {114, 123, -1, sizeof(::jhnet::CSP_Move)},
-        {124, -1, -1, sizeof(::jhnet::SCP_Ping)},
-        {134, -1, -1, sizeof(::jhnet::SCP_Echo)},
-        {144, -1, -1, sizeof(::jhnet::SCP_Login)},
-        {155, 166, -1, sizeof(::jhnet::SCP_CreateChar)},
-        {169, -1, -1, sizeof(::jhnet::SCP_CharList)},
-        {178, -1, -1, sizeof(::jhnet::SCP_SelectCharResult)},
-        {188, 199, -1, sizeof(::jhnet::SCP_MyCharacterInfo)},
-        {202, 212, -1, sizeof(::jhnet::SCP_EnterGame)},
-        {214, -1, -1, sizeof(::jhnet::SCP_Spawn)},
-        {223, -1, -1, sizeof(::jhnet::SCP_Despawn)},
-        {232, 242, -1, sizeof(::jhnet::SCP_Move)},
+        {87, -1, -1, sizeof(::jhnet::CSP_CharList)},
+        {95, -1, -1, sizeof(::jhnet::CSP_CreateChar)},
+        {105, -1, -1, sizeof(::jhnet::CSP_SelectChar)},
+        {114, -1, -1, sizeof(::jhnet::CSP_MapLoadEnd)},
+        {122, 131, -1, sizeof(::jhnet::CSP_Move)},
+        {132, -1, -1, sizeof(::jhnet::SCP_Ping)},
+        {142, -1, -1, sizeof(::jhnet::SCP_Echo)},
+        {152, -1, -1, sizeof(::jhnet::SCP_Login)},
+        {163, -1, -1, sizeof(::jhnet::SCP_CreateChar)},
+        {173, -1, -1, sizeof(::jhnet::SCP_CharList)},
+        {182, -1, -1, sizeof(::jhnet::SCP_SelectCharResult)},
+        {192, 203, -1, sizeof(::jhnet::SCP_MyCharacterInfo)},
+        {206, 216, -1, sizeof(::jhnet::SCP_EnterGame)},
+        {218, -1, -1, sizeof(::jhnet::SCP_Spawn)},
+        {227, -1, -1, sizeof(::jhnet::SCP_Despawn)},
+        {236, 246, -1, sizeof(::jhnet::SCP_Move)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::jhnet::_PosInfo_default_instance_._instance,
@@ -906,6 +928,7 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::jhnet::_CSP_Ping_default_instance_._instance,
     &::jhnet::_CSP_Echo_default_instance_._instance,
     &::jhnet::_CSP_Login_default_instance_._instance,
+    &::jhnet::_CSP_CharList_default_instance_._instance,
     &::jhnet::_CSP_CreateChar_default_instance_._instance,
     &::jhnet::_CSP_SelectChar_default_instance_._instance,
     &::jhnet::_CSP_MapLoadEnd_default_instance_._instance,
@@ -938,51 +961,51 @@ const char descriptor_table_protodef_jhnet_2eproto[] ABSL_ATTRIBUTE_SECTION_VARI
     "\n\006number\030\001 \001(\r\022\021\n\ttimestamp\030\002 \001(\004\"+\n\010CSP"
     "_Echo\022\016\n\006number\030\001 \001(\r\022\017\n\007message\030\002 \001(\t\"/"
     "\n\tCSP_Login\022\020\n\010login_id\030\001 \001(\t\022\020\n\010login_p"
-    "w\030\002 \001(\t\"0\n\016CSP_CreateChar\022\014\n\004name\030\001 \001(\t\022"
-    "\020\n\010job_code\030\002 \001(\005\"\'\n\016CSP_SelectChar\022\025\n\rc"
-    "haracter_uid\030\001 \001(\004\"\020\n\016CSP_MapLoadEnd\",\n\010"
-    "CSP_Move\022 \n\010pos_info\030\001 \001(\0132\016.jhnet.PosIn"
-    "fo\"-\n\010SCP_Ping\022\016\n\006number\030\001 \001(\r\022\021\n\ttimest"
-    "amp\030\002 \001(\004\"+\n\010SCP_Echo\022\016\n\006number\030\001 \001(\r\022\017\n"
-    "\007message\030\002 \001(\t\"I\n\tSCP_Login\022\020\n\010login_ok\030"
-    "\001 \001(\010\022\025\n\rerror_message\030\002 \001(\t\022\023\n\013account_"
-    "uid\030\003 \001(\r\"f\n\016SCP_CreateChar\022\021\n\tcreate_ok"
-    "\030\001 \001(\010\022\025\n\rerror_message\030\002 \001(\t\022*\n\014created"
-    "_char\030\003 \001(\0132\024.jhnet.CharacterInfo\"8\n\014SCP"
-    "_CharList\022(\n\ncharacters\030\001 \003(\0132\024.jhnet.Ch"
-    "aracterInfo\">\n\024SCP_SelectCharResult\022\017\n\007s"
-    "uccess\030\001 \001(\010\022\025\n\rerror_message\030\002 \001(\t\"\203\001\n\023"
-    "SCP_MyCharacterInfo\022)\n\016my_player_info\030\001 "
-    "\001(\0132\021.jhnet.PlayerInfo\022\016\n\006map_id\030\002 \001(\005\0221"
-    "\n\016my_detail_info\030\003 \001(\0132\031.jhnet.MyPlayerD"
-    "etailInfo\"X\n\rSCP_EnterGame\022#\n\013my_pos_inf"
-    "o\030\001 \001(\0132\016.jhnet.PosInfo\022\"\n\007players\030\002 \003(\013"
-    "2\021.jhnet.PlayerInfo\"/\n\tSCP_Spawn\022\"\n\007play"
-    "ers\030\001 \003(\0132\021.jhnet.PlayerInfo\"#\n\013SCP_Desp"
-    "awn\022\024\n\014field_unique\030\001 \003(\004\"B\n\010SCP_Move\022\024\n"
-    "\014field_unique\030\001 \001(\004\022 \n\010pos_info\030\002 \001(\0132\016."
-    "jhnet.PosInfo*\365\002\n\010PacketId\022\022\n\016PACKET_ID_"
-    "NONE\020\000\022\r\n\010C2S_PING\020\351\007\022\r\n\010C2S_ECHO\020\352\007\022\016\n\t"
-    "C2S_LOGIN\020\353\007\022\024\n\017C2S_CREATE_CHAR\020\354\007\022\024\n\017C2"
-    "S_SELECT_CHAR\020\355\007\022\025\n\020C2S_MAP_LOAD_END\020\356\007\022"
-    "\r\n\010C2S_MOVE\020\357\007\022\r\n\010S2C_PING\020\321\017\022\r\n\010S2C_ECH"
-    "O\020\322\017\022\016\n\tS2C_LOGIN\020\323\017\022\022\n\rS2C_CHAR_LIST\020\324\017"
-    "\022\024\n\017S2C_CREATE_CHAR\020\325\017\022\033\n\026S2C_SELECT_CHA"
-    "R_RESULT\020\326\017\022\032\n\025S2C_MY_CHARACTER_INFO\020\327\017\022"
-    "\023\n\016S2C_ENTER_GAME\020\330\017\022\016\n\tS2C_SPAWN\020\331\017\022\020\n\013"
-    "S2C_DESPAWN\020\332\017\022\r\n\010S2C_MOVE\020\333\017b\006proto3"
+    "w\030\002 \001(\t\"\016\n\014CSP_CharList\"0\n\016CSP_CreateCha"
+    "r\022\014\n\004name\030\001 \001(\t\022\020\n\010job_code\030\002 \001(\005\"\'\n\016CSP"
+    "_SelectChar\022\025\n\rcharacter_uid\030\001 \001(\004\"\020\n\016CS"
+    "P_MapLoadEnd\",\n\010CSP_Move\022 \n\010pos_info\030\001 \001"
+    "(\0132\016.jhnet.PosInfo\"-\n\010SCP_Ping\022\016\n\006number"
+    "\030\001 \001(\r\022\021\n\ttimestamp\030\002 \001(\004\"+\n\010SCP_Echo\022\016\n"
+    "\006number\030\001 \001(\r\022\017\n\007message\030\002 \001(\t\"I\n\tSCP_Lo"
+    "gin\022\020\n\010login_ok\030\001 \001(\010\022\025\n\rerror_message\030\002"
+    " \001(\t\022\023\n\013account_uid\030\003 \001(\r\":\n\016SCP_CreateC"
+    "har\022\021\n\tcreate_ok\030\001 \001(\010\022\025\n\rerror_message\030"
+    "\002 \001(\t\"8\n\014SCP_CharList\022(\n\ncharacters\030\001 \003("
+    "\0132\024.jhnet.CharacterInfo\">\n\024SCP_SelectCha"
+    "rResult\022\017\n\007success\030\001 \001(\010\022\025\n\rerror_messag"
+    "e\030\002 \001(\t\"\203\001\n\023SCP_MyCharacterInfo\022)\n\016my_pl"
+    "ayer_info\030\001 \001(\0132\021.jhnet.PlayerInfo\022\016\n\006ma"
+    "p_id\030\002 \001(\005\0221\n\016my_detail_info\030\003 \001(\0132\031.jhn"
+    "et.MyPlayerDetailInfo\"X\n\rSCP_EnterGame\022#"
+    "\n\013my_pos_info\030\001 \001(\0132\016.jhnet.PosInfo\022\"\n\007p"
+    "layers\030\002 \003(\0132\021.jhnet.PlayerInfo\"/\n\tSCP_S"
+    "pawn\022\"\n\007players\030\001 \003(\0132\021.jhnet.PlayerInfo"
+    "\"#\n\013SCP_Despawn\022\024\n\014field_unique\030\001 \003(\004\"B\n"
+    "\010SCP_Move\022\024\n\014field_unique\030\001 \001(\004\022 \n\010pos_i"
+    "nfo\030\002 \001(\0132\016.jhnet.PosInfo*\211\003\n\010PacketId\022\022"
+    "\n\016PACKET_ID_NONE\020\000\022\r\n\010C2S_PING\020\351\007\022\r\n\010C2S"
+    "_ECHO\020\352\007\022\016\n\tC2S_LOGIN\020\353\007\022\022\n\rC2S_CHAR_LIS"
+    "T\020\354\007\022\024\n\017C2S_CREATE_CHAR\020\355\007\022\024\n\017C2S_SELECT"
+    "_CHAR\020\356\007\022\025\n\020C2S_MAP_LOAD_END\020\357\007\022\r\n\010C2S_M"
+    "OVE\020\360\007\022\r\n\010S2C_PING\020\321\017\022\r\n\010S2C_ECHO\020\322\017\022\016\n\t"
+    "S2C_LOGIN\020\323\017\022\022\n\rS2C_CHAR_LIST\020\324\017\022\024\n\017S2C_"
+    "CREATE_CHAR\020\325\017\022\033\n\026S2C_SELECT_CHAR_RESULT"
+    "\020\326\017\022\032\n\025S2C_MY_CHARACTER_INFO\020\327\017\022\023\n\016S2C_E"
+    "NTER_GAME\020\330\017\022\016\n\tS2C_SPAWN\020\331\017\022\020\n\013S2C_DESP"
+    "AWN\020\332\017\022\r\n\010S2C_MOVE\020\333\017b\006proto3"
 };
 static ::absl::once_flag descriptor_table_jhnet_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_jhnet_2eproto = {
     false,
     false,
-    1877,
+    1869,
     descriptor_table_protodef_jhnet_2eproto,
     "jhnet.proto",
     &descriptor_table_jhnet_2eproto_once,
     nullptr,
     0,
-    22,
+    23,
     schemas,
     file_default_instances,
     TableStruct_jhnet_2eproto::offsets,
@@ -995,7 +1018,7 @@ const ::google::protobuf::EnumDescriptor* PacketId_descriptor() {
   return file_level_enum_descriptors_jhnet_2eproto[0];
 }
 PROTOBUF_CONSTINIT const uint32_t PacketId_internal_data_[] = {
-    65536u, 1179648u, 2004u, 1007u, 2008u, 1004u, 2002u, 2006u, 2010u, 1002u, 1006u, 2001u, 2003u, 2005u, 2007u, 2009u, 2011u, 1001u, 1003u, 1005u, };
+    65536u, 1245184u, 2004u, 1008u, 2008u, 1004u, 2002u, 2006u, 2010u, 1002u, 1006u, 2001u, 2003u, 2005u, 2007u, 2009u, 2011u, 1001u, 1003u, 1005u, 1007u, };
 bool PacketId_IsValid(int value) {
   return ::_pbi::ValidateEnum(value, PacketId_internal_data_);
 }
@@ -3079,6 +3102,109 @@ void CSP_Login::InternalSwap(CSP_Login* PROTOBUF_RESTRICT other) {
 }
 // ===================================================================
 
+class CSP_CharList::_Internal {
+ public:
+};
+
+CSP_CharList::CSP_CharList(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::internal::ZeroFieldsBase(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::internal::ZeroFieldsBase(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  // @@protoc_insertion_point(arena_constructor:jhnet.CSP_CharList)
+}
+CSP_CharList::CSP_CharList(
+    ::google::protobuf::Arena* arena,
+    const CSP_CharList& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::internal::ZeroFieldsBase(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::internal::ZeroFieldsBase(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  CSP_CharList* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+
+  // @@protoc_insertion_point(copy_constructor:jhnet.CSP_CharList)
+}
+
+inline void* CSP_CharList::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) CSP_CharList(arena);
+}
+constexpr auto CSP_CharList::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(CSP_CharList),
+                                            alignof(CSP_CharList));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull CSP_CharList::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_CSP_CharList_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &CSP_CharList::MergeImpl,
+        ::google::protobuf::internal::ZeroFieldsBase::GetNewImpl<CSP_CharList>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &CSP_CharList::SharedDtor,
+        ::google::protobuf::internal::ZeroFieldsBase::GetClearImpl<CSP_CharList>(), &CSP_CharList::ByteSizeLong,
+            &CSP_CharList::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(CSP_CharList, _impl_._cached_size_),
+        false,
+    },
+    &CSP_CharList::kDescriptorMethods,
+    &descriptor_table_jhnet_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* CSP_CharList::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 0, 0, 0, 2> CSP_CharList::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    0, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967295,  // skipmap
+    offsetof(decltype(_table_), field_names),  // no field_entries
+    0,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::jhnet::CSP_CharList>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }},
+  // no field_entries, or aux_entries
+  {{
+  }},
+};
+
+
+
+
+
+
+
+
+::google::protobuf::Metadata CSP_CharList::GetMetadata() const {
+  return ::google::protobuf::internal::ZeroFieldsBase::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
 class CSP_CreateChar::_Internal {
  public:
 };
@@ -4692,10 +4818,6 @@ void SCP_Login::InternalSwap(SCP_Login* PROTOBUF_RESTRICT other) {
 
 class SCP_CreateChar::_Internal {
  public:
-  using HasBits =
-      decltype(std::declval<SCP_CreateChar>()._impl_._has_bits_);
-  static constexpr ::int32_t kHasBitsOffset =
-      8 * PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_._has_bits_);
 };
 
 SCP_CreateChar::SCP_CreateChar(::google::protobuf::Arena* arena)
@@ -4710,9 +4832,8 @@ SCP_CreateChar::SCP_CreateChar(::google::protobuf::Arena* arena)
 inline PROTOBUF_NDEBUG_INLINE SCP_CreateChar::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
     const Impl_& from, const ::jhnet::SCP_CreateChar& from_msg)
-      : _has_bits_{from._has_bits_},
-        _cached_size_{0},
-        error_message_(arena, from.error_message_) {}
+      : error_message_(arena, from.error_message_),
+        _cached_size_{0} {}
 
 SCP_CreateChar::SCP_CreateChar(
     ::google::protobuf::Arena* arena,
@@ -4727,10 +4848,6 @@ SCP_CreateChar::SCP_CreateChar(
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
-  _impl_.created_char_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::jhnet::CharacterInfo>(
-                              arena, *from._impl_.created_char_)
-                        : nullptr;
   _impl_.create_ok_ = from._impl_.create_ok_;
 
   // @@protoc_insertion_point(copy_constructor:jhnet.SCP_CreateChar)
@@ -4738,17 +4855,12 @@ SCP_CreateChar::SCP_CreateChar(
 inline PROTOBUF_NDEBUG_INLINE SCP_CreateChar::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : _cached_size_{0},
-        error_message_(arena) {}
+      : error_message_(arena),
+        _cached_size_{0} {}
 
 inline void SCP_CreateChar::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  ::memset(reinterpret_cast<char *>(&_impl_) +
-               offsetof(Impl_, created_char_),
-           0,
-           offsetof(Impl_, create_ok_) -
-               offsetof(Impl_, created_char_) +
-               sizeof(Impl_::create_ok_));
+  _impl_.create_ok_ = {};
 }
 SCP_CreateChar::~SCP_CreateChar() {
   // @@protoc_insertion_point(destructor:jhnet.SCP_CreateChar)
@@ -4759,7 +4871,6 @@ inline void SCP_CreateChar::SharedDtor(MessageLite& self) {
   this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   ABSL_DCHECK(this_.GetArena() == nullptr);
   this_._impl_.error_message_.Destroy();
-  delete this_._impl_.created_char_;
   this_._impl_.~Impl_();
 }
 
@@ -4799,17 +4910,17 @@ const ::google::protobuf::internal::ClassData* SCP_CreateChar::GetClassData() co
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<2, 3, 1, 42, 2> SCP_CreateChar::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 0, 42, 2> SCP_CreateChar::_table_ = {
   {
-    PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_._has_bits_),
+    0,  // no _has_bits_
     0, // no _extensions_
-    3, 24,  // max_field_number, fast_idx_mask
+    2, 8,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967288,  // skipmap
+    4294967292,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    3,  // num_field_entries
-    1,  // num_aux_entries
-    offsetof(decltype(_table_), aux_entries),
+    2,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
     _class_data_.base(),
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallback,  // fallback
@@ -4817,31 +4928,24 @@ const ::_pbi::TcParseTable<2, 3, 1, 42, 2> SCP_CreateChar::_table_ = {
     ::_pbi::TcParser::GetTable<::jhnet::SCP_CreateChar>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    {::_pbi::TcParser::MiniParse, {}},
-    // bool create_ok = 1;
-    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(SCP_CreateChar, _impl_.create_ok_), 63>(),
-     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.create_ok_)}},
     // string error_message = 2;
     {::_pbi::TcParser::FastUS1,
      {18, 63, 0, PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.error_message_)}},
-    // .jhnet.CharacterInfo created_char = 3;
-    {::_pbi::TcParser::FastMtS1,
-     {26, 0, 0, PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.created_char_)}},
+    // bool create_ok = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(SCP_CreateChar, _impl_.create_ok_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.create_ok_)}},
   }}, {{
     65535, 65535
   }}, {{
     // bool create_ok = 1;
-    {PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.create_ok_), -1, 0,
+    {PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.create_ok_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kBool)},
     // string error_message = 2;
-    {PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.error_message_), -1, 0,
+    {PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.error_message_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
-    // .jhnet.CharacterInfo created_char = 3;
-    {PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.created_char_), _Internal::kHasBitsOffset + 0, 0,
-    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
-  }}, {{
-    {::_pbi::TcParser::GetTable<::jhnet::CharacterInfo>()},
-  }}, {{
+  }},
+  // no aux_entries
+  {{
     "\24\0\15\0\0\0\0\0"
     "jhnet.SCP_CreateChar"
     "error_message"
@@ -4856,13 +4960,7 @@ PROTOBUF_NOINLINE void SCP_CreateChar::Clear() {
   (void) cached_has_bits;
 
   _impl_.error_message_.ClearToEmpty();
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(_impl_.created_char_ != nullptr);
-    _impl_.created_char_->Clear();
-  }
   _impl_.create_ok_ = false;
-  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -4896,14 +4994,6 @@ PROTOBUF_NOINLINE void SCP_CreateChar::Clear() {
             target = stream->WriteStringMaybeAliased(2, _s, target);
           }
 
-          cached_has_bits = this_._impl_._has_bits_[0];
-          // .jhnet.CharacterInfo created_char = 3;
-          if (cached_has_bits & 0x00000001u) {
-            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-                3, *this_._impl_.created_char_, this_._impl_.created_char_->GetCachedSize(), target,
-                stream);
-          }
-
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
             target =
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -4934,16 +5024,6 @@ PROTOBUF_NOINLINE void SCP_CreateChar::Clear() {
               total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
                                               this_._internal_error_message());
             }
-          }
-           {
-            // .jhnet.CharacterInfo created_char = 3;
-            cached_has_bits = this_._impl_._has_bits_[0];
-            if (cached_has_bits & 0x00000001u) {
-              total_size += 1 +
-                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.created_char_);
-            }
-          }
-           {
             // bool create_ok = 1;
             if (this_._internal_create_ok() != 0) {
               total_size += 2;
@@ -4956,7 +5036,6 @@ PROTOBUF_NOINLINE void SCP_CreateChar::Clear() {
 void SCP_CreateChar::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
   auto* const _this = static_cast<SCP_CreateChar*>(&to_msg);
   auto& from = static_cast<const SCP_CreateChar&>(from_msg);
-  ::google::protobuf::Arena* arena = _this->GetArena();
   // @@protoc_insertion_point(class_specific_merge_from_start:jhnet.SCP_CreateChar)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
@@ -4965,20 +5044,9 @@ void SCP_CreateChar::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::
   if (!from._internal_error_message().empty()) {
     _this->_internal_set_error_message(from._internal_error_message());
   }
-  cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    ABSL_DCHECK(from._impl_.created_char_ != nullptr);
-    if (_this->_impl_.created_char_ == nullptr) {
-      _this->_impl_.created_char_ =
-          ::google::protobuf::Message::CopyConstruct<::jhnet::CharacterInfo>(arena, *from._impl_.created_char_);
-    } else {
-      _this->_impl_.created_char_->MergeFrom(*from._impl_.created_char_);
-    }
-  }
   if (from._internal_create_ok() != 0) {
     _this->_impl_.create_ok_ = from._impl_.create_ok_;
   }
-  _this->_impl_._has_bits_[0] |= cached_has_bits;
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -4995,14 +5063,8 @@ void SCP_CreateChar::InternalSwap(SCP_CreateChar* PROTOBUF_RESTRICT other) {
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.error_message_, &other->_impl_.error_message_, arena);
-  ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.create_ok_)
-      + sizeof(SCP_CreateChar::_impl_.create_ok_)
-      - PROTOBUF_FIELD_OFFSET(SCP_CreateChar, _impl_.created_char_)>(
-          reinterpret_cast<char*>(&_impl_.created_char_),
-          reinterpret_cast<char*>(&other->_impl_.created_char_));
+        swap(_impl_.create_ok_, other->_impl_.create_ok_);
 }
 
 ::google::protobuf::Metadata SCP_CreateChar::GetMetadata() const {

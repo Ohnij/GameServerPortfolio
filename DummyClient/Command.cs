@@ -88,7 +88,31 @@ namespace DummyClient
             client.SendLogin(id, pw);
         }
 
+        [CommandAttribute("createchar", "캐릭터를 생성합니다")]
+        private static void HandleCreateChar(Client client)
+        {
+            if (!client.IsConnected)
+                return;
 
+            Console.Write("nickname입력: ");
+            string nickname = Console.ReadLine();
+            Console.Write("jobcode입력(숫자): ");
+            string job = Console.ReadLine();
+        
+            if (string.IsNullOrWhiteSpace(nickname) || string.IsNullOrWhiteSpace(job))
+            {
+                Console.WriteLine("[입력된 nickname / jobcode 가 없습니다]");
+                return;
+            }
+            int jobcode = int.Parse(job);
+            if(jobcode < 0)
+            {
+                Console.WriteLine("[jobcode value가 음수입니다]");
+                return;
+            }
+
+            client.SendCreateChar(nickname,jobcode);
+        }
 
 
 

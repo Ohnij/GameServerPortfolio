@@ -1,10 +1,14 @@
 #include "stdafx.h"
 #include "PacketManager.h"
+#include <codecvt>
+#include "Util.h"
+
 #include "Packet.h"
 #include "GameClient.h"
 #include "DBManager.h"
 #include "DBRequest_CheckAccountLogin.h"
-//std::unordered_map<uint16_t, PacketHandlerFunction> g_PacketHandler;
+#include "DBRequest_CreateCharacter.h"
+#include "DBRequest_GetCharacterList.h"
 
 
 void PacketManager::Send(std::shared_ptr<Client> client, const::google::protobuf::Message& packet, PACKET_ID packet_id)
@@ -85,6 +89,7 @@ void PacketManager::InitPacketHandler()
 	MakeFactory<jhnet::CSP_Ping>(jhnet::PacketId::C2S_PING);
 	MakeFactory<jhnet::CSP_Echo>(jhnet::PacketId::C2S_ECHO);
 	MakeFactory<jhnet::CSP_Login>(jhnet::PacketId::C2S_LOGIN);
+	MakeFactory<jhnet::CSP_CharList>(jhnet::PacketId::C2S_CHAR_LIST);
 	MakeFactory<jhnet::CSP_CreateChar>(jhnet::PacketId::C2S_CREATE_CHAR);
 	MakeFactory<jhnet::CSP_SelectChar>(jhnet::PacketId::C2S_SELECT_CHAR);
 
@@ -101,6 +106,7 @@ void PacketManager::InitPacketHandler()
 	MakeHandler(jhnet::PacketId::C2S_PING , &PacketManager::Handle_CS_PING);
 	MakeHandler(jhnet::PacketId::C2S_ECHO, &PacketManager::Handle_CS_ECHO);
 	MakeHandler(jhnet::PacketId::C2S_LOGIN, &PacketManager::Handle_CS_LOGIN);
+	MakeHandler(jhnet::PacketId::C2S_CHAR_LIST, &PacketManager::Handle_CS_CHAR_LIST);
 	MakeHandler(jhnet::PacketId::C2S_CREATE_CHAR, &PacketManager::Handle_CS_CREATE_CHAR);
 	MakeHandler(jhnet::PacketId::C2S_SELECT_CHAR, &PacketManager::Handle_CS_SELECT_CHAR);
 }
@@ -172,6 +178,19 @@ bool PacketManager::Handle_CS_LOGIN(std::shared_ptr<GameClient> client, std::sha
 	return true;
 }
 
+bool PacketManager::Handle_CS_CHAR_LIST(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message)
+{
+	std::shared_ptr<jhnet::CSP_CharList> packet = std::dynamic_pointer_cast<jhnet::CSP_CharList>(message);
+	if (!packet)
+	{
+		//들어온 메세지가 다르다
+		return false;
+	}
+
+	DBManager::Instance().PushRequest(std::make_shared<DBRequest_GetCharacterList>(client->GetAccountUid(), client));
+	return true;
+}
+
 bool PacketManager::Handle_CS_CREATE_CHAR(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message)
 {
 	std::shared_ptr<jhnet::CSP_CreateChar> packet = std::dynamic_pointer_cast<jhnet::CSP_CreateChar>(message);
@@ -180,6 +199,13 @@ bool PacketManager::Handle_CS_CREATE_CHAR(std::shared_ptr<GameClient> client, st
 		//들어온 메세지가 다르다
 		return false;
 	}
+
+	//캐릭터 생성요청
+	//string name = 1;
+	//int32 job_code = 2;
+
+	std::wstring nickname = Utf8ToWString(packet->name());
+	DBManager::Instance().PushRequest(std::make_shared<DBRequest_CreateCharacter>(nickname, client->GetAccountUid(), packet->job_code(), client));
 	return true;
 }
 
@@ -191,5 +217,9 @@ bool PacketManager::Handle_CS_SELECT_CHAR(std::shared_ptr<GameClient> client, st
 		//들어온 메세지가 다르다
 		return false;
 	}
+	//캐릭터 선택 (입장)
+	//uint64 character_uid = 1;
+	
+
 	return true;
 }

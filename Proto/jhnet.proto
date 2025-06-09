@@ -14,12 +14,13 @@ enum PacketId
 	C2S_ECHO = 1002;
 	C2S_LOGIN = 1003;
 	//AUTHED ~
-	C2S_CREATE_CHAR = 1004;
-	C2S_SELECT_CHAR = 1005;
+	C2S_CHAR_LIST = 1004;
+	C2S_CREATE_CHAR = 1005;
+	C2S_SELECT_CHAR = 1006;
 
 	//INGAME
-	C2S_MAP_LOAD_END = 1006; //맵로딩 완료 (주변정보 주세요~)
-	C2S_MOVE= 1007;
+	C2S_MAP_LOAD_END = 1007; //맵로딩 완료 (주변정보 주세요~)
+	C2S_MOVE= 1008;
 
 ////////////////////////////////////////////////////////////
 //서버
@@ -112,6 +113,9 @@ message CSP_Login
 	string login_pw =2;
 }
 
+message CSP_CharList
+{
+}
 
 //캐릭터 생성요청
 message CSP_CreateChar
@@ -166,7 +170,6 @@ message SCP_CreateChar
 {
 	bool create_ok =1;
 	string error_message=2;
-	CharacterInfo created_char =3; //성공시만 보내기
 }
 
 //캐릭터 목록 갱신

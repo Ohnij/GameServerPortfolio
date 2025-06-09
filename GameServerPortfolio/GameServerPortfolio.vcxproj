@@ -146,6 +146,8 @@
     <ClCompile Include="DBConnection.cpp" />
     <ClCompile Include="DBManager.cpp" />
     <ClCompile Include="DBRequest_CheckAccountLogin.cpp" />
+    <ClCompile Include="DBRequest_CreateCharacter.cpp" />
+    <ClCompile Include="DBRequest_GetCharacterList.cpp" />
     <ClCompile Include="GameClient.cpp" />
     <ClCompile Include="GameClientAllocater.cpp" />
     <ClCompile Include="GameMap.cpp" />
@@ -163,6 +165,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ThreadManager.cpp" />
+    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h" />
@@ -172,6 +175,8 @@
     <ClInclude Include="DBManager.h" />
     <ClInclude Include="DBRequest.h" />
     <ClInclude Include="DBRequest_CheckAccountLogin.h" />
+    <ClInclude Include="DBRequest_CreateCharacter.h" />
+    <ClInclude Include="DBRequest_GetCharacterList.h" />
     <ClInclude Include="GameClient.h" />
     <ClInclude Include="GameClientAllocater.h" />
     <ClInclude Include="GameMap.h" />
@@ -187,6 +192,7 @@
     <ClInclude Include="SendBuffer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ThreadManager.h" />
+    <ClInclude Include="NetUtil.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>

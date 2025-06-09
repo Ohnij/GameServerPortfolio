@@ -1,12 +1,14 @@
 #pragma once
 #include "DBRequest.h"
 
-class DBRequest_CheckAccountLogin : public DBRequest
+
+class DBRequest_CreateCharacter : public DBRequest
 {
 public:
-    DBRequest_CheckAccountLogin(
-        std::string id,
-        std::string pw,
+    DBRequest_CreateCharacter(
+        std::wstring _nickname,
+        int account_uid,
+        int job_code,
         std::shared_ptr<class GameClient> client);
 
     void Execute(std::shared_ptr<class DBConnection> db_connection) override;
@@ -14,7 +16,8 @@ public:
 private:
     friend class DBConnection;
 
-    std::string _id;
-    std::string _pw;
+    std::wstring _nickname;
+    int _account_uid;
+    int _job_code;
     std::weak_ptr<class GameClient> _client;
 };

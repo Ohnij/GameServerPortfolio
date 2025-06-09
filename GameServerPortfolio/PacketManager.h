@@ -46,9 +46,12 @@ private:
 	std::unordered_map<PACKET_ID, PacketHandlerFunction> _PacketHandler; // id / GameClient,byte*,int
 
 
+private:
+
 	bool Handle_CS_PING(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
 	bool Handle_CS_ECHO(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
 	bool Handle_CS_LOGIN(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
+	bool Handle_CS_CHAR_LIST(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
 	bool Handle_CS_CREATE_CHAR(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
 	bool Handle_CS_SELECT_CHAR(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
 };

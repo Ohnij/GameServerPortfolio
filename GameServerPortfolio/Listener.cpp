@@ -2,7 +2,7 @@
 #include "Listener.h"
 #include "IocpServer.h"
 #include "Client.h"
-#include "Util.h"
+#include "NetUtil.h"
 #include "ClientManager.h"
 
 //AccpetEX는 Accept와 다르게 블락이 되지 않고 IOCP의 GQCP를 통해 결과를 통보 받는다.

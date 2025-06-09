@@ -35,9 +35,18 @@ DBManager제작
 ➕DummyClient 로직 수정
 ➕C++ PacketManager -> Packet생성자 매핑 지저분해서 함수제작
 ➕C++ PacketManager -> Packet핸들러 매핑 지저분해서 함수제작
+
+# 250609
+✅C# DummyClient 수동 조작으로 Character 생성 까지 만들어보기 
+
+# 250610
+📌Client가 ObjectPool로 관리되기 때문에 Weak_ptr / Shared_ptr항상 살아있기때문에
+     ClientNumber로 클라이언트가 존재하는지 체크하는 로직으로 수정필요
+
+
+
 # WorkList
 🔄C# DummyClient 수동 조작 버전 Flow
-🔄C# DummyClient 수동 조작으로 Character 생성 까지 만들어보기
 📝GameClient 정보 캐싱 변수 +
 📝GameMap(인스턴스) / Packet / DBResponse 구조 생각해보고 구조짜기.
 📝Unity 클라이언트 제작

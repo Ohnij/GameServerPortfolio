@@ -28,6 +28,9 @@ public:
 	//inline void SetState(ClientState state) { _state = state; }
 	//inline ClientState GetState() const { return _state; }
 
+	inline int GetAccountUid() { return _account_uid; }
+
+
 	void OnReceive(BYTE* data, int size) override;
 
 	void Login(int account_uid)

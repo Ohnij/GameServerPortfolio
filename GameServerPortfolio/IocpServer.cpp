@@ -2,7 +2,7 @@
 #include "IocpServer.h"
 #include "Listener.h"
 #include "Client.h"
-#include "Util.h"
+#include "NetUtil.h"
 #include "ClientManager.h"
 #include "ObjectPool.h"
 #include "ClientAllocator.h"

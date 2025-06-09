@@ -1,6 +1,15 @@
 #include "stdafx.h"
 #include "DBConnection.h"
 
+#include "GameClient.h"
+#include "jhnet.pb.h"
+#include "PacketManager.h"
+#include "Util.h"
+
+#include "DBRequest_CheckAccountLogin.h"
+#include "DBRequest_GetCharacterList.h"
+#include "DBRequest_CreateCharacter.h"
+
 DBConnection::DBConnection()
 {
     
@@ -189,11 +198,6 @@ bool DBConnection::TestQuery2()
     return true;
 }
 
-bool DBConnection::TestQuery3(const std::string& id, const std::string& pw, int& out_uid, int& out_result_code)
-{
-    CallCheckAccountLogin(id, pw, out_uid, out_result_code);
-    return false;
-}
 
 void DBConnection::PrintErrorMessage(SQLSMALLINT handleType, SQLHANDLE handle)
 {
@@ -236,13 +240,14 @@ void DBConnection::PrintErrorMessage(SQLSMALLINT handleType, SQLHANDLE handle)
     }
 }
 
-void DBConnection::CallCheckAccountLogin(const std::string& id, const std::string& pw, int& out_uid, int& out_result_code)
+
+void DBConnection::StoredProcedure_CheckAccountLogin(DBRequest_CheckAccountLogin* request)
 {
     SQLHSTMT stmt = nullptr;
     SQLRETURN ret;
 
-    out_uid = -1;
-    out_result_code = 2;
+    int out_uid = -1;
+    int out_result_code = 2;
 
     ret = SQLAllocHandle(SQL_HANDLE_STMT, _h_dbc, &stmt);
     if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
@@ -263,13 +268,13 @@ void DBConnection::CallCheckAccountLogin(const std::string& id, const std::strin
     //SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_LONG, SQL_INTEGER, sizeof(ret), 0 & ret, 0, 0);
     //SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_LONG, SQL_INTEGER, sizeof(prm), 0 & prm, 0, 0);
 
-    SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 20, 0, (SQLPOINTER)id.c_str(), 0, 0);
-    SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 30, 0, (SQLPOINTER)pw.c_str(), 0, 0);
+    SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 20, 0, (SQLPOINTER)request->_id.c_str(), 0, 0);
+    SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 30, 0, (SQLPOINTER)request->_pw.c_str(), 0, 0);
     SQLBindParameter(stmt, 3, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_uid), 0, &out_uid, 0, 0);
     SQLBindParameter(stmt, 4, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_result_code), 0, &out_result_code, 0, 0);
 
     ret = SQLExecute(stmt);
-   
+
 
     if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
     {
@@ -278,7 +283,212 @@ void DBConnection::CallCheckAccountLogin(const std::string& id, const std::strin
         //로그등..
         return;
     }
-   
+
     SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+
+	auto client = request->_client.lock();
+	if (!client)
+	{
+		std::cerr << "StoredProcedure_CheckAccountLogin :: client null \n";
+		return;
+	}
+
+    jhnet::SCP_Login send_packet;
+	send_packet.set_account_uid(out_uid);
+	send_packet.set_login_ok(false);
+	if (out_result_code == 0)
+	{
+		send_packet.set_login_ok(true);
+		client->Login(out_uid);
+		std::cerr << "로그인성공 \n";
+	}
+	else
+	{
+		std::cerr << "로그인실패 \n";
+	}
+	PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_LOGIN);
+
+}
+
+void DBConnection::StoredProcedure_GetCharacterList(DBRequest_GetCharacterList* request)
+{
+    jhnet::SCP_CharList send_packet;
+    {
+        SQLHSTMT stmt = nullptr;
+        SQLRETURN ret;
+
+        ret = SQLAllocHandle(SQL_HANDLE_STMT, _h_dbc, &stmt);
+        if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+        {
+            PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+            //생성 못했으니 Free 해줄필요 없음.
+            return;
+        }
+
+        const char* sql = "{CALL GameDB.dbo.sp_GetCharacterList(?)}";
+        ret = SQLPrepareA(stmt, (SQLCHAR*)sql, SQL_NTS);
+        if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+        {
+            PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+            SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+            return;
+        }
+        SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(request->_account_uid), 0, &request->_account_uid, 0, 0);
+        ret = SQLExecute(stmt);
+        if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+        {
+            PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+            SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+            //로그등..
+            return;
+        }
+
+
+        //character_uid, nickname, char_level, job_code
+        int character_uid;
+        wchar_t nickname[20];
+        int char_level;
+        int job_code;
+
+        SQLBindCol(stmt, 1, SQL_C_SLONG, &character_uid, 0, nullptr);
+        SQLBindCol(stmt, 2, SQL_C_WCHAR, &nickname, sizeof(nickname), nullptr);
+        SQLBindCol(stmt, 3, SQL_C_SLONG, &char_level, 0, nullptr);
+        SQLBindCol(stmt, 4, SQL_C_SLONG, &job_code, 0, nullptr);
+
+        //결과 행 반복 fetch
+        while ((ret = SQLFetch(stmt)) == SQL_SUCCESS) {
+            auto insert_character = send_packet.add_characters();
+            insert_character->set_character_uid(character_uid);
+            insert_character->set_nickname(WStringToUtf8(nickname));
+            insert_character->set_level(char_level);
+            insert_character->set_job_code(job_code);
+        }
+        SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+    }
+    auto client = request->_client.lock();
+    if (!client)
+    {
+        std::cerr << "StoredProcedure_CheckAccountLogin :: client null \n";
+        return;
+    }
+
+    PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_CHAR_LIST);
+}
+
+void DBConnection::StoredProcedure_CreateCharacter(DBRequest_CreateCharacter* request)
+{
+    int out_char_uid = -1;
+    int out_result_code = 2;
+    // 0: 성공, 1: 닉네임 중복, 2: 기타 오류
+    {
+        SQLHSTMT stmt = nullptr;
+        SQLRETURN ret;
+
+        ret = SQLAllocHandle(SQL_HANDLE_STMT, _h_dbc, &stmt);
+        if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+        {
+            PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+            //생성 못했으니 Free 해줄필요 없음.
+            return;
+        }
+
+        const char* sql = "{CALL accountdb.dbo.sp_ReserveCharacterSlot(?, ?, ?, ?)}";
+        ret = SQLPrepareA(stmt, (SQLCHAR*)sql, SQL_NTS);
+        if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+        {
+            PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+            SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+            return;
+        }
+        SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WVARCHAR, 20, 0, (SQLPOINTER)request->_nickname.c_str(), 0, 0);
+        SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(request->_account_uid), 0, &request->_account_uid, 0, 0);
+        SQLBindParameter(stmt, 3, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_char_uid), 0, &out_char_uid, 0, 0);
+        SQLBindParameter(stmt, 4, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_result_code), 0, &out_result_code, 0, 0);
+
+        ret = SQLExecute(stmt);
+
+        if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+        {
+            PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+            SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+            //로그등..
+            return;
+        }
+        SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+    }
+
+    auto client = request->_client.lock();
+    if (!client)
+    {
+        std::cerr << "StoredProcedure_CheckAccountLogin :: client null \n";
+        return;
+    }
+
+    jhnet::SCP_CreateChar send_packet;
+    send_packet.set_create_ok(false);
+    if (out_result_code != 0)
+    {
+        (out_result_code == 1)? send_packet.set_error_message("중복된 닉네임") : send_packet.set_error_message("생성실패");
+        PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_CREATE_CHAR);
+        return;
+    }
+
+
+    {
+        SQLHSTMT stmt = nullptr;
+        SQLRETURN ret;
+
+        ret = SQLAllocHandle(SQL_HANDLE_STMT, _h_dbc, &stmt);
+        if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+        {
+            PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+            //생성 못했으니 Free 해줄필요 없음.
+            return;
+        }
+
+
+        //@character_uid INT,
+        //@account_uid INT,
+        //    @nickname NVARCHAR(20),
+        //  @job_code tinyint,
+        //    @ResultCode INT OUTPUT
+
+        const char* sql = "{CALL GameDB.dbo.sp_CreateCharacter(?, ?, ?, ?, ?)}";
+        ret = SQLPrepareA(stmt, (SQLCHAR*)sql, SQL_NTS);
+        if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+        {
+            PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+            SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+            return;
+        }
+        SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_char_uid), 0, &out_char_uid, 0, 0);
+        SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(request->_account_uid), 0, &request->_account_uid, 0, 0);
+        SQLBindParameter(stmt, 3, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WVARCHAR, 20, 0, (SQLPOINTER)request->_nickname.c_str(), 0, 0);
+        SQLBindParameter(stmt, 4, SQL_PARAM_INPUT, SQL_C_TINYINT, SQL_TINYINT, sizeof(request->_job_code), 0, &request->_job_code, 0, 0);
+        SQLBindParameter(stmt, 5, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_result_code), 0, &out_result_code, 0, 0);
+
+        ret = SQLExecute(stmt);
+
+        if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
+        {
+            PrintErrorMessage(SQL_HANDLE_STMT, stmt);
+            SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+            //로그등..
+            return;
+        }
+        SQLFreeHandle(SQL_HANDLE_STMT, stmt);
+    }
+
+    if (out_result_code != 0)
+    {
+        send_packet.set_error_message("캐릭터생성중 에러가 발생했습니다");
+        PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_CREATE_CHAR);
+        return;
+    }
+
+
+    send_packet.set_create_ok(true);
+    PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_LOGIN);
+
 }
 

@@ -100,12 +100,21 @@
     <ClCompile Include="PacketManager.cpp">
       <Filter>02_GameContents\Packet</Filter>
     </ClCompile>
+    <ClCompile Include="DBRequest_CreateCharacter.cpp">
+      <Filter>03_DB\Message</Filter>
+    </ClCompile>
+    <ClCompile Include="DBRequest_GetCharacterList.cpp">
+      <Filter>03_DB\Message</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IOCPDefine.h">
       <Filter>01_ServerFramework\IOCPServer</Filter>
     </ClInclude>
-    <ClInclude Include="Util.h">
+    <ClInclude Include="NetUtil.h">
       <Filter>01_ServerFramework\IOCPServer</Filter>
     </ClInclude>
     <ClInclude Include="Client.h">
@@ -170,6 +179,15 @@
     </ClInclude>
     <ClInclude Include="Packet.h">
       <Filter>01_ServerFramework\IOCPServer\Core\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="DBRequest_GetCharacterList.h">
+      <Filter>03_DB\Message</Filter>
+    </ClInclude>
+    <ClInclude Include="DBRequest_CreateCharacter.h">
+      <Filter>03_DB\Message</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
