@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ChattingServer.cpp">
+      <Filter>ChattingServer</Filter>
+    </ClCompile>
+    <ClCompile Include="stdfx.cpp">
+      <Filter>pch</Filter>
+    </ClCompile>
+    <ClCompile Include="Generated\jhnet.pb.cc">
+      <Filter>Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketManager.cpp">
+      <Filter>Packet</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="ChattingServer">
+      <UniqueIdentifier>{7ed15c3c-2aed-4fe9-b605-d8918b7bca52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet">
+      <UniqueIdentifier>{794b99ad-908f-421d-ba13-8f57e8249de9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pch">
+      <UniqueIdentifier>{e5b7b362-d029-4902-8551-636ed2ba2a5f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ChattingServer.h">
+      <Filter>ChattingServer</Filter>
+    </ClInclude>
+    <ClInclude Include="stdfx.h">
+      <Filter>pch</Filter>
+    </ClInclude>
+    <ClInclude Include="Generated\jhnet.pb.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketManager.h">
+      <Filter>Packet</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

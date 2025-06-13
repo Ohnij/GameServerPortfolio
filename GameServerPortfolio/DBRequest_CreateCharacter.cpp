@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "DBRequest_CreateCharacter.h"
 #include "DBConnection.h"
-#include "GameClient.h"
 
 
 DBRequest_CreateCharacter::DBRequest_CreateCharacter(

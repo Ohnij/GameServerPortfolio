@@ -7,7 +7,7 @@ public:
     DBRequest_CheckAccountLogin(
         std::string id,
         std::string pw,
-        std::shared_ptr<class GameClient> client);
+        int client_id);
 
     void Execute(std::shared_ptr<class DBConnection> db_connection) override;
 
@@ -16,5 +16,5 @@ private:
 
     std::string _id;
     std::string _pw;
-    std::weak_ptr<class GameClient> _client;
+    int _client_id;
 };

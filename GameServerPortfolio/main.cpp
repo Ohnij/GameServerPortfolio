@@ -4,7 +4,6 @@
 #include <thread>
 #include "PacketManager.h"
 #include "DBManager.h"
-#include "GameClientAllocater.h"
 
 //#include <WinSock2.h>
 //#include <MSWSock.h>
@@ -27,8 +26,7 @@ int main()
 	//PacketManager::Instance().InitPacketHandler();
 
 	std::shared_ptr<IocpServer> _iocpServer = std::make_shared<IocpServer>();
-	auto allocator = std::make_shared<GameClientAllocater>();
-	if (_iocpServer->ServerStart(allocator) == false)
+	if (_iocpServer->ServerStart(3000, 7777) == false)
 		return -1;
 	
 	

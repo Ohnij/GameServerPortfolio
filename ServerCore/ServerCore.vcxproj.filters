@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Util">
+      <UniqueIdentifier>{cf466d3c-89fa-4e5c-b435-46fb503be3d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_etc">
+      <UniqueIdentifier>{1194d034-a0d8-4d02-b6e2-caeecebd1a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_IOCP">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="02_Buffer">
+      <UniqueIdentifier>{6fc370f9-a97a-4312-a950-c4b246e21826}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RecvBuffer.h">
+      <Filter>02_Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="NetUtil.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="SendBuffer.h">
+      <Filter>02_Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="IocpServer.h">
+      <Filter>01_IOCP</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>99_etc</Filter>
+    </ClInclude>
+    <ClInclude Include="IOCPDefine.h">
+      <Filter>01_IOCP</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionManager.h">
+      <Filter>01_IOCP</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>01_IOCP</Filter>
+    </ClInclude>
+    <ClInclude Include="Listener.h">
+      <Filter>01_IOCP</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="RecvBuffer.cpp">
+      <Filter>02_Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SendBuffer.cpp">
+      <Filter>02_Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="IocpServer.cpp">
+      <Filter>01_IOCP</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerCore.cpp">
+      <Filter>99_etc</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>99_etc</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionManager.cpp">
+      <Filter>01_IOCP</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
+      <Filter>01_IOCP</Filter>
+    </ClCompile>
+    <ClCompile Include="Listener.cpp">
+      <Filter>01_IOCP</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

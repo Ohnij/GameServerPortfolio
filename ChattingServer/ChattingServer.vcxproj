@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,10 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5f7dbc6e-dc1b-41c4-880f-ec7c0ee56f28}</ProjectGuid>
-    <RootNamespace>GameServerPortfolio</RootNamespace>
+    <ProjectGuid>{23503078-3f41-4488-b107-43018fb76650}</ProjectGuid>
+    <RootNamespace>ChattingServer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>03_GameServerPortfolio</ProjectName>
+    <ProjectName>02_ChattingServer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -71,13 +71,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Label="Vcpkg">
-    <VcpkgEnabled>true</VcpkgEnabled>
-    <VcpkgAutoLink>true</VcpkgAutoLink>
-  </PropertyGroup>
-  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <VcpkgUseStatic>false</VcpkgUseStatic>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -113,8 +106,9 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Generated;$(SolutionDir)\ServerCore\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\ServerCore\;$(ProjectDir)Generated;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdfx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,47 +134,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DBConnection.cpp" />
-    <ClCompile Include="DBManager.cpp" />
-    <ClCompile Include="DBRequest_CheckAccountLogin.cpp" />
-    <ClCompile Include="DBRequest_CreateCharacter.cpp" />
-    <ClCompile Include="DBRequest_GetCharacterList.cpp" />
-    <ClCompile Include="User.cpp" />
-    <ClCompile Include="GameMap.cpp" />
+    <ClCompile Include="ChattingServer.cpp" />
     <ClCompile Include="Generated\jhnet.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="LoginManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PacketManager.cpp" />
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="stdfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="UserManager.cpp" />
-    <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DBConnection.h" />
-    <ClInclude Include="DBManager.h" />
-    <ClInclude Include="DBRequest.h" />
-    <ClInclude Include="DBRequest_CheckAccountLogin.h" />
-    <ClInclude Include="DBRequest_CreateCharacter.h" />
-    <ClInclude Include="DBRequest_GetCharacterList.h" />
-    <ClInclude Include="User.h" />
-    <ClInclude Include="GameMap.h" />
+    <ClInclude Include="ChattingServer.h" />
     <ClInclude Include="Generated\jhnet.pb.h" />
-    <ClInclude Include="LoginManager.h" />
-    <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PacketManager.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="UserManager.h" />
-    <ClInclude Include="Util.h" />
+    <ClInclude Include="stdfx.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Proto\jhnet.proto" />
+    <ProjectReference Include="..\ServerCore\ServerCore.vcxproj">
+      <Project>{59677478-33a5-4db5-9a6c-eff744a127cb}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-  <Import Project="$(VcpkgRoot)\scripts\buildsystems\msbuild\vcpkg.targets" />
 </Project>

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "DBConnection.h"
 
-#include "GameClient.h"
+
 #include "jhnet.pb.h"
 #include "PacketManager.h"
 #include "Util.h"

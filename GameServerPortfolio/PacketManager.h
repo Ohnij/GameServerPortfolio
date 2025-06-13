@@ -1,23 +1,28 @@
 #pragma once
 #include <functional>
-#include "Packet.h"
+#include "IOCPDefine.h"
 #include "jhnet.pb.h"
 
 
 //using PacketHandlerFunction = std::function<bool(std::shared_ptr<class Client>, BYTE*, int)>;
 
 //매세지 받아서 알아서 처리하는걸로
-using PacketHandlerFunction = std::function<bool(std::shared_ptr<class GameClient>, std::shared_ptr<google::protobuf::Message>)>;
+using PacketHandlerFunction = std::function<bool(int, std::shared_ptr<google::protobuf::Message>, int)>;
 
+#define PACKETMANAGER_Send PacketManager::Instance().Send
 class PacketManager
 {
 public:
 	static PacketManager& Instance();
-		
-	//직렬화부분 (거의 자동) (보내는부분은 Client만 있어도 된다.)
-	void Send(std::shared_ptr<class Client> client, const ::google::protobuf::Message& packet, PACKET_ID packet_id);
 
-	bool HandlePacket(std::shared_ptr<GameClient> client, PacketHeader* header, BYTE* data, int size);
+
+	//직렬화부분 (거의 자동) (보내는부분은 Client만 있어도 된다.)
+	void Send(int client_id, const ::google::protobuf::Message& packet, PACKET_ID packet_id);
+	void Receive(int client_id, BYTE* data, int size);
+
+
+	//패킷꺼내서 사용시.
+	bool HandlePacket(int client_id, PacketHeader* header, BYTE* data, int size);
 private:
 	PacketManager();
 	~PacketManager() = default;
@@ -32,11 +37,11 @@ private:
 		_proto_message_factory[id] = []() { return std::make_shared<T>(); };
 	}
 
-	void MakeHandler(PACKET_ID id, bool (PacketManager::* handler)(std::shared_ptr<GameClient>, std::shared_ptr<google::protobuf::Message>))
+	void MakeHandler(PACKET_ID id, bool (PacketManager::* handler)(int, std::shared_ptr<google::protobuf::Message> , int))
 	{
-		_PacketHandler[id] = [this, handler](std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> msg)
+		_PacketHandler[id] = [this, handler](int client_id, std::shared_ptr<google::protobuf::Message> msg , int size)
 		{
-			return (this->*handler)(client, msg);
+			return (this->*handler)(client_id, msg , size);
 		};
 	}
 
@@ -45,13 +50,13 @@ private:
 	//패킷별 함수 핸들러
 	std::unordered_map<PACKET_ID, PacketHandlerFunction> _PacketHandler; // id / GameClient,byte*,int
 
-
+	
 private:
 
-	bool Handle_CS_PING(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
-	bool Handle_CS_ECHO(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
-	bool Handle_CS_LOGIN(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
-	bool Handle_CS_CHAR_LIST(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
-	bool Handle_CS_CREATE_CHAR(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
-	bool Handle_CS_SELECT_CHAR(std::shared_ptr<GameClient> client, std::shared_ptr<google::protobuf::Message> message);
+	bool Handle_CS_PING(int client_id, std::shared_ptr<google::protobuf::Message> message, int size);
+	bool Handle_CS_ECHO(int client_id, std::shared_ptr<google::protobuf::Message> message, int size);
+	bool Handle_CS_LOGIN(int client_id, std::shared_ptr<google::protobuf::Message> message, int size);
+	bool Handle_CS_CHAR_LIST(int client_id, std::shared_ptr<google::protobuf::Message> message, int size);
+	bool Handle_CS_CREATE_CHAR(int client_id, std::shared_ptr<google::protobuf::Message> message, int size);
+	bool Handle_CS_SELECT_CHAR(int client_id, std::shared_ptr<google::protobuf::Message> message, int size);
 };

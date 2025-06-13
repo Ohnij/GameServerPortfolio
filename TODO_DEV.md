@@ -39,9 +39,15 @@ DBManager제작
 # 250609
 ✅C# DummyClient 수동 조작으로 Character 생성 까지 만들어보기 
 
-# 250610
-📌Client가 ObjectPool로 관리되기 때문에 Weak_ptr / Shared_ptr항상 살아있기때문에
-     ClientNumber로 클라이언트가 존재하는지 체크하는 로직으로 수정필요
+# 250610~250613
+➕서버코어 부분 Library 로 옮기기
+➕채팅서버 프로젝트 파서 테스트
+
+
+# 250614
+📌Game서버 리팩토링
+
+
 
 
 

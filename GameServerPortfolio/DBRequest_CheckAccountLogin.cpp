@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "DBRequest_CheckAccountLogin.h"
 #include "DBConnection.h"
-#include "GameClient.h"
 
 DBRequest_CheckAccountLogin::DBRequest_CheckAccountLogin(
 	std::string id, 
