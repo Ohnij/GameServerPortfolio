@@ -1,43 +1,37 @@
 #include "stdafx.h"
 #pragma comment (lib, "ws2_32.lib")
-#include "IocpServer.h"
+#include "GameServer.h"
 #include <thread>
-#include "PacketManager.h"
 #include "DBManager.h"
-
-//#include <WinSock2.h>
-//#include <MSWSock.h>
-//
-//#include <vector>
-//#include <unordered_map>
 
 /*
 네이밍 규칙 
-맴버변수는 _로시작
+맴버변수는 m_로시작
 클래스/함수명 대문자로 띄어쓰기 구분 ShowMeTheMoeny
-변수 _로 띄어쓰기 구분 (전부소문자) show_me_the_money
-상수 _로띄어쓰기 구분 (전부대문자)
-*/
+변수 대문자로 띄어쓰기 구분 / 변수 타입에 맞는 
 
+지역,stuct변수는 typeName으로
+class변수는 m_typeName
+i=int 
+dw= DWORD
+str=string
+ws =wstring
+sz =char zero ..(string)
+wz =wchar zero
+p = pointer
+..
+상수 _로띄어쓰기 구분 (전부대문자)
+
+
+*/
 
 int main()
 {
-	//패킷핸들러 초기화 (미리등록) 생성자에 추가함 
-	//PacketManager::Instance().InitPacketHandler();
-
-	std::shared_ptr<IocpServer> _iocpServer = std::make_shared<IocpServer>();
-	if (_iocpServer->ServerStart(3000, 7777) == false)
+	std::shared_ptr<GameServer> _iocpServer = std::make_shared<GameServer>();
+	if (_iocpServer->Start(7777) == false)
 		return -1;
 	
-	
-	////스레드도 풀로 뭔가 관리해야할듯?
-	//std::thread workerThread([_iocpServer] {
-	//	while (true)
-	//	{
-	//		_iocpServer->Run();
-	//	}
-	//});
-	
+
 	if (DBManager::Instance().Init() == false)
 	{
 		std::cerr << "DB Error\n";

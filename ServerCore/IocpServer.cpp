@@ -221,13 +221,13 @@ void IocpServer::HandleAccept(OVERLAPPED_ACCEPT* pOverlappedAccept, DWORD dwTran
 
 void IocpServer::HandleRecv(OVERLAPPED_RECV* pOverlappedRecv, DWORD dwTransferredBytes)
 {
-	Session* pSession = SESSION_MANAGER.Get(pOverlappedRecv->m_iSessionID);
+	Session* pSession = SESSION_MANAGER.Get(pOverlappedRecv->iSessionID);
 	if (!pSession || !pSession->IsConnected()) 
 		return;
 
 	if (dwTransferredBytes == 0)
 	{
-		HandleDisconnect(pOverlappedRecv->m_iSessionID);
+		HandleDisconnect(pOverlappedRecv->iSessionID);
 		return;
 	}
 	pSession->ProcessRecv(dwTransferredBytes);
@@ -242,7 +242,7 @@ void IocpServer::HandleRecv(OVERLAPPED_RECV* pOverlappedRecv, DWORD dwTransferre
 			break;
 
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(pReadPos);
-		if (header->m_Length == 0 || MAX_PACKET_SIZE < header->m_Length)
+		if (header->length == 0 || MAX_PACKET_SIZE < header->length)
 		{
 			//잘못된패킷
 			HandleDisconnect(pSession->GetSessionID());
@@ -250,13 +250,13 @@ void IocpServer::HandleRecv(OVERLAPPED_RECV* pOverlappedRecv, DWORD dwTransferre
 		}
 
 		//아직 다 안왔으면 아무작업 안함!!
-		if (iDataSize < header->m_Length)
+		if (iDataSize < header->length)
 			break;
 
 		// 완성된 패킷 → OnReceive
-		OnReceive(pSession->GetSessionID(), pReadPos, header->m_Length);
+		OnReceive(pSession->GetSessionID(), pReadPos, header->length);
 
-		pSession->SuccessRecv(header->m_Length);
+		pSession->SuccessRecv(header->length);
 	}
 	pSession->RegisterRecv(); // 다음 수신 등록
 
@@ -264,18 +264,18 @@ void IocpServer::HandleRecv(OVERLAPPED_RECV* pOverlappedRecv, DWORD dwTransferre
 
 void IocpServer::HandleSend(OVERLAPPED_SEND* pOverlappedSend, DWORD dwTransferredBytes)
 {
-	Session* pSession = SESSION_MANAGER.Get(pOverlappedSend->m_iSessionID);
+	Session* pSession = SESSION_MANAGER.Get(pOverlappedSend->iSessionID);
 
 	if (!pSession || !pSession->IsConnected())
 		return;
 
 	if (dwTransferredBytes == 0)
 	{
-		HandleDisconnect(pOverlappedSend->m_iSessionID);
+		HandleDisconnect(pOverlappedSend->iSessionID);
 		return;
 	}
 	pSession->ProcessSend(dwTransferredBytes);
-	OnSend(pOverlappedSend->m_iSessionID, dwTransferredBytes);
+	OnSend(pOverlappedSend->iSessionID, dwTransferredBytes);
 }
 
 void IocpServer::HandleDisconnect(int iSessionID)

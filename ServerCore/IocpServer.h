@@ -1,7 +1,7 @@
 #pragma once
 #include <thread>
 #include <mutex>
-#include "IOCPDefine.h"
+#include "NetDefine.h"
 
 
 class Listener;
@@ -11,6 +11,7 @@ public:
     IocpServer();
     virtual ~IocpServer();
 
+protected:
     bool ServerStart(int iMaxClientSession, USHORT port);
     bool SendMsg(int iSessionID, BYTE* pData, int iSize);
 private:

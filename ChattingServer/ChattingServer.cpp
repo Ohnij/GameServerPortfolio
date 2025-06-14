@@ -2,10 +2,13 @@
 #include "ChattingServer.h"
 #include "PacketManager.h"
 
+
+ChattingServer g_Server;
+
 bool ChattingServer::Start(USHORT port)
 {
 	PacketManager::Instance().Init([this](int iSession, BYTE* pData, int iSize) {
-		return SendMsg(iSession,pData, iSize);
+		return SendMsg(iSession, pData, iSize);
 	});
 	//서버별로 설정하기.
 	return ServerStart(100, port);

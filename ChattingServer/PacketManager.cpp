@@ -20,10 +20,10 @@ PacketManager& PacketManager::Instance()
 	return instance;
 }
 
-void PacketManager::Init(std::function<bool(int, BYTE*, int)> send_func)
+void PacketManager::Init(std::function<bool(int, BYTE*, int)> fpSendFunc)
 {
 	m_Running = true;
-	m_SendFunction = send_func;
+	m_SendFunction = fpSendFunc;
 	m_WorkerThread = std::thread([this]() { Run(); });
 }
 
@@ -65,8 +65,8 @@ void PacketManager::Send(int iSessionID, const::google::protobuf::Message& packe
 	std::vector<BYTE> buffer(packet_size);
 
 	PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer.data());
-	header->m_Length = packet_size;
-	header->m_ID = PacketID;
+	header->length = packet_size;
+	header->ID = PacketID;
 
 	packet.SerializeToArray(buffer.data() + sizeof(PacketHeader), packet_size);
 
@@ -81,10 +81,10 @@ void PacketManager::ParsePacket(int iSessionID, BYTE* pData, int iSize)
 
 	std::shared_ptr<jhnet::CSP_Echo> packet = std::make_shared<jhnet::CSP_Echo>();
 	//여기서 데이터가 복사됨 (data는 지워져도 상관없음 복사가 된상태!!!)
-	if (!packet->ParseFromArray(payload, header->m_Length - sizeof(PacketHeader)))
+	if (!packet->ParseFromArray(payload, header->length - sizeof(PacketHeader)))
 	{
 		//패킷 파싱 실패
-		std::cerr << "패킷 직렬화 실패.." << header->m_ID << "\n";
+		std::cerr << "패킷 직렬화 실패.." << header->ID << "\n";
 		return;
 	}
 

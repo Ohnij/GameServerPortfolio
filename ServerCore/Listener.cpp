@@ -42,6 +42,11 @@ bool Listener::Init(USHORT port)
 {
 	m_Socket = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, 0, 0, WSA_FLAG_OVERLAPPED);
 
+	//서버 종료되었는데 Listien 포트번호가 아직 완전히 종료가 되지 않은상태로 남아있을 경우 
+	//bind함수가 !=0 이 나와 내부적으로 return false 나와서 재시작을 못할수있음
+	BOOL opt = TRUE;
+	setsockopt(m_Socket, SOL_SOCKET, SO_REUSEADDR, (char*)&opt, sizeof(opt));
+
 	//어떤 주소의 아이피던 해당 포트로 오는걸 받겠다는 의미
 	SOCKADDR_IN addr;
 	addr.sin_family = AF_INET;
@@ -141,6 +146,13 @@ Session* Listener::Process(OVERLAPPED_ACCEPT* acceptData)
 	//클라이언트 네이글 끄기 (자잘한 패킷 모아쏘기 안씀!!)
 	int flag = 1;
 	setsockopt(acceptData->socket, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof(flag));
+
+
+	//바로 끊길수 있게 설정
+	LINGER linger;
+	linger.l_onoff = 1;	//링거옵션사용
+	linger.l_linger = 0; //버퍼비워버리고 즉시close 
+	setsockopt(acceptData->socket, SOL_SOCKET, SO_LINGER, (char*)&linger, sizeof(linger));
 
 	std::cerr << "[클라 " << pSession->GetSessionID() << " 연결]" << std::endl;
 

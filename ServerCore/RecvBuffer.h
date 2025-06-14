@@ -1,5 +1,5 @@
 #pragma once
-#include "IOCPDefine.h"
+#include "NetDefine.h"
 
 class RecvBuffer
 {

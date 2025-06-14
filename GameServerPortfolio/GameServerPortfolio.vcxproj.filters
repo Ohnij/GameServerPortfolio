@@ -1,124 +1,134 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Main">
+    <Filter Include="01_GameServer">
+      <UniqueIdentifier>{170e91ba-6762-47ae-935f-d5b9949e909e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99_etc">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="03_DB">
-      <UniqueIdentifier>{cd0801b9-16af-4196-95aa-5c7637a2f547}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03_DB\Message">
-      <UniqueIdentifier>{01cd8a42-b1b8-4b11-a359-e778341415e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameServer">
-      <UniqueIdentifier>{58326ee8-9c98-4f45-8234-73bd19b03843}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameServer\Game">
+    <Filter Include="02_Game">
       <UniqueIdentifier>{7dd19d78-cb73-4da8-bb5f-2dbd06b66a9b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameServer\Login">
-      <UniqueIdentifier>{b2136a46-f7fd-43d1-83b3-2426f161d4cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameServer\Packet">
-      <UniqueIdentifier>{d0164d05-f138-4d8a-994a-7d717ea584a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameServer\User">
+    <Filter Include="02_Game\User">
       <UniqueIdentifier>{e60b8935-72b4-4ce8-965a-b22830f88f4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03_Packet">
+      <UniqueIdentifier>{d0164d05-f138-4d8a-994a-7d717ea584a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04_Login">
+      <UniqueIdentifier>{b2136a46-f7fd-43d1-83b3-2426f161d4cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05_DB">
+      <UniqueIdentifier>{cd0801b9-16af-4196-95aa-5c7637a2f547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05_DB\Message">
+      <UniqueIdentifier>{01cd8a42-b1b8-4b11-a359-e778341415e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02_Game\Map">
+      <UniqueIdentifier>{60d5e95b-9888-4a05-b13a-eb767704ac84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMap.cpp">
-      <Filter>GameServer\Game</Filter>
-    </ClCompile>
     <ClCompile Include="LoginManager.cpp">
-      <Filter>GameServer\Login</Filter>
+      <Filter>04_Login</Filter>
     </ClCompile>
     <ClCompile Include="DBConnection.cpp">
-      <Filter>03_DB</Filter>
+      <Filter>05_DB</Filter>
     </ClCompile>
     <ClCompile Include="DBManager.cpp">
-      <Filter>03_DB</Filter>
+      <Filter>05_DB</Filter>
     </ClCompile>
     <ClCompile Include="DBRequest_CheckAccountLogin.cpp">
-      <Filter>03_DB\Message</Filter>
+      <Filter>05_DB\Message</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Main</Filter>
+      <Filter>99_etc</Filter>
     </ClCompile>
     <ClCompile Include="Generated\jhnet.pb.cc">
-      <Filter>GameServer\Packet</Filter>
+      <Filter>03_Packet</Filter>
     </ClCompile>
     <ClCompile Include="PacketManager.cpp">
-      <Filter>GameServer\Packet</Filter>
+      <Filter>03_Packet</Filter>
     </ClCompile>
     <ClCompile Include="DBRequest_CreateCharacter.cpp">
-      <Filter>03_DB\Message</Filter>
+      <Filter>05_DB\Message</Filter>
     </ClCompile>
     <ClCompile Include="DBRequest_GetCharacterList.cpp">
-      <Filter>03_DB\Message</Filter>
+      <Filter>05_DB\Message</Filter>
     </ClCompile>
     <ClCompile Include="Util.cpp">
-      <Filter>Main</Filter>
+      <Filter>99_etc</Filter>
     </ClCompile>
     <ClCompile Include="User.cpp">
-      <Filter>GameServer\User</Filter>
+      <Filter>02_Game\User</Filter>
     </ClCompile>
     <ClCompile Include="UserManager.cpp">
-      <Filter>GameServer\User</Filter>
+      <Filter>02_Game\User</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="GameMap.cpp">
+      <Filter>02_Game\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer.cpp">
+      <Filter>01_GameServer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameMap.h">
-      <Filter>GameServer\Game</Filter>
-    </ClInclude>
     <ClInclude Include="LoginManager.h">
-      <Filter>GameServer\Login</Filter>
+      <Filter>04_Login</Filter>
     </ClInclude>
     <ClInclude Include="DBConnection.h">
-      <Filter>03_DB</Filter>
+      <Filter>05_DB</Filter>
     </ClInclude>
     <ClInclude Include="DBManager.h">
-      <Filter>03_DB</Filter>
+      <Filter>05_DB</Filter>
     </ClInclude>
     <ClInclude Include="DBRequest.h">
-      <Filter>03_DB</Filter>
+      <Filter>05_DB</Filter>
     </ClInclude>
     <ClInclude Include="DBRequest_CheckAccountLogin.h">
-      <Filter>03_DB\Message</Filter>
+      <Filter>05_DB\Message</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>Main</Filter>
+      <Filter>99_etc</Filter>
     </ClInclude>
     <ClInclude Include="Generated\jhnet.pb.h">
-      <Filter>GameServer\Packet</Filter>
+      <Filter>03_Packet</Filter>
     </ClInclude>
     <ClInclude Include="PacketManager.h">
-      <Filter>GameServer\Packet</Filter>
+      <Filter>03_Packet</Filter>
     </ClInclude>
     <ClInclude Include="DBRequest_GetCharacterList.h">
-      <Filter>03_DB\Message</Filter>
+      <Filter>05_DB\Message</Filter>
     </ClInclude>
     <ClInclude Include="DBRequest_CreateCharacter.h">
-      <Filter>03_DB\Message</Filter>
+      <Filter>05_DB\Message</Filter>
     </ClInclude>
     <ClInclude Include="Util.h">
-      <Filter>Main</Filter>
+      <Filter>99_etc</Filter>
     </ClInclude>
     <ClInclude Include="User.h">
-      <Filter>GameServer\User</Filter>
+      <Filter>02_Game\User</Filter>
     </ClInclude>
     <ClInclude Include="UserManager.h">
-      <Filter>GameServer\User</Filter>
+      <Filter>02_Game\User</Filter>
     </ClInclude>
     <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="GameMap.h">
+      <Filter>02_Game\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer.h">
+      <Filter>01_GameServer</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketIDMapper.h">
+      <Filter>03_Packet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Proto\jhnet.proto">
-      <Filter>GameServer\Packet</Filter>
+      <Filter>03_Packet</Filter>
     </None>
   </ItemGroup>
 </Project>

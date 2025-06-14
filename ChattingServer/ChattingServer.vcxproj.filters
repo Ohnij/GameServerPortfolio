@@ -6,7 +6,7 @@
       <Filter>ChattingServer</Filter>
     </ClCompile>
     <ClCompile Include="stdfx.cpp">
-      <Filter>pch</Filter>
+      <Filter>99_etc</Filter>
     </ClCompile>
     <ClCompile Include="Generated\jhnet.pb.cc">
       <Filter>Packet</Filter>
@@ -22,7 +22,7 @@
     <Filter Include="Packet">
       <UniqueIdentifier>{794b99ad-908f-421d-ba13-8f57e8249de9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="pch">
+    <Filter Include="99_etc">
       <UniqueIdentifier>{e5b7b362-d029-4902-8551-636ed2ba2a5f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -31,7 +31,7 @@
       <Filter>ChattingServer</Filter>
     </ClInclude>
     <ClInclude Include="stdfx.h">
-      <Filter>pch</Filter>
+      <Filter>99_etc</Filter>
     </ClInclude>
     <ClInclude Include="Generated\jhnet.pb.h">
       <Filter>Packet</Filter>

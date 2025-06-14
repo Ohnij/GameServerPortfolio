@@ -148,7 +148,7 @@
     <ClInclude Include="SessionManager.h" />
     <ClInclude Include="IocpServer.h" />
     <ClInclude Include="NetUtil.h" />
-    <ClInclude Include="IOCPDefine.h" />
+    <ClInclude Include="NetDefine.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="RecvBuffer.h" />
     <ClInclude Include="SendBuffer.h" />

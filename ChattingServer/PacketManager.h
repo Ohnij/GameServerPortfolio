@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-#include "IOCPDefine.h"
+#include "NetDefine.h"
 #include "jhnet.pb.h"
 
 #include <mutex>
@@ -18,7 +18,7 @@ private:
 public:
 	static PacketManager& Instance();
 
-    void Init(std::function<bool(int, BYTE*, int)> send_func);
+    void Init(std::function<bool(int, BYTE*, int)> fpSendFunc);
 
     void PushPacket(int iSessionID, BYTE* pData, int iSIze);
     void Run();

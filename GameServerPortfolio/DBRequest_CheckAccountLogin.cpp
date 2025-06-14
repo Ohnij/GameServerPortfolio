@@ -5,10 +5,10 @@
 DBRequest_CheckAccountLogin::DBRequest_CheckAccountLogin(
 	std::string id, 
 	std::string pw, 
-	std::shared_ptr<class GameClient> client)
-	: _id(std::move(id)),
-	_pw(std::move(pw)),
-	_client(client)
+	int iSessionID)
+	: m_id(std::move(id)),
+	m_pw(std::move(pw)),
+	m_iSessionID(iSessionID)
 {
 }
 

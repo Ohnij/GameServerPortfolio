@@ -33,12 +33,12 @@ struct OVERLAPPED_ACCEPT : public OVERLAPPED_EX
 };
 struct OVERLAPPED_RECV : public OVERLAPPED_EX
 {
-	int m_iSessionID;
+	int iSessionID;
 };
 struct OVERLAPPED_SEND : OVERLAPPED_EX
 {
 public:
-	int m_iSessionID;
+	int iSessionID;
 };
 
 struct OVERLAPPED_DISCONNECT : public OVERLAPPED_EX
@@ -53,7 +53,7 @@ typedef uint16_t PACKET_ID, PACKET_LEN;
 #pragma pack(push, 1)
 struct PacketHeader
 {
-	PACKET_LEN m_Length;
-	PACKET_ID m_ID;
+	PACKET_LEN length;
+	PACKET_ID ID;
 };
 #pragma pack(pop)

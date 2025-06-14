@@ -268,8 +268,8 @@ void DBConnection::StoredProcedure_CheckAccountLogin(DBRequest_CheckAccountLogin
     //SQLBindParameter(stmt, 1, SQL_PARAM_OUTPUT, SQL_C_LONG, SQL_INTEGER, sizeof(ret), 0 & ret, 0, 0);
     //SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_LONG, SQL_INTEGER, sizeof(prm), 0 & prm, 0, 0);
 
-    SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 20, 0, (SQLPOINTER)request->_id.c_str(), 0, 0);
-    SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 30, 0, (SQLPOINTER)request->_pw.c_str(), 0, 0);
+    SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 20, 0, (SQLPOINTER)request->m_id.c_str(), 0, 0);
+    SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_CHAR, SQL_VARCHAR, 30, 0, (SQLPOINTER)request->m_pw.c_str(), 0, 0);
     SQLBindParameter(stmt, 3, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_uid), 0, &out_uid, 0, 0);
     SQLBindParameter(stmt, 4, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_result_code), 0, &out_result_code, 0, 0);
 
@@ -286,27 +286,31 @@ void DBConnection::StoredProcedure_CheckAccountLogin(DBRequest_CheckAccountLogin
 
     SQLFreeHandle(SQL_HANDLE_STMT, stmt);
 
-	auto client = request->_client.lock();
-	if (!client)
-	{
-		std::cerr << "StoredProcedure_CheckAccountLogin :: client null \n";
-		return;
-	}
+    //push 처리결과
 
-    jhnet::SCP_Login send_packet;
-	send_packet.set_account_uid(out_uid);
-	send_packet.set_login_ok(false);
-	if (out_result_code == 0)
-	{
-		send_packet.set_login_ok(true);
-		client->Login(out_uid);
-		std::cerr << "로그인성공 \n";
-	}
-	else
-	{
-		std::cerr << "로그인실패 \n";
-	}
-	PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_LOGIN);
+    //처리로 이관할것
+
+	//auto client = request->_client.lock();
+	//if (!client)
+	//{
+	//	std::cerr << "StoredProcedure_CheckAccountLogin :: client null \n";
+	//	return;
+	//}
+
+ //   jhnet::SCP_Login send_packet;
+	//send_packet.set_account_uid(out_uid);
+	//send_packet.set_login_ok(false);
+	//if (out_result_code == 0)
+	//{
+	//	send_packet.set_login_ok(true);
+	//	client->Login(out_uid);
+	//	std::cerr << "로그인성공 \n";
+	//}
+	//else
+	//{
+	//	std::cerr << "로그인실패 \n";
+	//}
+	//PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_LOGIN);
 
 }
 
@@ -333,7 +337,7 @@ void DBConnection::StoredProcedure_GetCharacterList(DBRequest_GetCharacterList* 
             SQLFreeHandle(SQL_HANDLE_STMT, stmt);
             return;
         }
-        SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(request->_account_uid), 0, &request->_account_uid, 0, 0);
+        SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(request->m_iAccountID), 0, &request->m_iAccountID, 0, 0);
         ret = SQLExecute(stmt);
         if (ret != SQL_SUCCESS && ret != SQL_SUCCESS_WITH_INFO)
         {
@@ -365,14 +369,20 @@ void DBConnection::StoredProcedure_GetCharacterList(DBRequest_GetCharacterList* 
         }
         SQLFreeHandle(SQL_HANDLE_STMT, stmt);
     }
-    auto client = request->_client.lock();
-    if (!client)
-    {
-        std::cerr << "StoredProcedure_CheckAccountLogin :: client null \n";
-        return;
-    }
 
-    PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_CHAR_LIST);
+
+    //push 처리결과
+
+    //처리로 이관할것
+
+    //auto client = request->_client.lock();
+    //if (!client)
+    //{
+    //    std::cerr << "StoredProcedure_CheckAccountLogin :: client null \n";
+    //    return;
+    //}
+
+    //PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_CHAR_LIST);
 }
 
 void DBConnection::StoredProcedure_CreateCharacter(DBRequest_CreateCharacter* request)
@@ -400,8 +410,8 @@ void DBConnection::StoredProcedure_CreateCharacter(DBRequest_CreateCharacter* re
             SQLFreeHandle(SQL_HANDLE_STMT, stmt);
             return;
         }
-        SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WVARCHAR, 20, 0, (SQLPOINTER)request->_nickname.c_str(), 0, 0);
-        SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(request->_account_uid), 0, &request->_account_uid, 0, 0);
+        SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WVARCHAR, 20, 0, (SQLPOINTER)request->m_wsNickname.c_str(), 0, 0);
+        SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(request->m_iAccountID), 0, &request->m_iAccountID, 0, 0);
         SQLBindParameter(stmt, 3, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_char_uid), 0, &out_char_uid, 0, 0);
         SQLBindParameter(stmt, 4, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_result_code), 0, &out_result_code, 0, 0);
 
@@ -417,21 +427,26 @@ void DBConnection::StoredProcedure_CreateCharacter(DBRequest_CreateCharacter* re
         SQLFreeHandle(SQL_HANDLE_STMT, stmt);
     }
 
-    auto client = request->_client.lock();
-    if (!client)
-    {
-        std::cerr << "StoredProcedure_CheckAccountLogin :: client null \n";
-        return;
-    }
 
-    jhnet::SCP_CreateChar send_packet;
-    send_packet.set_create_ok(false);
-    if (out_result_code != 0)
-    {
-        (out_result_code == 1)? send_packet.set_error_message("중복된 닉네임") : send_packet.set_error_message("생성실패");
-        PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_CREATE_CHAR);
-        return;
-    }
+    //push 처리결과
+
+    //처리로 이관할것
+
+    //auto client = request->_client.lock();
+    //if (!client)
+    //{
+    //    std::cerr << "StoredProcedure_CheckAccountLogin :: client null \n";
+    //    return;
+    //}
+
+    //jhnet::SCP_CreateChar send_packet;
+    //send_packet.set_create_ok(false);
+    //if (out_result_code != 0)
+    //{
+    //    (out_result_code == 1)? send_packet.set_error_message("중복된 닉네임") : send_packet.set_error_message("생성실패");
+    //    PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_CREATE_CHAR);
+    //    return;
+    //}
 
 
     {
@@ -462,9 +477,9 @@ void DBConnection::StoredProcedure_CreateCharacter(DBRequest_CreateCharacter* re
             return;
         }
         SQLBindParameter(stmt, 1, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_char_uid), 0, &out_char_uid, 0, 0);
-        SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(request->_account_uid), 0, &request->_account_uid, 0, 0);
-        SQLBindParameter(stmt, 3, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WVARCHAR, 20, 0, (SQLPOINTER)request->_nickname.c_str(), 0, 0);
-        SQLBindParameter(stmt, 4, SQL_PARAM_INPUT, SQL_C_TINYINT, SQL_TINYINT, sizeof(request->_job_code), 0, &request->_job_code, 0, 0);
+        SQLBindParameter(stmt, 2, SQL_PARAM_INPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(request->m_iAccountID), 0, &request->m_iAccountID, 0, 0);
+        SQLBindParameter(stmt, 3, SQL_PARAM_INPUT, SQL_C_WCHAR, SQL_WVARCHAR, 20, 0, (SQLPOINTER)request->m_wsNickname.c_str(), 0, 0);
+        SQLBindParameter(stmt, 4, SQL_PARAM_INPUT, SQL_C_TINYINT, SQL_TINYINT, sizeof(request->m_iJobCode), 0, &request->m_iJobCode, 0, 0);
         SQLBindParameter(stmt, 5, SQL_PARAM_OUTPUT, SQL_C_SLONG, SQL_INTEGER, sizeof(out_result_code), 0, &out_result_code, 0, 0);
 
         ret = SQLExecute(stmt);
@@ -479,16 +494,20 @@ void DBConnection::StoredProcedure_CreateCharacter(DBRequest_CreateCharacter* re
         SQLFreeHandle(SQL_HANDLE_STMT, stmt);
     }
 
-    if (out_result_code != 0)
-    {
-        send_packet.set_error_message("캐릭터생성중 에러가 발생했습니다");
-        PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_CREATE_CHAR);
-        return;
-    }
+    //push 처리결과
+
+    //처리로 이관할것
+
+    //if (out_result_code != 0)
+    //{
+    //    send_packet.set_error_message("캐릭터생성중 에러가 발생했습니다");
+    //    PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_CREATE_CHAR);
+    //    return;
+    //}
 
 
-    send_packet.set_create_ok(true);
-    PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_LOGIN);
+    //send_packet.set_create_ok(true);
+    //PacketManager::Instance().Send(client, send_packet, jhnet::PacketId::S2C_LOGIN);
 
 }
 

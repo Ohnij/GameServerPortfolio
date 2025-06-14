@@ -25,9 +25,9 @@ void Session::PrepareSesseion(SOCKET socket)
 	m_RecvBuffer.Reset();
 	m_SendBuffer.Reset();
 	//_recive.socket = client_socket;
-	m_OverlappedRecv.m_iSessionID = GetSessionID();
+	m_OverlappedRecv.iSessionID = GetSessionID();
 	m_OverlappedRecv.type = IOCP_WORK::IOCP_RECV;
-	m_OverlappedSend.m_iSessionID = GetSessionID();
+	m_OverlappedSend.iSessionID = GetSessionID();
 	m_OverlappedSend.type = IOCP_WORK::IOCP_SEND;
 	
 	m_bSending.store(false);

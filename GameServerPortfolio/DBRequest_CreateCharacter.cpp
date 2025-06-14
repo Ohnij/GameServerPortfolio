@@ -4,14 +4,14 @@
 
 
 DBRequest_CreateCharacter::DBRequest_CreateCharacter(
-	std::wstring _nickname,
-	int account_uid,
-	int job_code,
-	std::shared_ptr<class GameClient> client)
-	: _nickname(std::move(_nickname)),
-	_account_uid(account_uid),
-	_job_code(std::move(job_code)),
-	_client(client)
+	std::wstring wsNickname,
+	int iAccountID,
+	int iJobCode,
+	int iSessionID)
+	: m_wsNickname(std::move(wsNickname)),
+	m_iAccountID(iAccountID),
+	m_iJobCode(iJobCode),
+	m_iSessionID(iSessionID)
 {
 }
 

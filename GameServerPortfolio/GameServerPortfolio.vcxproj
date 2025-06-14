@@ -145,6 +145,7 @@
     <ClCompile Include="DBRequest_CheckAccountLogin.cpp" />
     <ClCompile Include="DBRequest_CreateCharacter.cpp" />
     <ClCompile Include="DBRequest_GetCharacterList.cpp" />
+    <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="Generated\jhnet.pb.cc">
@@ -166,6 +167,8 @@
     <ClInclude Include="DBRequest_CheckAccountLogin.h" />
     <ClInclude Include="DBRequest_CreateCharacter.h" />
     <ClInclude Include="DBRequest_GetCharacterList.h" />
+    <ClInclude Include="GameServer.h" />
+    <ClInclude Include="PacketIDMapper.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Generated\jhnet.pb.h" />
@@ -178,6 +181,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Proto\jhnet.proto" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ServerCore\ServerCore.vcxproj">
+      <Project>{59677478-33a5-4db5-9a6c-eff744a127cb}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

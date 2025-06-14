@@ -4,8 +4,10 @@
 #include <codecvt>
 #include "Util.h"
 
-#include "Packet.h"
+#include "GameServer.h"
+#include "PacketIDMapper.h"
 
+#include "UserManager.h"
 #include "User.h"
 #include "DBManager.h"
 #include "DBRequest_CheckAccountLogin.h"
@@ -13,95 +15,50 @@
 #include "DBRequest_GetCharacterList.h"
 
 
-void PacketManager::Send(int client_id, const::google::protobuf::Message& packet, PACKET_ID packet_id)
-{
-	//user , msg, packet_id
-	int data_size = packet.ByteSizeLong();
-	int packet_size = sizeof(PacketHeader) + data_size;
-
-	//바이트배열 생성
-	std::vector<BYTE> buffer(packet_size);
-
-	PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer.data());
-	header->packet_length = packet_size;
-	header->packet_id = packet_id;
-
-	//jhnet::SC_Echo s;
-	//s.SerializeToArray(buffer.data(), packet_size);
-	packet.SerializeToArray(buffer.data() + sizeof(PacketHeader), packet_size);
-	
-
-	Server에서 send (client_id, buffer.data(), packet_size);
-	
-}
-
-void PacketManager::Receive(int client_id, BYTE* data, int size)
-{
-	PacketHeader* header = reinterpret_cast<PacketHeader*>(data);
-
-
-	BYTE* payload = reinterpret_cast<BYTE*>(data + sizeof(PacketHeader));
-
-	auto factory_iter = _proto_message_factory.find(header->packet_id);
-	if (factory_iter == _proto_message_factory.end())
-	{
-		//해당 패킷 id로 된 생성자없음
-		std::cerr << "해당 패킷id로 된 생성자가 없습니다.. " << header->packet_id << std::endl;
-		return;
-	}
-
-
-
-
-}
-
-//자동화로 삭제
-//PacketHandlerFunction PacketManager::GetPacketHandle(PACKET_ID packet_id)
-//{
-//	auto func = _PacketHandler.find(packet_id);
-//	if (func == _PacketHandler.end())
-//		return nullptr;
-//
-//	return func->second;
-//}
-
-bool PacketManager::HandlePacket(int client_id, PacketHeader* header, BYTE* data, int size)
-{
-	auto factory_iter = _proto_message_factory.find(header->packet_id);
-	if (factory_iter == _proto_message_factory.end()) 
-	{
-		//해당 패킷 id로 된 생성자없음
-		std::cerr << "해당 패킷id로 된 생성자가 없습니다.. " << header->packet_id << std::endl;
-		return false;
-	}
-
-	//여기서  Make_shared 패킷에 맞는 객체로 받아옴 
-	std::shared_ptr<google::protobuf::Message> msg = factory_iter->second(); 
-	//여기서 데이터가 복사됨 (data는 지워져도 상관없음 복사가 된상태!!!)
-	if (!msg->ParseFromArray(data, size))  
-	{
-		//패킷 파싱 실패
-		std::cerr << "패킷 직렬화 실패.." << header->packet_id << std::endl;
-		return false;
-	}
-
-
-	auto func_iter = _PacketHandler.find(header->packet_id);
-	if (func_iter == _PacketHandler.end()) 
-	{
-		//패킷 전용 함수가없다
-		std::cerr << "패킷핸들러 함수가없습니다.." << header->packet_id << std::endl;
-		return false;
-	}
-
-	return func_iter->second(client_id, msg, size);
-}
-
 PacketManager::PacketManager()
 {
 	InitPacketHandler();
 }
 
+PacketManager::~PacketManager()
+{
+
+}
+
+
+void PacketManager::InitPacketHandler()
+{
+	//탬플릿으로 ID매핑
+	MakeFactory<jhnet::CSP_Ping>();
+	MakeFactory<jhnet::CSP_Echo>();
+	MakeFactory<jhnet::CSP_Login>();
+	MakeFactory<jhnet::CSP_CharList>();
+	MakeFactory<jhnet::CSP_CreateChar>();
+	MakeFactory<jhnet::CSP_SelectChar>();
+
+	//탬플릿으로 ID매핑 + 함수명 일치로 실수방지
+	MakeHandler<jhnet::CSP_Ping>(&PacketManager::Handle_CSP_Ping);
+	MakeHandler<jhnet::CSP_Echo>(&PacketManager::Handle_CSP_Echo);
+	MakeHandler<jhnet::CSP_Login>(&PacketManager::Handle_CSP_Login);
+	MakeHandler<jhnet::CSP_CharList>(&PacketManager::Handle_CSP_CharList);
+	MakeHandler<jhnet::CSP_CreateChar>(&PacketManager::Handle_CSP_CreateChar);
+	MakeHandler<jhnet::CSP_SelectChar>(&PacketManager::Handle_CSP_SelectChar);
+}
+
+template<typename T>
+void PacketManager::MakeFactory()
+{
+	m_MesaageFactory[PacketIdMapper<T>::ID] = []() { return std::make_shared<T>(); };
+}
+
+template<typename T>
+void PacketManager::MakeHandler(bool(PacketManager::* handler)(int, std::shared_ptr<google::protobuf::Message>, int))
+{
+	m_PacketHandler[PacketIdMapper<T>::ID] = [this, handler](int client_id, std::shared_ptr<google::protobuf::Message> msg, int size)
+	{
+		return (this->*handler)(client_id, msg, size);
+	};
+}
 
 PacketManager& PacketManager::Instance()
 {
@@ -109,43 +66,102 @@ PacketManager& PacketManager::Instance()
 	return _instance;
 }
 
-void PacketManager::InitPacketHandler()
+void PacketManager::BindSendFunc(std::function<bool(int, BYTE*, int)> fpSendFunc)
 {
-	MakeFactory<jhnet::CSP_Ping>(jhnet::PacketId::C2S_PING);
-	MakeFactory<jhnet::CSP_Echo>(jhnet::PacketId::C2S_ECHO);
-	MakeFactory<jhnet::CSP_Login>(jhnet::PacketId::C2S_LOGIN);
-	MakeFactory<jhnet::CSP_CharList>(jhnet::PacketId::C2S_CHAR_LIST);
-	MakeFactory<jhnet::CSP_CreateChar>(jhnet::PacketId::C2S_CREATE_CHAR);
-	MakeFactory<jhnet::CSP_SelectChar>(jhnet::PacketId::C2S_SELECT_CHAR);
-
-
-	MakeHandler(jhnet::PacketId::C2S_PING , &PacketManager::Handle_CS_PING);
-	MakeHandler(jhnet::PacketId::C2S_ECHO, &PacketManager::Handle_CS_ECHO);
-	MakeHandler(jhnet::PacketId::C2S_LOGIN, &PacketManager::Handle_CS_LOGIN);
-	MakeHandler(jhnet::PacketId::C2S_CHAR_LIST, &PacketManager::Handle_CS_CHAR_LIST);
-	MakeHandler(jhnet::PacketId::C2S_CREATE_CHAR, &PacketManager::Handle_CS_CREATE_CHAR);
-	MakeHandler(jhnet::PacketId::C2S_SELECT_CHAR, &PacketManager::Handle_CS_SELECT_CHAR);
+	m_SendFunction = fpSendFunc;
 }
 
-//bool PacketManager::Handle_CS_ECHO(std::shared_ptr<Client> client, BYTE* data, int size)
-//{
-//	jhnet::CS_Echo packet;
-//
-//	if (!packet.ParseFromArray(data, size)) return false;
-//	std::cout << "["<< GetCurrentThreadId() <<"]client [" << client->GetClientID() << "] echo: number=" << packet.number() << ", message=" << packet.message() << std::endl;
-//
-//	jhnet::SC_Echo res;
-//	res.set_number(packet.number());
-//	res.set_message(packet.message());
-//
-//	Send(client, res, jhnet::PacketId::SC_ECHO);
-//}
-
-bool PacketManager::Handle_CS_PING(int client_id, std::shared_ptr<google::protobuf::Message> message, int size )
+template<typename T>
+void PacketManager::SendMsg(int iSessionID, const T& message)
 {
-	//스마트 포인터 형변환 > static_pointer_cast / dynamic_pointer_cast
-	
+	//패킷을 미리 설정해주어야 ID입력하는 수고를 덜수있다
+	//한번 해두면 ID맵핑 실수도 줄어든다
+	constexpr uint16_t id = PacketIdMapper<T>::ID;
 
+	//user , msg, packet_id
+	int iPayloadSize = message.ByteSizeLong();
+	int iPacketSize = sizeof(PacketHeader) + iPayloadSize;
+
+	//바이트배열 생성
+	std::vector<BYTE> buffer(iPacketSize);
+
+	PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer.data());
+	header->length = iPacketSize;
+	//header->ID = packetID;
+	header->ID = id;
+
+	//직렬화   
+	//message -> buffer=[header][message]
+	message.SerializeToArray(buffer.data() + sizeof(PacketHeader), iPayloadSize);
+	
+	if(m_SendFunction)
+		m_SendFunction(iSessionID, buffer.data(), iPacketSize);
+}
+
+void PacketManager::PushQueue(int iSessionID, BYTE* pData, int iSize)
+{
+	//서버에서 패킷주면 큐에 넣기
+	std::lock_guard<std::mutex> lock(m_mutex);
+
+	PacketUnit pkt;
+	pkt.iSessionID = iSessionID;
+	pkt.data.resize(iSize);
+	memcpy(pkt.data.data(), pData, iSize);
+
+	m_PacketQueue.push(std::move(pkt));
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////								
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+bool PacketManager::HandlePacket(int iSessionID, BYTE* pData, int iSize)
+{
+
+	PacketHeader* pHeader = reinterpret_cast<PacketHeader*>(pData);
+	BYTE* pPayLoad = pData + sizeof(PacketHeader);
+	int iPayLoadSize = pHeader->length - sizeof(PacketHeader);
+
+	auto factory_iter = m_MesaageFactory.find(pHeader->ID);
+	if (factory_iter == m_MesaageFactory.end()) 
+	{
+		//해당 패킷 id로 된 생성자없음
+		std::cerr << "해당 패킷id로 된 생성자가 없습니다.. " << pHeader->ID << std::endl;
+		return false;
+	}
+
+	//여기서  Make_shared 패킷에 맞는 객체로 받아옴 
+	std::shared_ptr<google::protobuf::Message> msg = factory_iter->second(); 
+	//여기서 데이터가 복사됨 (data는 지워져도 상관없음 복사가 된상태!!!)
+	if (!msg->ParseFromArray(pPayLoad, iPayLoadSize))
+	{
+		//패킷 파싱 실패
+		std::cerr << "패킷 직렬화 실패.." << pHeader->ID << std::endl;
+		return false;
+	}
+
+
+	auto func_iter = m_PacketHandler.find(pHeader->ID);
+	if (func_iter == m_PacketHandler.end()) 
+	{
+		//패킷 전용 함수가없다
+		std::cerr << "패킷핸들러 함수가없습니다.." << pHeader->ID << std::endl;
+		return false;
+	}
+
+	return func_iter->second(iSessionID, msg, iPayLoadSize);
+}
+
+
+bool PacketManager::Handle_CSP_Ping(int iSessionID, std::shared_ptr<google::protobuf::Message> message, int iSize)
+{
+	auto pUser = USER_MANAGER.GetSession(iSessionID);
+	if (!pUser)
+		return false;
+
+	//스마트 포인터 형변환 > static_pointer_cast / dynamic_pointer_cast
 	std::shared_ptr<jhnet::CSP_Ping> packet = std::dynamic_pointer_cast<jhnet::CSP_Ping>(message);
 	if (!packet)
 	{
@@ -153,20 +169,28 @@ bool PacketManager::Handle_CS_PING(int client_id, std::shared_ptr<google::protob
 		return false;
 	}
 
-	std::cout << "[" << GetCurrentThreadId() << "]client [" << client->GetClientID() << "] ping: number=" << packet->number() << ", timstamp=" << packet->timestamp() << "\n";
+	std::cout << "\
+[Thread " << GetCurrentThreadId() << "]\
+[Session " << iSessionID << "]\
+[Packet CSP_Ping]\
+number=" << packet->number() << ",\
+timstamp=" << packet->timestamp() << "\n";
 
 	jhnet::CSP_Ping res;
 	res.set_number(packet->number());
 	res.set_timestamp(0);
 
-	Send(client, res, jhnet::PacketId::S2C_PING);
+	SendMsg(iSessionID, res);
 	return true;
 }
 
 
-bool PacketManager::Handle_CS_ECHO(int client_id, std::shared_ptr<google::protobuf::Message> message, int size)
+bool PacketManager::Handle_CSP_Echo(int iSessionID, std::shared_ptr<google::protobuf::Message> message, int iSize)
 {
-	//스마트 포인터 형변환 > static_pointer_cast / dynamic_pointer_cast
+	auto pUser = USER_MANAGER.GetSession(iSessionID);
+	if (!pUser)
+		return false;
+
 	std::shared_ptr<jhnet::CSP_Echo> packet = std::dynamic_pointer_cast<jhnet::CSP_Echo>(message);
 	if (!packet)
 	{
@@ -174,18 +198,29 @@ bool PacketManager::Handle_CS_ECHO(int client_id, std::shared_ptr<google::protob
 		return false;
 	}
 
-	std::cout << "[" << GetCurrentThreadId() << "]client [" << client->GetClientID() << "] echo: number=" << packet->number() << ", message=" << packet->message() << "\n";
+	std::cout << "\
+[Thread " << GetCurrentThreadId() << "]\
+[Session " << iSessionID << "]\
+[Packet CSP_Echo]\
+number=" << packet->number() << ",\
+message=" << packet->message() << "\n";
 
 	jhnet::SCP_Echo res;
 	res.set_number(packet->number());
 	res.set_message(packet->message());
 
-	Send(client, res, jhnet::PacketId::S2C_ECHO);
+	SendMsg(iSessionID, res);
 	return true;
 }
 
-bool PacketManager::Handle_CS_LOGIN(int client_id, std::shared_ptr<google::protobuf::Message> message, int size)
+
+
+bool PacketManager::Handle_CSP_Login(int iSessionID, std::shared_ptr<google::protobuf::Message> message, int iSize)
 {
+	auto pUser = USER_MANAGER.GetSession(iSessionID);
+	if (!pUser)
+		return false;
+
 	std::shared_ptr<jhnet::CSP_Login> packet = std::dynamic_pointer_cast<jhnet::CSP_Login>(message);
 	if (!packet)
 	{
@@ -193,12 +228,18 @@ bool PacketManager::Handle_CS_LOGIN(int client_id, std::shared_ptr<google::proto
 		return false;
 	}
 
-	DBManager::Instance().PushRequest(std::make_shared<DBRequest_CheckAccountLogin>(packet->login_id(), packet->login_pw(), client));
+	DBManager::Instance().PushRequest(std::make_shared<DBRequest_CheckAccountLogin>(packet->login_id(), packet->login_pw(), iSessionID));
 	return true;
 }
 
-bool PacketManager::Handle_CS_CHAR_LIST(int client_id, std::shared_ptr<google::protobuf::Message> message, int size)
+
+
+bool PacketManager::Handle_CSP_CharList(int iSessionID, std::shared_ptr<google::protobuf::Message> message, int iSize)
 {
+	auto pUser = USER_MANAGER.GetSession(iSessionID);
+	if (!pUser)
+		return false;
+
 	std::shared_ptr<jhnet::CSP_CharList> packet = std::dynamic_pointer_cast<jhnet::CSP_CharList>(message);
 	if (!packet)
 	{
@@ -206,12 +247,16 @@ bool PacketManager::Handle_CS_CHAR_LIST(int client_id, std::shared_ptr<google::p
 		return false;
 	}
 
-	DBManager::Instance().PushRequest(std::make_shared<DBRequest_GetCharacterList>(client->GetAccountUid(), client));
+	DBManager::Instance().PushRequest(std::make_shared<DBRequest_GetCharacterList>(pUser->GetAccountID(), iSessionID));
 	return true;
 }
 
-bool PacketManager::Handle_CS_CREATE_CHAR(int client_id, std::shared_ptr<google::protobuf::Message> message, int size)
+bool PacketManager::Handle_CSP_CreateChar(int iSessionID, std::shared_ptr<google::protobuf::Message> message, int iSize)
 {
+	auto pUser = USER_MANAGER.GetSession(iSessionID);
+	if (!pUser)
+		return false;
+
 	std::shared_ptr<jhnet::CSP_CreateChar> packet = std::dynamic_pointer_cast<jhnet::CSP_CreateChar>(message);
 	if (!packet)
 	{
@@ -224,12 +269,16 @@ bool PacketManager::Handle_CS_CREATE_CHAR(int client_id, std::shared_ptr<google:
 	//int32 job_code = 2;
 
 	std::wstring nickname = Utf8ToWString(packet->name());
-	DBManager::Instance().PushRequest(std::make_shared<DBRequest_CreateCharacter>(nickname, client->GetAccountUid(), packet->job_code(), client));
+	DBManager::Instance().PushRequest(std::make_shared<DBRequest_CreateCharacter>(nickname, pUser->GetAccountID(), packet->job_code(), iSessionID));
 	return true;
 }
 
-bool PacketManager::Handle_CS_SELECT_CHAR(int client_id, std::shared_ptr<google::protobuf::Message> message, int size)
+bool PacketManager::Handle_CSP_SelectChar(int iSessionID, std::shared_ptr<google::protobuf::Message> message, int iSize)
 {
+	auto pUser = USER_MANAGER.GetSession(iSessionID);
+	if (!pUser)
+		return false;
+
 	std::shared_ptr<jhnet::CSP_SelectChar> packet = std::dynamic_pointer_cast<jhnet::CSP_SelectChar>(message);
 	if (!packet)
 	{

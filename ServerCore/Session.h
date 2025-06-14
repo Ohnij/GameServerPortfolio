@@ -1,6 +1,6 @@
 
 #pragma once
-#include "IOCPDefine.h"
+#include "NetDefine.h"
 #include <mutex>
 #include "RecvBuffer.h"
 #include "SendBuffer.h"
